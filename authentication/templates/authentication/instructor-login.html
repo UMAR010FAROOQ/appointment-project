@@ -1,0 +1,73 @@
+{% extends "authentication/base.html" %}
+{% load static %} 
+
+{% block title%}| Instructor login {% endblock %}
+
+{% block contentBody %}
+
+
+
+
+
+
+
+
+<div class="content top-space">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+
+                <div class="account-content">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-md-7 col-lg-6 login-left">
+                            <img src="{% static 'img/login-banner.png' %}" class="img-fluid" alt="Doccure Login">
+                        </div>
+                        <div class="col-md-12 col-lg-6 login-right">
+                            <div class="login-header">
+                                <h3>Instructor Login <a href="{% url 'authentication:user-login' %}">Are you a simple user?</a></h3>
+                            </div>
+
+                            {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} text-center" role="alert">
+                                {{ message }}
+                            </div>
+                            {% endfor %}
+
+                            <form action="{% url 'authentication:instructor-login' %}" method="POST">
+                                <div class="mb-3 form-focus">
+                                    <input type="email" class="form-control floating">
+                                    <label class="focus-label">Email</label>
+                                </div>
+                                <div class="mb-3 form-focus">
+                                    <input type="password" class="form-control floating">
+                                    <label class="focus-label">Password</label>
+                                </div>
+                                <div class="mb-5 form-focus">
+                                    <div class="g-recaptcha" data-sitekey="{{ RECAPTCHA_PUBLIC_KEY }}"></div>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-baseline mt-5">
+                                    <div class="custom-checkbox">
+                                        <input type="checkbox" id="remembermylogin" name="remember_me" />
+                                        <label for="remembermylogin">Remember Me</label>
+                                    </div>
+                                    <a class="forgot-link" href="{% url 'authentication:instructor-forgot' %}">Forgot Password ?</a>
+                                </div>
+                                <button class="btn btn-primary w-100 btn-lg login-btn" type="submit">Login</button>
+                                <div class="text-center dont-have">Don’t have an account? <a
+                                        href="{% url 'authentication:instructor-register' %}">Register</a></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+{% endblock contentBody %}
