@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-import timedelta
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -149,7 +149,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Session settings
 SESSION_COOKIE_AGE = 3600  # Default session duration: 1 hour (3600 seconds)
-# SESSION_COOKIE_AGE_REMEMBER = timedelta(days=10).total_seconds()  # 10 days
+SESSION_COOKIE_AGE_REMEMBER = timedelta(days=10).total_seconds()  # 10 days
 
 
 # Authentication settings
@@ -195,7 +195,6 @@ LOGOUT_URL = 'authentication:logout'
 LOGIN_REDIRECT_URL = 'core:HomePage'
 LOGOUT_REDIRECT_URL = 'authentication:user-login'
 
-
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     'https://www.googleapis.com/auth/userinfo.email',
     'https://www.googleapis.com/auth/userinfo.profile',
@@ -213,5 +212,3 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.user.user_details',
     'authentication.pipeline.save_profile_picture',
 )
-
-

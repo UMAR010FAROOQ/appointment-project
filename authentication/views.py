@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password
-from .models import CustomUser, InstructorProfile, Service, CustomUser, SimpleUserProfile
-from django.contrib.auth.backends import get_backends
+from .models import CustomUser, InstructorProfile, CustomUser, SimpleUserProfile
+from instructors.models import Service
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, get_backends, authenticate, get_user_model
 from django.contrib.auth.hashers import make_password
@@ -12,9 +12,8 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.core.mail import send_mail
+from django.template.loader import render_to_string
 from .forms import CustomSetPasswordForm
-
-
 User = get_user_model()
 
 

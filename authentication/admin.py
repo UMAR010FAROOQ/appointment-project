@@ -1,4 +1,3 @@
-# admin.py
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .models import CustomUser, SimpleUserProfile, InstructorProfile
@@ -9,7 +8,7 @@ class CustomUserAdmin(BaseUserAdmin):
     list_filter = ('is_staff', 'is_active')
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('first_name', 'last_name', 'profile_image')}),
+        ('Personal info', {'fields': ('first_name', 'last_name', 'profile_image', 'profile_image_url')}),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
     )
     add_fieldsets = (
@@ -22,7 +21,9 @@ class CustomUserAdmin(BaseUserAdmin):
     ordering = ('email',)
 
     def profile_image_tag(self, obj):
-        if obj.profile_image:
+        if obj.profile_image_url:
+            return format_html('<img src="{}" style="width: 50px; height: 50px;" />'.format(obj.profile_image_url))
+        elif obj.profile_image:
             return format_html('<img src="{}" style="width: 50px; height: 50px;" />'.format(obj.profile_image.url))
         return '-'
     profile_image_tag.short_description = 'Profile Image'
@@ -39,4 +40,3 @@ class InstructorProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'is_active')
 
 admin.site.register(InstructorProfile, InstructorProfileAdmin)
-
