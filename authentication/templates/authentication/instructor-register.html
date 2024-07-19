@@ -51,6 +51,12 @@
                                 <h3>Instructor Register <a href="{% url 'authentication:user-register' %}">Are you a simple user?</a></h3>
                             </div>
 
+                            {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} text-center" role="alert">
+                                {{ message }}
+                            </div>
+                            {% endfor %}
+
                             <form action="{% url 'authentication:instructor-register' %}" method="POST" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <div class="mb-3 form-focus">

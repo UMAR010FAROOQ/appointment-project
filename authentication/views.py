@@ -118,9 +118,45 @@ def DeleteAccount(request):
     return redirect('authentication:user-login')
 
 
-def InstructorLogin(request):
-    return render(request, 'authentication/instructor-login.html') 
 
+def InstructorLogin(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        remember_me = request.POST.get('remember_me')  # Check if "Remember Me" checkbox is checked
+        recaptcha_response = request.POST.get('g-recaptcha-response')
+
+        # Verify reCAPTCHA response
+        verify_url = 'https://www.google.com/recaptcha/api/siteverify'
+        params = {
+            'secret': settings.RECAPTCHA_PRIVATE_KEY,
+            'response': recaptcha_response,
+        }
+        response = requests.post(verify_url, data=params)
+        result = response.json()
+
+        if result['success']:
+            user = authenticate(request, email=email, password=password)
+
+            if user is not None:
+                if user.is_active and hasattr(user, 'instructorprofile'):
+                    # Set session expiration
+                    if remember_me:
+                        request.session.set_expiry(settings.SESSION_COOKIE_AGE_REMEMBER)  # 10 days
+                    else:
+                        request.session.set_expiry(settings.SESSION_COOKIE_AGE)  # Default: 1 hour
+
+                    login(request, user)
+                    messages.success(request, "Login successful.", extra_tags='primary')
+                    return redirect('instructors:DashPage')
+                else:
+                    messages.error(request, "Your account is inactive or not an instructor. Please contact support.", extra_tags='danger')
+            else:
+                messages.error(request, "Invalid email or password.", extra_tags='danger')
+        else:
+            messages.error(request, "reCAPTCHA verification failed. Please try again.", extra_tags='danger')
+
+    return render(request, 'authentication/instructor-login.html', {'RECAPTCHA_PUBLIC_KEY': settings.RECAPTCHA_PUBLIC_KEY})
 
 def InstructorRegister(request):
     if request.method == 'POST':
@@ -168,6 +204,23 @@ def InstructorRegister(request):
 
     services = Service.objects.all()
     return render(request, 'authentication/instructor-register.html', {'services': services})
+
+
+
+def UserLogout(request):
+    logout(request)
+    messages.success(request, "Logout successful", extra_tags='primary')
+    return redirect('authentication:instructor-login')
+
+
+@login_required
+def DeleteAccount(request):
+    user = request.user
+    user.delete()
+    messages.success(request, "Your account has been deleted successfully.")
+    return redirect('authentication:instructor-login')
+
+
 
 
 def InstructorForgot(request):

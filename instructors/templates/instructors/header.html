@@ -1,6 +1,26 @@
 {% load static %} 
 
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var alertElements = document.querySelectorAll('.alert');
+        alertElements.forEach(function(alertElement) {
+            setTimeout(function() {
+                var alert = new bootstrap.Alert(alertElement);
+                alert.close();
+            }, 5000); // 5000 milliseconds = 5 seconds
+        });
+    });
+</script>
+
+
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }} text-center" role="alert" data-bs-delay="5000">
+    {{ message }}
+</div>
+{% endfor %}
+
+
 
 <header class="header header-custom header-fixed header-one home-head-one">
     <div class="container">
@@ -29,35 +49,47 @@
 
             </div>
             <ul class="nav header-navbar-rht">
+                {% if user.is_authenticated %}
                 <li class="register-btn">
-                    <a href="register.php" class="btn reg-btn"><i class="feather-user"></i>Register</a>
-                </li>
-                <li class="register-btn">
-                    <a href="login.php" class="btn btn-primary log-btn"><i class="feather-lock"></i>Login</a>
+                    <a href="{% url 'authentication:instructor-logout' %}" class="btn btn-primary log-btn"><i class="feather-lock"></i>Logout</a>
                 </li>
                 <li class="nav-item dropdown has-arrow logged-item">
                     <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                         <span class="user-img">
-                            <img class="rounded-circle" src="{% static 'img/doctors-dashboard/profile-06.jpg' %}"
-                                width="31" alt="Darren Elder">
+                            {% if user.profile_image %}
+                                    <img src="{{ user.profile_image.url }}" alt="User Image" class="avatar-img rounded-circle">
+                                {% elif user.profile_image_url %}
+                                    <img src="{{ user.profile_image_url }}" alt="User Image" class="avatar-img rounded-circle">
+                                {% else %}
+                                    <img src="{% static 'img/shapes/profile-user.png' %}" alt="User Image" class="avatar-img rounded-circle">
+                            {% endif %}
                         </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end">
                         <div class="user-header">
+
                             <div class="avatar avatar-sm">
-                                <img src="{% static 'img/doctors-dashboard/profile-06.jpg' %}" alt="User Image"
-                                    class="avatar-img rounded-circle">
+                                {% if user.profile_image %}
+                                        <img src="{{ user.profile_image.url }}" alt="User Image" class="avatar-img rounded-circle">
+                                    {% elif user.profile_image_url %}
+                                        <img src="{{ user.profile_image_url }}" alt="User Image" class="avatar-img rounded-circle">
+                                    {% else %}
+                                        <img src="{% static 'img/shapes/profile-user.png' %}" alt="User Image" class="avatar-img rounded-circle">
+                                {% endif %}
                             </div>
+
                             <div class="user-text">
-                                <h6>Hendrita</h6>
-                                <p class="text-success mb-0">Available</p>
+                                <h6 style="text-transform: capitalize;">{{ user.first_name }}</h6>
+                                <p class="text-success mb-0">{{ user.last_name }}</p> 
                             </div>
                         </div>
-                        <a class="dropdown-item" href="index.php">Dashboard</a>
-                        <a class="dropdown-item" href="profile-settings.html">Profile Settings</a>
-                        <a class="dropdown-item" href="login.html">Logout</a>
+                        <a class="dropdown-item" href="">Dashboard</a>
+                        <a class="dropdown-item" href="">Profile Settings</a>
+                        <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#confirm_delete">
+                            Delete Account</a>
                     </div>
                 </li>
+            {% endif %}
             </ul>
         </nav>
     </div>
