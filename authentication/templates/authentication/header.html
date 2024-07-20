@@ -1,0 +1,96 @@
+{% load static %} 
+
+
+
+
+<header class="header header-custom header-fixed header-one home-head-one">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg header-nav">
+            <div class="navbar-header">
+                <a id="mobile_btn" href="javascript:void(0);">
+                    <span class="bar-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                </a>
+                <a href="index.html" class="navbar-brand logo">
+                    <img src="{% static 'img/logo-01.svg' %}" class="img-fluid" alt="Logo">
+                </a>
+            </div>
+            <div class="main-menu-wrapper">
+                <div class="menu-header">
+                    <a href="index.html" class="menu-logo">
+                        <img src="{% static 'img/logo-01.svg' %}" class="img-fluid" alt="Logo">
+                    </a>
+                    <a id="menu_close" class="menu-close" href="javascript:void(0);">
+                        <i class="fas fa-times"></i>
+                    </a>
+                </div>
+                <ul class="main-nav">
+                    <li class="active"><a href="index.php">Home </a></li>
+                    <li class="has-submenu">
+                        <a href="#">Our Services <i class="fas fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="HealthCare.php">Health Care</a></li>
+                            <li><a href="PersonalTrainer.php">Personal Trainer</a></li>
+                            <li><a href="Beauty.php">Beauty</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="aboutUs.php">About Us </a></li>
+                    <li><a href="contactUs.php">Contact Us </a></li>
+                    <li class="has-submenu">
+                        <a href="#">Admin <i class="fas fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="admin/index.html" target="_blank">Admin</a></li>
+                            <li><a href="pharmacy/index.html" target="_blank">Pharmacy Admin</a></li>
+                        </ul>
+                    </li>
+                    <li class="searchbar">
+                        <a href="javascript:void(0);"><i class="feather-search"></i></a>
+                        <div class="togglesearch">
+                            <form action="https://doccure.dreamstechnologies.com/html/template/search.html">
+                                <div class="input-group">
+                                    <input type="text" class="form-control">
+                                    <button type="submit" class="btn">Search</button>
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <ul class="nav header-navbar-rht">
+                <li class="register-btn">
+                    <a href="register.php" class="btn reg-btn"><i class="feather-user"></i>Register</a>
+                </li>
+                <li class="register-btn">
+                    <a href="login.php" class="btn btn-primary log-btn"><i class="feather-lock"></i>Login</a>
+                </li>
+                <li class="nav-item dropdown has-arrow logged-item">
+                    <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+                        <span class="user-img">
+                            <img class="rounded-circle" src="{% static 'img/doctors-dashboard/profile-06.jpg' %}"
+                                width="31" alt="Darren Elder">
+                        </span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <div class="user-header">
+                            <div class="avatar avatar-sm">
+                                <img src="{% static 'img/doctors-dashboard/profile-06.jpg' %}" alt="User Image"
+                                    class="avatar-img rounded-circle">
+                            </div>
+                            <div class="user-text">
+                                <h6>Hendrita</h6>
+                                <p class="text-success mb-0">Available</p>
+                            </div>
+                        </div>
+                        <a class="dropdown-item" href="user-dashboard.php">Dashboard</a>
+                        <a class="dropdown-item" href="profile-settings.html">Profile Settings</a>
+                        <a class="dropdown-item" href="login.html">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+

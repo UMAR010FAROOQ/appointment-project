@@ -1,0 +1,113 @@
+{% extends "authentication/base.html" %}
+{% load static %} 
+
+{% block title%}| User Register {% endblock %}
+
+{% block contentBody %}
+
+
+<style>
+    .prof-img label input {
+        display: none
+    }
+
+    .prof-img label {
+        padding: 1rem 1.5rem;
+        background: #0073E6;
+        box-shadow: 2px 2px 2px #aaa;
+        font: 1em Arial, sans-serif;
+        color: #fff;
+        position: relative;
+        cursor: pointer;
+        user-select: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+
+    .prof-img label:active {
+        top: 2px;
+        box-shadow: none;
+    }
+
+</style>
+
+
+
+<div class="content top-space">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+
+                <div class="account-content">
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-md-7 col-lg-6 login-left">
+                            <img src="{% static 'img/signup-banner.png' %}" class="img-fluid" alt="Doccure Register">
+                        </div>
+                        <div class="col-md-12 col-lg-6 login-right">
+                            <div class="login-header">
+                                <h3>User Register <a href="{% url 'authentication:instructor-register' %}">Are you a instructor?</a></h3>
+                            </div>
+
+                            {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} text-center" role="alert">
+                                {{ message }}
+                            </div>
+                            {% endfor %}
+
+                            <form action="{% url 'authentication:user-register' %}" method="POST"  enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="mb-3 form-focus">
+                                    <input type="text" name="first_name" required class="form-control floating">
+                                    <label class="focus-label">First Name</label>
+                                </div>
+                                <div class="mb-3 form-focus">
+                                    <input type="text" name="last_name" required class="form-control floating">
+                                    <label class="focus-label">Last Name</label>
+                                </div>
+                                <div class="mb-3 form-focus">
+                                    <input type="email" name="email" required class="form-control floating">
+                                    <label class="focus-label">Email</label>
+                                </div>  
+
+                                <div class="mb-3 form-focus">
+                                    <input type="password" name="password1" required class="form-control floating">
+                                    <label class="focus-label">Create Password</label>
+                                </div>
+                                <div class="mb-3 form-focus">
+                                    <input type="password" name="password2" required class="form-control floating">
+                                    <label class="focus-label">Confirm Password</label>
+                                </div>
+
+                                <div class="row my-2 align-items-center">
+                                    <div class="col-lg-8 col-md-8 col-sm-12 prof-img">
+                                        <label>Upload profile image 
+                                            <input name="userProfileImg" required type="file" accept="image/*" />
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-12">
+                                        <div class="box-img"><img  width="80%" src="{% static 'img/shapes/scan_or_upload.png' %}"
+                                                alt="image"></div>
+                                    </div>
+                                </div>  
+                                
+                                <div class="text-end">
+                                    <a class="forgot-link" href="{% url 'authentication:user-login' %}">Already have an account?</a>
+                                </div>
+                                <button class="btn btn-primary w-100 btn-lg login-btn" type="submit">Signup</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+{% endblock contentBody %}
