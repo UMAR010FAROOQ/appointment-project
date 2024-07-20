@@ -59,7 +59,6 @@ def UserLogin(request):
     return render(request, 'authentication/user-login.html', {'RECAPTCHA_PUBLIC_KEY': settings.RECAPTCHA_PUBLIC_KEY})
 
 
-
 def UserRegister(request):
     if request.method == 'POST':
         first_name = request.POST.get('first_name')
@@ -74,23 +73,20 @@ def UserRegister(request):
             return redirect('authentication:user-register')
 
         if CustomUser.objects.filter(email=email).exists():
-            messages.error(request, "Email already exists.", extra_tags='danger')
-            return redirect('authentication:user-register')
-
-        user = CustomUser(
-            first_name=first_name,
-            last_name=last_name,
-            email=email,
-            password=make_password(password1),
-            profile_image=profile_image
-        )
-
-        user.save()
-
-        if profile_image:
-            user.profile_image = profile_image
+            user = CustomUser.objects.get(email=email)
+            if SimpleUserProfile.objects.filter(user=user).exists():
+                messages.error(request, "Email already registered as a simple user.", extra_tags='danger')
+                return redirect('authentication:user-register')
+        else:
+            user = CustomUser(
+                first_name=first_name,
+                last_name=last_name,
+                email=email,
+                password=make_password(password1),
+                profile_image=profile_image,
+                is_active=True,  # Default to active for users
+            )
             user.save()
-
 
         SimpleUserProfile.objects.create(user=user)
 
@@ -138,8 +134,8 @@ def InstructorLogin(request):
         if result['success']:
             user = authenticate(request, email=email, password=password)
 
-            if user is not None:
-                if user.is_active and hasattr(user, 'instructorprofile'):
+            if user is not None and InstructorProfile.objects.filter(user=user).exists():
+                if user.is_active and hasattr(user, 'instructorprofile')  and user.instructorprofile.is_active:
                     # Set session expiration
                     if remember_me:
                         request.session.set_expiry(settings.SESSION_COOKIE_AGE_REMEMBER)  # 10 days
@@ -158,6 +154,7 @@ def InstructorLogin(request):
 
     return render(request, 'authentication/instructor-login.html', {'RECAPTCHA_PUBLIC_KEY': settings.RECAPTCHA_PUBLIC_KEY})
 
+
 def InstructorRegister(request):
     if request.method == 'POST':
         first_name = request.POST.get('first_name')
@@ -173,26 +170,28 @@ def InstructorRegister(request):
             messages.error(request, "Passwords do not match.", extra_tags='danger')
             return redirect('authentication:instructor-register')
 
-        if CustomUser.objects.filter(email=email).exists():
-            messages.error(request, "Email already exists.", extra_tags='danger')
-            return redirect('authentication:instructor-register')
-
         service = Service.objects.get(id=service_id)
 
-        user = CustomUser(
-            first_name=first_name,
-            last_name=last_name,
-            email=email,
-            password=make_password(password1),
-            profile_image=profile_image
-        )
-        user.save()
+        if CustomUser.objects.filter(email=email).exists():
+            user = CustomUser.objects.get(email=email)
+            if InstructorProfile.objects.filter(user=user).exists():
+                messages.error(request, "Email already registered as an instructor.", extra_tags='danger')
+                return redirect('authentication:instructor-register')
+        else:
+            user = CustomUser(
+                first_name=first_name,
+                last_name=last_name,
+                email=email,
+                password=make_password(password1),
+                profile_image=profile_image,
+                is_active=False,  # Default to inactive until approved by super admin
+            )
+            user.save()
 
         InstructorProfile.objects.create(
             user=user,
             city=city,
             service=service,
-            is_active=False  # Default to inactive until approved by super admin
         )
 
         backend = get_backends()[0]

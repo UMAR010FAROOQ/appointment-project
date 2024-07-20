@@ -68,6 +68,15 @@
                                 <div class="mb-3 form-focus">
                                     <input type="email" name="email" required class="form-control floating">
                                     <label class="focus-label">Email</label>
+                                </div>  
+
+                                <div class="mb-3 form-focus">
+                                    <input type="password" name="password1" required class="form-control floating">
+                                    <label class="focus-label">Create Password</label>
+                                </div>
+                                <div class="mb-3 form-focus">
+                                    <input type="password" name="password2" required class="form-control floating">
+                                    <label class="focus-label">Confirm Password</label>
                                 </div>
 
                                 <div class="row my-2 align-items-center">
@@ -80,16 +89,8 @@
                                         <div class="box-img"><img  width="80%" src="{% static 'img/shapes/scan_or_upload.png' %}"
                                                 alt="image"></div>
                                     </div>
-                                </div>    
-
-                                <div class="mb-3 form-focus">
-                                    <input type="password" name="password1" required class="form-control floating">
-                                    <label class="focus-label">Create Password</label>
-                                </div>
-                                <div class="mb-3 form-focus">
-                                    <input type="password" name="password2" required class="form-control floating">
-                                    <label class="focus-label">Confirm Password</label>
-                                </div>
+                                </div>  
+                                
                                 <div class="text-end">
                                     <a class="forgot-link" href="{% url 'authentication:user-login' %}">Already have an account?</a>
                                 </div>
