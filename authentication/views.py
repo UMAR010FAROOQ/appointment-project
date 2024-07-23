@@ -206,14 +206,14 @@ def InstructorRegister(request):
 
 
 
-def UserLogout(request):
+def InstructorLogout(request):
     logout(request)
     messages.success(request, "Logout successful", extra_tags='primary')
     return redirect('authentication:instructor-login')
 
 
 @login_required
-def DeleteAccount(request):
+def InstructorDeleteAccount(request):
     user = request.user
     user.delete()
     messages.success(request, "Your account has been deleted successfully.")

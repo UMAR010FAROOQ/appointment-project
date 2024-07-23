@@ -13,8 +13,8 @@ urlpatterns = [
 
     path("instructor-login/", views.InstructorLogin, name="instructor-login"),
     path("instructor-register/", views.InstructorRegister, name="instructor-register"),
-    path('logout/', views.UserLogout, name='instructor-logout'),
-    path('delete_account/', views.DeleteAccount, name='instructor-delete-account'),  
+    path('logout/', views.InstructorLogout, name='instructor-logout'),
+    path('delete_account/', views.InstructorDeleteAccount, name='instructor-delete-account'),  
     path("instructor-forgot/", views.InstructorForgot, name="instructor-forgot"),
 
     path('reset_password/', views.UserPasswordReset, name='user-forgot'),
