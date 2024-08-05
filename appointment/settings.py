@@ -151,22 +151,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SESSION_COOKIE_AGE = 3600  # Default session duration: 1 hour (3600 seconds)
 SESSION_COOKIE_AGE_REMEMBER = timedelta(days=10).total_seconds()  # 10 days
 
-
-# Authentication settings
-LOGIN_URL = 'authentication:login'
-LOGIN_REDIRECT_URL = 'core:HomePage'
-LOGOUT_URL = 'authentication:logout'
-LOGOUT_REDIRECT_URL = 'authentication:login'
-
-
-
 #for email
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'umar010farooq@gmail.com'  # Your Gmail email address
-EMAIL_HOST_PASSWORD = 'fkmffztkrywfdkki'  # Your Gmail password
+EMAIL_HOST_PASSWORD = 'decyhewrcaenrhbw'  # Your Gmail password
 DEFAULT_FROM_EMAIL = 'umar010farooq@gmail.com'
 
 
@@ -190,10 +181,13 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
 
+
+# Authentication settings
 LOGIN_URL = 'authentication:user-login'
 LOGOUT_URL = 'authentication:logout'
 LOGIN_REDIRECT_URL = 'core:HomePage'
 LOGOUT_REDIRECT_URL = 'authentication:user-login'
+
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     'https://www.googleapis.com/auth/userinfo.email',

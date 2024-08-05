@@ -14,16 +14,18 @@ from django.utils.encoding import force_bytes, force_str
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from .forms import CustomSetPasswordForm
-
+import logging
+logger = logging.getLogger(__name__)
 
 User = get_user_model()
+
 
 
 def UserLogin(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
-        remember_me = request.POST.get('remember_me')  # Check if "Remember Me" checkbox is checked
+        remember_me = request.POST.get('remember_me')
         recaptcha_response = request.POST.get('g-recaptcha-response')
 
         # Verify reCAPTCHA response
@@ -35,18 +37,21 @@ def UserLogin(request):
         response = requests.post(verify_url, data=params)
         result = response.json()
 
+        logger.debug(f"reCAPTCHA result: {result}")
+
         if result['success']:
             user = authenticate(request, email=email, password=password)
+            logger.debug(f"Authenticated user: {user}")
 
             if user is not None:
                 if user.is_active:
-                    # Set session expiration
                     if remember_me:
-                        request.session.set_expiry(settings.SESSION_COOKIE_AGE_REMEMBER)  # 10 days
+                        request.session.set_expiry(settings.SESSION_COOKIE_AGE_REMEMBER)
                     else:
-                        request.session.set_expiry(settings.SESSION_COOKIE_AGE)  # Default: 1 hour
+                        request.session.set_expiry(settings.SESSION_COOKIE_AGE)
 
                     login(request, user)
+                    logger.debug(f"User logged in: {request.user.is_authenticated}")
                     messages.success(request, "Login successful.", extra_tags='primary')
                     return redirect('core:HomePage')
                 else:
@@ -57,6 +62,7 @@ def UserLogin(request):
             messages.error(request, "reCAPTCHA verification failed. Please try again.", extra_tags='danger')
 
     return render(request, 'authentication/user-login.html', {'RECAPTCHA_PUBLIC_KEY': settings.RECAPTCHA_PUBLIC_KEY})
+
 
 
 def UserRegister(request):
@@ -73,20 +79,23 @@ def UserRegister(request):
             return redirect('authentication:user-register')
 
         if CustomUser.objects.filter(email=email).exists():
-            user = CustomUser.objects.get(email=email)
-            if SimpleUserProfile.objects.filter(user=user).exists():
-                messages.error(request, "Email already registered as a simple user.", extra_tags='danger')
-                return redirect('authentication:user-register')
-        else:
-            user = CustomUser(
-                first_name=first_name,
-                last_name=last_name,
-                email=email,
-                password=make_password(password1),
-                profile_image=profile_image,
-                is_active=True,  # Default to active for users
-            )
+            messages.error(request, "Email already exists.", extra_tags='danger')
+            return redirect('authentication:user-register')
+
+        user = CustomUser(
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            password=make_password(password1),
+            profile_image=profile_image
+        )
+
+        user.save()
+
+        if profile_image:
+            user.profile_image = profile_image
             user.save()
+
 
         SimpleUserProfile.objects.create(user=user)
 
@@ -115,11 +124,12 @@ def DeleteAccount(request):
 
 
 
+
 def InstructorLogin(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
-        remember_me = request.POST.get('remember_me')  # Check if "Remember Me" checkbox is checked
+        remember_me = request.POST.get('remember_me')
         recaptcha_response = request.POST.get('g-recaptcha-response')
 
         # Verify reCAPTCHA response
@@ -131,18 +141,21 @@ def InstructorLogin(request):
         response = requests.post(verify_url, data=params)
         result = response.json()
 
+        logger.debug(f"reCAPTCHA result: {result}")
+
         if result['success']:
             user = authenticate(request, email=email, password=password)
+            logger.debug(f"Authenticated user: {user}")
 
-            if user is not None and InstructorProfile.objects.filter(user=user).exists():
-                if user.is_active and hasattr(user, 'instructorprofile')  and user.instructorprofile.is_active:
-                    # Set session expiration
+            if user is not None:
+                if user.is_active and hasattr(user, 'instructorprofile') and user.instructorprofile.is_active:
                     if remember_me:
-                        request.session.set_expiry(settings.SESSION_COOKIE_AGE_REMEMBER)  # 10 days
+                        request.session.set_expiry(settings.SESSION_COOKIE_AGE_REMEMBER)
                     else:
-                        request.session.set_expiry(settings.SESSION_COOKIE_AGE)  # Default: 1 hour
+                        request.session.set_expiry(settings.SESSION_COOKIE_AGE)
 
                     login(request, user)
+                    logger.debug(f"User logged in: {request.user.is_authenticated}")
                     messages.success(request, "Login successful.", extra_tags='primary')
                     return redirect('instructors:DashPage')
                 else:
@@ -153,6 +166,8 @@ def InstructorLogin(request):
             messages.error(request, "reCAPTCHA verification failed. Please try again.", extra_tags='danger')
 
     return render(request, 'authentication/instructor-login.html', {'RECAPTCHA_PUBLIC_KEY': settings.RECAPTCHA_PUBLIC_KEY})
+
+
 
 
 def InstructorRegister(request):
@@ -170,28 +185,28 @@ def InstructorRegister(request):
             messages.error(request, "Passwords do not match.", extra_tags='danger')
             return redirect('authentication:instructor-register')
 
+        if CustomUser.objects.filter(email=email).exists():
+            messages.error(request, "Email already exists.", extra_tags='danger')
+            return redirect('authentication:instructor-register')
+
         service = Service.objects.get(id=service_id)
 
-        if CustomUser.objects.filter(email=email).exists():
-            user = CustomUser.objects.get(email=email)
-            if InstructorProfile.objects.filter(user=user).exists():
-                messages.error(request, "Email already registered as an instructor.", extra_tags='danger')
-                return redirect('authentication:instructor-register')
-        else:
-            user = CustomUser(
-                first_name=first_name,
-                last_name=last_name,
-                email=email,
-                password=make_password(password1),
-                profile_image=profile_image,
-                is_active=False,  # Default to inactive until approved by super admin
-            )
-            user.save()
+        user = CustomUser(
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            password=make_password(password1),
+            profile_image=profile_image,
+            is_active=False  # Default to inactive until approved by super admin
+        )
+        user.save()
 
         InstructorProfile.objects.create(
             user=user,
             city=city,
             service=service,
+            is_active=False
+            
         )
 
         backend = get_backends()[0]
@@ -222,10 +237,6 @@ def InstructorDeleteAccount(request):
 
 
 
-def InstructorForgot(request):
-    return render(request, 'authentication/instructor-forgot.html') 
-
-
 
 # User forgot password
 def UserPasswordReset(request):
@@ -252,6 +263,7 @@ def UserPasswordReset(request):
             messages.error(request, 'Invalid email address.', extra_tags='danger')
 
     return render(request, 'authentication/password_reset_form.html')
+
 
 def PasswordResetDone(request):
     return render(request, 'authentication/password_reset_done.html')
@@ -280,4 +292,4 @@ def PasswordResetConfirm(request, uidb64=None, token=None):
         return redirect('authentication:password_reset_done')
 
 def PasswordResetComplete(request):
-    return render(request, 'authentication/password_reset_complete.html')
+    return render(request, 'authentication/password_reset_complete.html') 

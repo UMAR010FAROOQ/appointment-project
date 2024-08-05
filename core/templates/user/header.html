@@ -81,64 +81,53 @@
                 </ul>
             </div>
             <ul class="nav header-navbar-rht">
-                {% if user.is_authenticated %}
-                <li class="register-btn">
-                    <a href="{% url 'authentication:user-logout' %}" class="btn btn-primary log-btn"><i class="feather-lock"></i>Logout</a>
-                </li>
-                <li class="nav-item dropdown has-arrow logged-item">
-                    <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-                        <span class="user-img">
-                            {% if user.profile_image %}
-                                    <img src="{{ user.profile_image.url }}" alt="User Image" class="avatar-img rounded-circle">
-                                {% elif user.profile_image_url %}
-                                    <img src="{{ user.profile_image_url }}" alt="User Image" class="avatar-img rounded-circle">
-                                {% else %}
-                                    <img src="{% static 'img/shapes/profile-user.png' %}" alt="User Image" class="avatar-img rounded-circle">
-                            {% endif %}
-                        </span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end">
-                        <div class="user-header">
-
-
-
-                            <div class="avatar avatar-sm">
-                                {% if user.profile_image %}
-                                        <img src="{{ user.profile_image.url }}" alt="User Image" class="avatar-img rounded-circle">
-                                    {% elif user.profile_image_url %}
-                                        <img src="{{ user.profile_image_url }}" alt="User Image" class="avatar-img rounded-circle">
-                                    {% else %}
-                                        <img src="{% static 'img/shapes/profile-user.png' %}" alt="User Image" class="avatar-img rounded-circle">
-                                {% endif %}
-                            </div>
-                            
-
-
-
-
-
-
-                            <div class="user-text">
-                                <h6 style="text-transform: capitalize;">{{ user.first_name }}</h6>
-                                <p class="text-success mb-0">{{ user.last_name }}</p> 
-                            </div>
-                        </div>
-                        <a class="dropdown-item" href="">Dashboard</a>
-                        <a class="dropdown-item" href="">Profile Settings</a>
-                        <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#confirm_delete">
-                            Delete Account</a>
-                    </div>
-                </li>
-            {% else %}
-                <li class="register-btn">
-                    <a href="{% url 'authentication:user-register' %}" class="btn reg-btn"><i class="feather-user"></i>Register</a>
-                </li>
-                <li class="register-btn">
-                    <a href="{% url 'authentication:user-login' %}" class="btn btn-primary log-btn"><i class="feather-lock"></i>Login</a>
-                </li>
-            {% endif %}
-            
                 
+                {% if user.is_authenticated %}
+    <li class="register-btn">
+        <a href="{% url 'authentication:user-logout' %}" class="btn btn-primary log-btn"><i class="feather-lock"></i>Logout</a>
+    </li>
+    <li class="nav-item dropdown has-arrow logged-item">
+        <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+            <span class="user-img">
+                {% if user.profile_image %}
+                    <img src="{{ user.profile_image.url }}" alt="User Image" class="avatar-img rounded-circle">
+                {% elif user.profile_image_url %}
+                    <img src="{{ user.profile_image_url }}" alt="User Image" class="avatar-img rounded-circle">
+                {% else %}
+                    <img src="{% static 'img/shapes/profile-user.png' %}" alt="User Image" class="avatar-img rounded-circle">
+                {% endif %}
+            </span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-end">
+            <div class="user-header">
+                <div class="avatar avatar-sm">
+                    {% if user.profile_image %}
+                        <img src="{{ user.profile_image.url }}" alt="User Image" class="avatar-img rounded-circle">
+                    {% elif user.profile_image_url %}
+                        <img src="{{ user.profile_image_url }}" alt="User Image" class="avatar-img rounded-circle">
+                    {% else %}
+                        <img src="{% static 'img/shapes/profile-user.png' %}" alt="User Image" class="avatar-img rounded-circle">
+                    {% endif %}
+                </div>
+                <div class="user-text">
+                    <h6 style="text-transform: capitalize;">{{ user.first_name }}</h6>
+                    <p class="text-success mb-0">{{ user.last_name }}</p>
+                </div>
+            </div>
+            <a class="dropdown-item" href="">Dashboard</a>
+            <a class="dropdown-item" href="">Profile Settings</a>
+            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#confirm_delete">Delete Account</a>
+        </div>
+    </li>
+{% else %}
+    <li class="register-btn">
+        <a href="{% url 'authentication:user-register' %}" class="btn reg-btn"><i class="feather-user"></i>Register</a>
+    </li>
+    <li class="register-btn">
+        <a href="{% url 'authentication:user-login' %}" class="btn btn-primary log-btn"><i class="feather-lock"></i>Login</a>
+    </li>
+{% endif %}
+
                 
             </ul>
         </nav>

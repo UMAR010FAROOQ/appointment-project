@@ -1,4 +1,4 @@
-# authentication/backends.py
+# backends.py
 
 from django.contrib.auth.backends import BaseBackend
 from django.contrib.auth import get_user_model
@@ -13,7 +13,6 @@ class EmailBackend(BaseBackend):
         if user.check_password(password):
             return user
         return None
-
 
     def get_user(self, user_id):
         UserModel = get_user_model()

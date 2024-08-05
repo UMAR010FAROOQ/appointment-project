@@ -41,6 +41,16 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+    
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        try:
+            profile = self.instructorprofile
+            if self.is_active != profile.is_active:
+                profile.is_active = self.is_active
+                profile.save()
+        except InstructorProfile.DoesNotExist:
+            pass
 
 class SimpleUserProfile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
@@ -58,9 +68,10 @@ class InstructorProfile(models.Model):
 
     def __str__(self):
         return f'{self.user.email} - Instructor'
+    
 
-class Service(models.Model):
-    name = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.name
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if self.user.is_active != self.is_active:
+            self.user.is_active = self.is_active
+            self.user.save()
