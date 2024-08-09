@@ -1,0 +1,61 @@
+{% load static %} 
+
+
+<div class="profile-sidebar patient-sidebar profile-sidebar-new">
+    <div class="widget-profile pro-widget-content">
+        <div class="profile-info-widget">
+            <a href="profile-settings.html" class="booking-doc-img">
+                {% if user.profile_image %}
+                        <img src="{{ user.profile_image.url }}" alt="User Image" class="avatar-img rounded-circle">
+                    {% elif user.profile_image_url %}
+                        <img src="{{ user.profile_image_url }}" alt="User Image" class="avatar-img rounded-circle">
+                    {% else %}
+                        <img src="{% static 'img/shapes/profile-user.png' %}" alt="User Image" class="avatar-img rounded-circle">
+                {% endif %}
+            </a>
+            <div class="profile-det-info">
+                <h3><a href="profile-settings.html">{{ user.first_name }} {{ user.last_name }}</a></h3>
+                <div class="patient-details">
+                    <h5 class="mb-0">{{ user.email }}</h5>
+                </div>
+                <span>Female <i class="fa-solid fa-circle"></i> 32 years 03 Months</span>
+            </div>
+        </div>
+    </div>
+    <div class="dashboard-widget">
+        <nav class="dashboard-menu">
+            <ul>
+                <li class="active">
+                    <a href="{% url 'core:UserDash' %}">
+                        <i class="fa-solid fa-shapes"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="user-{% url 'core:UserDash' %}">
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <span>My Appointments</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'core:UserAppointments' %}">
+                        <i class="fa-solid fa-user-pen"></i>
+                        <span>Profile Settings</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'core:UserChangePassword' %}">
+                        <i class="fa-solid fa-key"></i>
+                        <span>Change Password</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'authentication:user-logout' %}">
+                        <i class="fa-solid fa-calendar-check"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

@@ -10206,7 +10206,7 @@ html.menu-opened body {
 
 .banner-section {
   background: #F9FCFF;
-  padding: 100px 0 30px;
+  padding: 130px 0 30px;
   position: relative;
   overflow: hidden;
   z-index: 1;
@@ -10572,8 +10572,8 @@ html.menu-opened body {
 }
 .banner-img .banner-img1 {
   position: absolute;
-  top: 260px;
-  left: -20px;
+  top: 350px;
+  left: -300px;
   -webkit-animation: float 2s ease-in-out infinite;
   animation: float 2s ease-in-out infinite;
 }
@@ -10793,10 +10793,10 @@ html.menu-opened body {
   background-repeat: no-repeat;
   background-position: right;
   position: absolute;
-  top: -5px;
-  right: -30px;
-  width: 35px;
-  height: 20px;
+  top: -10px;
+  right: -49px;
+  width: 60px;
+  height: 30px;
 }
 @media (max-width: 767.98px) {
   .section-header-one .section-title::before {
@@ -52790,3 +52790,101 @@ ul li {
 }
 
 /*# sourceMappingURL=custom.css.map */
+
+
+
+/* Home page service section */
+::selection {
+  background: rgba(187, 134, 252, 0.5);
+  color: #fff;
+}
+
+.tab-service-content input {
+  display: none;
+}
+
+.tab-service-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tab-service-content .list {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 20%;
+  margin-right: 50px;
+}
+
+.tab-service-content .list label {
+  cursor: pointer;
+  height: 60px;
+  line-height: 60px;
+  font-size: 22px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.5);
+  padding-left: 25px;
+  transition: all 0.5s ease;
+  z-index: 10;
+}
+
+.tab-service-content .slider {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 60px;
+  width: 100%;
+  border-radius: 12px;
+  transition: all 0.5s ease;
+  background: #0e82fd;
+}
+
+.tab-service-content .text-content {
+  width: 80%;
+  height: 100%;
+  min-height: 430px;
+  position: relative;
+}
+
+.tab-service-content .text {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* Ensure content takes the full width of the container */
+  padding: 20px; /* Add some padding for better appearance */
+}
+
+
+.tab-service-content .text .title {
+  font-size: 25px;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.container .text p {
+  text-align: justify;
+}
+
+/* Ensure the home tab content is visible by default */
+.tab-service-content .text-content .home {
+  display: block;
+}
+
+.tab-service-content .list label:hover {
+  color: #0e82fd;
+}
+
+.service-tab-img img {
+  height: 250px;
+  width: 100%;
+  object-fit: cover;
+  margin-bottom: 30px;
+}
+
+
+.tab-service-content .list label.active-tab,
+.tab-service-content .list label.active-tab:hover {
+  color: white; /* Ensure color stays white when active or hovered */
+}

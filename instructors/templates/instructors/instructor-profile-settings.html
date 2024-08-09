@@ -1,0 +1,206 @@
+{% extends "instructors/base.html" %}
+{% load static %} 
+
+{% block title%}| Appointment Request {% endblock %}
+
+{% block contentBody %}
+
+
+
+
+
+
+
+
+
+<div class="breadcrumb-bar-two">
+    <div class="container">
+        <div class="row align-items-center inner-banner">
+            <div class="col-md-12 col-12 text-center">
+                <h2 class="breadcrumb-title">Doctor Profile</h2>
+                <nav aria-label="breadcrumb" class="page-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item" aria-current="page">Doctor Profile</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="content doctor-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-xl-3 theiaStickySidebar">
+
+                {% include "instructors/dash-slider.html" %}
+
+            </div>
+            <div class="col-lg-8 col-xl-9">
+
+                <div class="dashboard-header">
+                    <h3>Profile Settings</h3>
+                </div>
+
+                <div class="setting-tab">
+                    <div class="appointment-tabs">
+                        <ul class="nav">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="doctor-profile-settings.html">Basic Details</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="doctor-experience-settings.html">Experience</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="doctor-education-settings.html">Education</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="doctor-awards-settings.html">Awards</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="doctor-insurance-settings.html">Insurances</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="doctor-clinics-settings.html">Clinics</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="doctor-business-settings.html">Business Hours</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="setting-title">
+                    <h5>Profile</h5>
+                </div>
+                <form action="https://doccure.dreamstechnologies.com/html/template/doctor-profile-settings.html">
+                    <div class="setting-card">
+                        <div class="change-avatar img-upload">
+                            <div class="profile-img">
+                                <i class="fa-solid fa-file-image"></i>
+                            </div>
+                            <div class="upload-img">
+                                <h5>Profile Image</h5>
+                                <div class="imgs-load d-flex align-items-center">
+                                    <div class="change-photo">
+                                        Upload New
+                                        <input type="file" class="upload">
+                                    </div>
+                                    <a href="#" class="upload-remove">Remove</a>
+                                </div>
+                                <p class="form-text">Your Image should Below 4 MB, Accepted format jpg,png,svg
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="setting-title">
+                        <h5>Information</h5>
+                    </div>
+                    <div class="setting-card">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6">
+                                <div class="form-wrap">
+                                    <label class="col-form-label">First Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="form-wrap">
+                                    <label class="col-form-label">Last Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="form-wrap">
+                                    <label class="col-form-label">Display Name <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="form-wrap">
+                                    <label class="col-form-label">Designation <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="form-wrap">
+                                    <label class="col-form-label">Phone Numbers <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="form-wrap">
+                                    <label class="col-form-label">Email Address <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-wrap">
+                                    <label class="col-form-label">Known Languages <span
+                                            class="text-danger">*</span></label>
+                                    <div class="input-block input-block-new mb-0">
+                                        <input class="input-tags form-control" id="inputBox3" type="text"
+                                            data-role="tagsinput" placeholder="Type New" name="Label"
+                                            value="English German,Portugese">
+                                        <a href="#" class="input-text save-btn">Save</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="setting-title">
+                        <h5>Memberships</h5>
+                    </div>
+                    <div class="setting-card">
+                        <div class="add-info membership-infos">
+                            <div class="row membership-content">
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-wrap">
+                                        <label class="col-form-label">Title <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" placeholder="Add Title">
+                                    </div>
+                                </div>
+                                <div class="col-lg-9 col-md-6">
+                                    <div class="d-flex align-items-center">
+                                        <div class="form-wrap w-100">
+                                            <label class="col-form-label">About Membership</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="form-wrap ms-2">
+                                            <label class="col-form-label d-block">&nbsp;</label>
+                                            <a href="javascript:void(0);" class="trash-icon trash">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <a href="#" class="add-membership-info more-item">Add New</a>
+                        </div>
+                    </div>
+                    <div class="modal-btn text-end">
+                        <a href="#" class="btn btn-gray">Cancel</a>
+                        <button type="submit" class="btn btn-primary prime-btn">Save Changes</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+{% endblock contentBody %}

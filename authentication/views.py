@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.hashers import make_password
 from .models import CustomUser, InstructorProfile, CustomUser, SimpleUserProfile
-from instructors.models import Service
+from core.models import Service
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, get_backends, authenticate, get_user_model
 from django.contrib.auth.hashers import make_password

@@ -1,41 +1,37 @@
-{% extends "user/base.html" %}
-{% load static %} 
-
-{% block title%}| Home {% endblock %}
-
+{% extends "user/base.html" %} {% load static %} 
+{% block title%}| Home {% endblock %} 
 {% block contentBody %}
 
 
-
-
 {% for message in messages %}
-<div class="alert alert-primary text-center" role="alert">
-    {{ message }}
-</div>
+<div class="alert alert-primary text-center" role="alert">{{ message }}</div>
 {% endfor %}
 
-
-
 <section class="banner-section">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <div class="banner-content aos" data-aos="fade-up">
-                    <h1>Consult <span>Best Doctors</span> Your Nearby Location.</h1>
-                    <img src="{% static 'img/icons/header-icon.svg' %}" class="header-icon" alt="header-icon">
-                    <p>Embark on your healing journey with Doccure</p>
-                    <a href="booking.html" class="btn">Start a Consult</a>
-                    <div class="banner-arrow-img">
-                        <img src="{% static 'img/down-arrow-img.png' %}" class="img-fluid" alt="down-arrow">
-                    </div>
-                </div>
-                <div class="search-box-one aos" data-aos="fade-up">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <div class="banner-content aos" data-aos="fade-up">
+          <h1>
+            Online <span>Appointment Scheduling</span> system, Explore services.
+          </h1>
+          <p>Embark on your healing journey with AppointTrack</p>
+          <a href="#" class="btn">Book Appointment</a>
+          <div class="banner-arrow-img">
+            <img
+              src="{% static 'img/down-arrow-img.png' %}"
+              class="img-fluid"
+              alt="down-arrow"
+            />
+          </div>
+        </div>
+        <!-- <div class="search-box-one aos" data-aos="fade-up">
                     <form action="">
                         <div class="search-input search-line">
                             <i class="feather-search bficon"></i>
                             <div class=" mb-0">
                                 <input type="text" class="form-control"
-                                    placeholder="Search doctors, clinics, hospitals, etc">
+                                    placeholder="Search services">
                             </div>
                         </div>
                         <div class="search-input search-map-line">
@@ -57,354 +53,653 @@
                             <button class="btn" type="submit">Search</button>
                         </div>
                     </form>
+                </div> -->
+      </div>
+      <div class="col-lg-6">
+        <div class="banner-img aos" data-aos="fade-up">
+          <div class="hero-banner">
+            <img
+              src="{% static '/img/banner/banner-img.webp' %}"
+              class="img-fluid position-absolute"
+              alt="banner-image"
+            />
+            <img
+              src="{% static '/img/banner/banner-anim.svg' %}"
+              class="img-fluid"
+              alt="banner-image"
+            />
+          </div>
+          <div class="banner-img1">
+            <img
+              src="{% static 'img/banner/banner-img1.svg' %}"
+              class="img-fluid"
+              alt="checkup-image"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="about-section">
+    <div class="container">
+        <div class="row align-items-center aos" data-aos="fade-up">
+            <div class="col-lg-6 col-md-12">
+                <div class="section-inner-header about-inner-header">
+                    <h6>About Our Company</h6>
+                    <h2>We Are Always Ensure Best Services For You</h2>
+                </div>
+                <div class="about-content">
+                    <div class="about-content-details">
+                        <p>Welcome to AppointTrack, your premier destination for seamless appointment scheduling and management. At AppointTrack, we are committed to providing top-notch services that streamline your booking experience, whether you need beauty, fitness, or healthcare appointments. Our intuitive platform connects you with the best professionals in the industry, ensuring you receive the highest quality service every time.</p>
+                        <p>With AppointTrack, you can trust that your appointments are in capable hands, allowing you to focus on what matters most. We are always here to ensure you receive the best services, making your life easier and more organized. Join us today and experience the AppointTrack difference.</p>
+                    </div>
                 </div>
             </div>
-            <div class="col-lg-6">
-                <div class="banner-img aos" data-aos="fade-up">
-                    <img src="{% static '/img/banner-img.png' %}" class="img-fluid" alt="patient-image">
-                    <div class="banner-img1">
-                        <img src="{% static 'img/banner/banner-img1.svg' %}" class="img-fluid" alt="checkup-image">
-                    </div>
-                    <div class="banner-img2">
-                        <img src="{% static 'img/banner/banner-img2.svg' %}" class="img-fluid" alt="doctor-slide">
-                    </div>
-                    <div class="banner-img3">
-                        <img src="{% static 'img/banner/banner-img3.svg' %}" class="img-fluid" alt="doctors-list">
+            <div class="col-lg-6 col-md-12">
+                <div class="about-img-info">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="about-inner-img">
+                                <div class="about-img">
+                                    <img src="{% static 'img/about-img1.jpg' %}" class="img-fluid" alt="about-image">
+                                </div>
+                                <div class="about-img">
+                                    <img src="{% static 'img/about-img2.jpg' %}" class="img-fluid" alt="about-image">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="about-inner-img">
+                                <div class="about-box">
+                                    <h4>Over 25+ Years Experience</h4>
+                                </div>
+                                <div class="about-img">
+                                    <img src="{% static 'img/about-img3.jpg' %}" class="img-fluid" alt="about-image">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
 
 
 <section class="specialities-section-one">
-    <div class="container">
-        <div class="service-sec-one">
-            <div
-                class="row row-cols-7 row-cols-xxl-7 row-cols-xl-4 row-cols-lg-4 rows-cols-md-6 justify-content-center">
-                <div class="col-12 d-flex col-xxl col-lg-3 col-sm-6">
-                    <a href="javascript:void(0);" class="serv-wrap blue-bg flex-fill">
-                        <span>
-                            <img src="{% static 'img/icons/service-01.svg' %}" alt="heart-image">
-                        </span>
-                        <h4>Book Appointment</h4>
-                    </a>
-                </div>
-                <div class="col-12 d-flex col-xxl col-lg-3 col-sm-6">
-                    <a href="javascript:void(0);" class="serv-wrap green-bg flex-fill">
-                        <span>
-                            <img src="assets/img/icons/service-02.svg" alt="heart-image">
-                        </span>
-                        <h4>Lab Testing Services</h4>
-                    </a>
-                </div>
-                <div class="col-12 d-flex col-xxl col-lg-3 col-sm-6">
-                    <a href="javascript:void(0);" class="serv-wrap info-bg flex-fill">
-                        <span>
-                            <img src="assets/img/icons/service-03.svg" alt="heart-image">
-                        </span>
-                        <h4>Medicines & Supplies</h4>
-                    </a>
-                </div>
-                <div class="col-12 d-flex col-xxl col-lg-3 col-sm-6">
-                    <a href="javascript:void(0);" class="serv-wrap red-bg flex-fill">
-                        <span>
-                            <img src="assets/img/icons/service-04.svg" alt="heart-image">
-                        </span>
-                        <h4>Hospitals / Clinics</h4>
-                    </a>
-                </div>
-                <div class="col-12 d-flex col-xxl col-lg-3 col-sm-6">
-                    <a href="javascript:void(0);" class="serv-wrap success-bg flex-fill">
-                        <span>
-                            <img src="assets/img/icons/service-05.svg" alt="heart-image">
-                        </span>
-                        <h4>Health Care Services</h4>
-                    </a>
-                </div>
-                <div class="col-12 d-flex col-xxl col-lg-3 col-sm-6">
-                    <a href="javascript:void(0);" class="serv-wrap pink-bg flex-fill">
-                        <span>
-                            <img src="assets/img/icons/service-06.svg" alt="heart-image">
-                        </span>
-                        <h4>Talk to Doctor’s</h4>
-                    </a>
-                </div>
-                <div class="col-12 d-flex col-xxl col-lg-3 col-sm-6">
-                    <a href="javascript:void(0);" class="serv-wrap danger-bg flex-fill">
-                        <span>
-                            <img src="assets/img/icons/service-07.svg" alt="heart-image">
-                        </span>
-                        <h4>Home Care Services</h4>
-                    </a>
-                </div>
-            </div>
+  <div class="container">
+    <div class="service-sec-one">
+      <div
+        class="row row-cols-7 row-cols-xxl-7 row-cols-xl-4 row-cols-lg-4 rows-cols-md-6 justify-content-center"
+      >
+        <div class="col-12 d-flex col-xxl col-lg-3 col-sm-6">
+          <a href="javascript:void(0);" class="serv-wrap blue-bg flex-fill">
+            <span>
+              <img
+                src="{% static 'img/icons/service-01.svg' %}"
+                alt="heart-image"
+              />
+            </span>
+            <h4>Book Appointment</h4>
+          </a>
         </div>
-        <div class="row">
-            <div class="col-md-6 col-7 aos" data-aos="fade-up">
-                <div class="section-header-one section-header-slider">
-                    <h2 class="section-title">Specialities</h2>
-                </div>
-            </div>
-            <div class="col-md-6 col-5  aos" data-aos="fade-up">
-                <div class="owl-nav slide-nav-1 text-end nav-control"></div>
-            </div>
+        <div class="col-12 d-flex col-xxl col-lg-3 col-sm-6">
+          <a href="javascript:void(0);" class="serv-wrap green-bg flex-fill">
+            <span>
+              <img
+                src="{% static 'img/icons/service-02.svg' %}"
+                alt="heart-image"
+              />
+            </span>
+            <h4>Collect Payments</h4>
+          </a>
         </div>
-        <div class="owl-carousel specialities-slider-one owl-theme aos" data-aos="fade-up">
-            <div class="item">
-                <div class="specialities-item">
-                    <div class="specialities-img">
-                        <span><img src="assets/img/specialities/specialities-01.svg" alt="heart-image"></span>
-                    </div>
-                    <p>Cardiology</p>
-                </div>
-            </div>
-            <div class="item">
-                <div class="specialities-item">
-                    <div class="specialities-img">
-                        <span><img src="assets/img/specialities/specialities-02.svg" alt="brain-image"></span>
-                    </div>
-                    <p>Neurology</p>
-                </div>
-            </div>
-            <div class="item">
-                <div class="specialities-item">
-                    <div class="specialities-img">
-                        <span><img src="assets/img/specialities/specialities-03.svg" alt="kidney-image"></span>
-                    </div>
-                    <p>Urology</p>
-                </div>
-            </div>
-            <div class="item">
-                <div class="specialities-item">
-                    <div class="specialities-img">
-                        <span><img src="assets/img/specialities/specialities-04.svg" alt="bone-image"></span>
-                    </div>
-                    <p>Orthopedic</p>
-                </div>
-            </div>
-            <div class="item">
-                <div class="specialities-item">
-                    <div class="specialities-img">
-                        <span><img src="assets/img/specialities/specialities-05.svg" alt="dentist"></span>
-                    </div>
-                    <p>Dentist</p>
-                </div>
-            </div>
-            <div class="item">
-                <div class="specialities-item">
-                    <div class="specialities-img">
-                        <span><img src="assets/img/specialities/specialities-06.svg" alt="eye-image"></span>
-                    </div>
-                    <p>Ophthalmology</p>
-                </div>
-            </div>
-            <div class="item">
-                <div class="specialities-item">
-                    <div class="specialities-img">
-                        <span><img src="assets/img/specialities/specialities-02.svg" alt="brain-image"></span>
-                    </div>
-                    <p>Neurology</p>
-                </div>
-            </div>
+        <div class="col-12 d-flex col-xxl col-lg-3 col-sm-6">
+          <a href="javascript:void(0);" class="serv-wrap info-bg flex-fill">
+            <span>
+              <img
+                src="{% static 'img/icons/service-03.svg' %}"
+                alt="heart-image"
+              />
+            </span>
+            <h4>Notify and Remind</h4>
+          </a>
         </div>
-        <div class="specialities-btn aos" data-aos="fade-up">
-            <a href="search.html" class="btn">
-                See All Specialities
-            </a>
+        <div class="col-12 d-flex col-xxl col-lg-3 col-sm-6">
+          <a href="javascript:void(0);" class="serv-wrap red-bg flex-fill">
+            <span>
+              <img
+                src="{% static 'img/icons/service-04.svg' %}"
+                alt="heart-image"
+              />
+            </span>
+            <h4>Calendar Sync</h4>
+          </a>
         </div>
+        <div class="col-12 d-flex col-xxl col-lg-3 col-sm-6">
+          <a href="javascript:void(0);" class="serv-wrap success-bg flex-fill">
+            <span>
+              <img
+                src="{% static 'img/icons/service-05.svg' %}"
+                alt="heart-image"
+              />
+            </span>
+            <h4>Security & Reliability</h4>
+          </a>
+        </div>
+        <div class="col-12 d-flex col-xxl col-lg-3 col-sm-6">
+          <a href="javascript:void(0);" class="serv-wrap pink-bg flex-fill">
+            <span>
+              <img
+                src="{% static 'img/icons/service-06.svg' %}"
+                alt="heart-image"
+              />
+            </span>
+            <h4>Online Meeting</h4>
+          </a>
+        </div>
+        <div class="col-12 d-flex col-xxl col-lg-3 col-sm-6">
+          <a href="javascript:void(0);" class="serv-wrap danger-bg flex-fill">
+            <span>
+              <img
+                src="{% static 'img/icons/service-07.svg' %}"
+                alt="heart-image"
+              />
+            </span>
+            <h4>Reporting & Analytics</h4>
+          </a>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
-
 
 <section class="doctors-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 aos" data-aos="fade-up">
-                <div class="section-header-one section-header-slider text-center">
-                    <h2 class="section-title">Best Doctors</h2>
-                </div>
-            </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 aos" data-aos="fade-up">
+        <div class="section-header-one section-header-slider text-center">
+          <h2 class="section-title">Our Services</h2>
         </div>
-        <div class="owl-carousel doctor-slider-one owl-theme aos" data-aos="fade-up">
-
-            <div class="item">
-                <div class="doctor-profile-widget doc-item">
-                    <div class="doc-pro-img">
-                        <a href="doctor-profile.html">
-                            <div class="doctor-profile-img">
-                                <img src="assets/img/doctors/doctor-03.jpg" class="img-fluid" alt="Ruby Perrin">
-                            </div>
-                        </a>
-                        <div class="doctor-amount">
-                            <span>$200</span>
-                        </div>
-                    </div>
-                    <div class="doc-content">
-                        <div class="doc-pro-info">
-                            <div class="doc-pro-name">
-                                <a href="doctor-profile.html">Dr. Downer</a>
-                                <p>Orthopedic</p>
-                            </div>
-                            <div class="reviews-ratings">
-                                <p>
-                                    <span><i class="fas fa-star"></i> 4.5</span> (35)
-                                </p>
-                            </div>
-                        </div>
-                        <div class="doc-pro-location">
-                            <p><i class="feather-map-pin"></i> Newyork, USA</p>
-                            <span class="badge badge-success doc-badge"><i
-                                    class="fa-solid fa-circle"></i>Available</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="item">
-                <div class="doctor-profile-widget doc-item">
-                    <div class="doc-pro-img">
-                        <a href="doctor-profile.html">
-                            <div class="doctor-profile-img">
-                                <img src="assets/img/doctors/doctor-02.jpg" class="img-fluid" alt="Paul Richard">
-                            </div>
-                        </a>
-                        <div class="doctor-amount">
-                            <span>$300</span>
-                        </div>
-                    </div>
-                    <div class="doc-content">
-                        <div class="doc-pro-info">
-                            <div class="doc-pro-name">
-                                <a href="doctor-profile.html">Dr. John Doe</a>
-                                <p>Dentist</p>
-                            </div>
-                            <div class="reviews-ratings">
-                                <p>
-                                    <span><i class="fas fa-star"></i> 4.3</span> (45)
-                                </p>
-                            </div>
-                        </div>
-                        <div class="doc-pro-location">
-                            <p><i class="feather-map-pin"></i> Austin, TX</p>
-                            <span class="badge badge-success doc-badge"><i
-                                    class="fa-solid fa-circle"></i>Available</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="item">
-                <div class="doctor-profile-widget doc-item">
-                    <div class="doc-pro-img">
-                        <a href="doctor-profile.html">
-                            <div class="doctor-profile-img">
-                                <img src="assets/img/doctors/doctor-04.jpg" class="img-fluid" alt="Darren Elder">
-                            </div>
-                        </a>
-                        <div class="doctor-amount">
-                            <span>$100</span>
-                        </div>
-                    </div>
-                    <div class="doc-content">
-                        <div class="doc-pro-info">
-                            <div class="doc-pro-name">
-                                <a href="doctor-profile.html">Dr. Aviles</a>
-                                <p>Neurology</p>
-                            </div>
-                            <div class="reviews-ratings">
-                                <p>
-                                    <span><i class="fas fa-star"></i> 4.0</span> (20)
-                                </p>
-                            </div>
-                        </div>
-                        <div class="doc-pro-location">
-                            <p><i class="feather-map-pin"></i> Newyork, USA</p>
-                            <span class="badge badge-danger doc-badge"><i
-                                    class="fa-solid fa-circle"></i>Unavailable</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="item">
-                <div class="doctor-profile-widget doc-item">
-                    <div class="doc-pro-img">
-                        <a href="doctor-profile.html">
-                            <div class="doctor-profile-img">
-                                <img src="assets/img/doctors/doctor-05.jpg" class="img-fluid" alt="Sofia Brient">
-                            </div>
-                        </a>
-                        <div class="doctor-amount">
-                            <span>$250</span>
-                        </div>
-                    </div>
-                    <div class="doc-content">
-                        <div class="doc-pro-info">
-                            <div class="doc-pro-name">
-                                <a href="doctor-profile.html">Dr. Palmore</a>
-                                <p>Immunologist</p>
-                            </div>
-                            <div class="reviews-ratings">
-                                <p>
-                                    <span><i class="fas fa-star"></i> 4.5</span> (35)
-                                </p>
-                            </div>
-                        </div>
-                        <div class="doc-pro-location">
-                            <p><i class="feather-map-pin"></i> Waipahu, HI</p>
-                            <span class="badge badge-success doc-badge"><i
-                                    class="fa-solid fa-circle"></i>Available</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="item">
-                <div class="doctor-profile-widget doc-item">
-                    <div class="doc-pro-img">
-                        <a href="doctor-profile.html">
-                            <div class="doctor-profile-img">
-                                <img src="assets/img/doctors/doctor-01.jpg" class="img-fluid" alt="John Doe">
-                            </div>
-                        </a>
-                        <div class="doctor-amount">
-                            <span>$880</span>
-                        </div>
-                    </div>
-                    <div class="doc-content">
-                        <div class="doc-pro-info">
-                            <div class="doc-pro-name">
-                                <a href="doctor-profile.html">Dr. Paul Richard</a>
-                                <p>Dentist</p>
-                            </div>
-                            <div class="reviews-ratings">
-                                <p>
-                                    <span><i class="fas fa-star"></i> 4.4</span> (50)
-                                </p>
-                            </div>
-                        </div>
-                        <div class="doc-pro-location">
-                            <p><i class="feather-map-pin"></i> California, USA</p>
-                            <span class="badge badge-success doc-badge"><i
-                                    class="fa-solid fa-circle"></i>Available</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+      </div>
     </div>
+
+   
+    <div class="tab-service-content">
+      {% for service in services %}
+          <input type="radio" name="slider" id="tab-{{ service.id }}" {% if forloop.first %}checked{% endif %} />
+      {% endfor %}
+  
+      <div class="list">
+          {% for service in services %}
+              <label for="tab-{{ service.id }}" class="tab-{{ forloop.counter0 }}">
+                  <span>{{ service.name }}</span>
+              </label>
+          {% endfor %}
+          <div class="slider"></div>
+      </div>
+  
+      <div class="text-content aos" data-aos="fade-up">
+          {% for service in services %}
+              <div class="text tab-{{ forloop.counter0 }}">
+                  <div class="title">{{ service.heading }}</div>
+                  <div class="service-tab-img">
+                      <img class="img-fluid" src="{{ service.image.url }}" alt="{{ service.name }}">
+                  </div>
+                  <p>{{ service.content }}</p>
+              </div>
+          {% endfor %}
+      </div>
+  </div>
+  
+  
+
+    
+  </div>
+</section>
+
+<section class="work-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-md-12 work-img-info aos" data-aos="fade-up">
+        <div class="work-img">
+          <img
+            src="{% static 'img/work-img.png' %}"
+            class="img-fluid"
+            alt="doctor-image"
+          />
+        </div>
+      </div>
+      <div class="col-lg-8 col-md-12 work-details">
+        <div class="section-header-one aos" data-aos="fade-up">
+          <h5>How it Works</h5>
+          <h2 class="section-title">4 easy steps to get your solution</h2>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 aos" data-aos="fade-up">
+            <div class="work-info">
+              <div class="work-icon">
+                <span
+                  ><img
+                    src="{% static 'img/icons/work-01.svg' %}"
+                    alt="search-doctor-icon"
+                /></span>
+              </div>
+              <div class="work-content">
+                <h5>Search Services</h5>
+                <p>
+                  Search for a Services based on specialization, location, or
+                  availability.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 aos" data-aos="fade-up">
+            <div class="work-info">
+              <div class="work-icon">
+                <span
+                  ><img
+                    src="{% static 'img/icons/work-02.svg' %}"
+                    alt="doctor-profile-icon"
+                /></span>
+              </div>
+              <div class="work-content">
+                <h5>Check Inetructor Profile</h5>
+                <p>
+                  Explore detailed Inetructor profiles on our platform to make
+                  informed appointment decisions.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 aos" data-aos="fade-up">
+            <div class="work-info">
+              <div class="work-icon">
+                <span
+                  ><img src="{% static 'img/icons/work-03.svg' %}" alt="calendar-icon"
+                /></span>
+              </div>
+              <div class="work-content">
+                <h5>Schedule Appointment</h5>
+                <p>
+                  After choose your preferred Inetructor, select a convenient time
+                  slot, & confirm your appointment.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 aos" data-aos="fade-up">
+            <div class="work-info">
+              <div class="work-icon">
+                <span
+                  ><img src="{% static 'img/icons/work-04.svg' %}" alt="solution-icon"
+                /></span>
+              </div>
+              <div class="work-content">
+                <h5>Get Your Solution</h5>
+                <p>
+                  Discuss your need concerns with the Inetructor and receive
+                  personalized advice & solution.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="partners-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="section-header-one text-center aos" data-aos="fade-up">
+          <h2 class="section-title">Our Partners</h2>
+        </div>
+      </div>
+    </div>
+    <div class="partners-info aos" data-aos="fade-up">
+      <ul class="owl-carousel partners-slider d-flex">
+        <li>
+          <a href="javascript:void(0);">
+            <img
+              class="img-fluid"
+              src="{% static 'img/partners/partners-1.svg' %}"
+              alt="partners"
+            />
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0);">
+            <img
+              class="img-fluid"
+              src="{% static 'img/partners/partners-1.svg' %}"
+              alt="partners"
+            />
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0);">
+            <img
+              class="img-fluid"
+              src="{% static 'img/partners/partners-1.svg' %}"
+              alt="partners"
+            />
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0);">
+            <img
+              class="img-fluid"
+              src="{% static 'img/partners/partners-1.svg' %}"
+              alt="partners"
+            />
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0);">
+            <img
+              class="img-fluid"
+              src="{% static 'img/partners/partners-1.svg' %}"
+              alt="partners"
+            />
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0);">
+            <img
+              class="img-fluid"
+              src="{% static 'img/partners/partners-1.svg' %}"
+              alt="partners"
+            />
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0);">
+            <img
+              class="img-fluid"
+              src="{% static 'img/partners/partners-1.svg' %}"
+              alt="partners"
+            />
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0);">
+            <img
+              class="img-fluid"
+              src="{% static 'img/partners/partners-1.svg' %}"
+              alt="partners"
+            />
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0);">
+            <img
+              class="img-fluid"
+              src="{% static 'img/partners/partners-1.svg' %}"
+              alt="partners"
+            />
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0);">
+            <img
+              class="img-fluid"
+              src="{% static 'img/partners/partners-1.svg' %}"
+              alt="partners"
+            />
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0);">
+            <img
+              class="img-fluid"
+              src="{% static 'img/partners/partners-1.svg' %}"
+              alt="partners"
+            />
+          </a>
+        </li>
+        <li>
+          <a href="javascript:void(0);">
+            <img
+              class="img-fluid"
+              src="{% static 'img/partners/partners-1.svg' %}"
+              alt="partners"
+            />
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="testimonial-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="testimonial-slider slick">
+          <div class="testimonial-grid">
+            <div class="testimonial-info">
+              <div class="testimonial-img">
+                <img
+                  src="{% static 'img/clients/client-01.jpg' %}"
+                  class="img-fluid"
+                  alt="John Doe"
+                />
+              </div>
+              <div class="testimonial-content">
+                <div
+                  class="section-header-one section-header section-inner-header testimonial-header"
+                >
+                  <h5>Testimonials</h5>
+                  <h2 class="section-title">What Our Client Says</h2>
+                </div>
+                <div class="testimonial-details">
+                  <p>
+                    Doccure exceeded my expectations in healthcare. The seamless
+                    booking process, coupled with the expertise of the doctors,
+                    made my experience exceptional. Their commitment to quality
+                    care and convenience truly sets them apart. I highly
+                    recommend Doccure for anyone seeking reliable and accessible
+                    healthcare services.
+                  </p>
+                  <h6><span class="d-block">John Doe</span> New York</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-grid">
+            <div class="testimonial-info">
+              <div class="testimonial-img">
+                <img
+                  src="{% static 'img/clients/client-03.jpg' %}"
+                  class="img-fluid"
+                  alt="Amanda Warren"
+                />
+              </div>
+              <div class="testimonial-content">
+                <div
+                  class="section-header section-inner-header testimonial-header"
+                >
+                  <h5>Testimonials</h5>
+                  <h2>What Our Client Says</h2>
+                </div>
+                <div class="testimonial-details">
+                  <p>
+                    As a busy professional, I don't have time to wait on hold or
+                    play phone tag to schedule doctor appointments. Thanks to
+                    Doccure, booking appointments has never been easier! The
+                    user-friendly interface allows me to quickly find available
+                    appointment slots that fit my schedule and book them with
+                    just a few clicks. It's a game-changer for anyone looking to
+                    streamline their healthcare management.
+                  </p>
+                  <h6><span class="d-block">Andrew Denner</span> Nevada</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-grid">
+            <div class="testimonial-info">
+              <div class="testimonial-img">
+                <img
+                  src="{% static 'img/clients/client-11.jpg' %}"
+                  class="img-fluid"
+                  alt="Betty Carlson"
+                />
+              </div>
+              <div class="testimonial-content">
+                <div
+                  class="section-header section-inner-header testimonial-header"
+                >
+                  <h5>Testimonials</h5>
+                  <h2>What Our Client Says</h2>
+                </div>
+                <div class="testimonial-details">
+                  <p>
+                    As a parent, coordinating doctor appointments for my family
+                    can be overwhelming. Doccure has simplified the process and
+                    made scheduling appointments a breeze! I love being able to
+                    see all available appointment times in one place and book
+                    appointments for multiple family members with ease. Plus,
+                    the automatic reminders ensure we never miss an appointment.
+                    I highly recommend Doccure to other busy parents!
+                  </p>
+                  <h6><span class="d-block">Niya Patel</span> New York</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="counter-section">
+  <div class="ban-bg">
+    <img
+      src="{% static 'img/bg/counter-bg.png' %}"
+      alt="design-image"
+      class="img-fluid bg-06"
+    />
+    <img
+      src="{% static 'img/bg/counter-bg-01.png' %}"
+      alt="eye-image"
+      class="img-fluid bg-07"
+    />
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 col-sm-6">
+        <div class="count-box">
+          <span class="count-icon">
+            <img
+              src="{% static 'img/icons/count-01.svg' %}"
+              alt="doctor-image"
+              class="img-fluid"
+            />
+          </span>
+          <div class="count-info">
+            <h3><span class="count-digit">180</span>+</h3>
+            <p>Expert Doctors</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="count-box">
+          <span class="count-icon">
+            <img
+              src="{% static 'img/icons/count-02.svg' %}"
+              alt="stethoscope"
+              class="img-fluid"
+            />
+          </span>
+          <div class="count-info">
+            <h3><span class="count-digit">26</span>+</h3>
+            <p>Expert Services</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="count-box">
+          <span class="count-icon">
+            <img
+              src="{% static 'img/icons/count-03.svg' %}"
+              alt="smiley-icon"
+              class="img-fluid"
+            />
+          </span>
+          <div class="count-info">
+            <h3><span class="count-digit">10</span>K+</h3>
+            <p>Happy Customers</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="count-box">
+          <span class="count-icon">
+            <img
+              src="{% static 'img/icons/count-04.svg' %}"
+              alt="award-icon"
+              class="img-fluid"
+            />
+          </span>
+          <div class="count-info">
+            <h3><span class="count-digit">150</span>+</h3>
+            <p>Best Awards Winner</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 
 
 
 
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const labels = document.querySelectorAll('.tab-service-content .list label');
+    const radios = document.querySelectorAll('.tab-service-content input[type="radio"]');
+    const slider = document.querySelector('.tab-service-content .slider');
+    const textContents = document.querySelectorAll('.tab-service-content .text');
+
+    function updateVisibleContent(index) {
+        labels.forEach(label => label.classList.remove('active-tab'));
+        labels[index].classList.add('active-tab');
+
+        textContents.forEach((content, contentIndex) => {
+            content.style.display = contentIndex === index ? 'block' : 'none';
+        });
+        slider.style.top = `${60 * index}px`;
+    }
+
+    labels.forEach((label, index) => {
+        label.addEventListener('click', function (event) {
+            if (!radios[index].checked) {
+                radios[index].checked = true;
+                updateVisibleContent(index);
+            }
+        });
+    });
+
+    // Initial load: Set the active tab based on the initially checked radio
+    radios.forEach((radio, index) => {
+        if (radio.checked) {
+            updateVisibleContent(index);
+        }
+    });
+});
+
+
+</script>
 
 {% endblock contentBody %}
