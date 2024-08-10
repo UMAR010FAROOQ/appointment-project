@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 from django.contrib import admin
-from .models import Contact, Service
+from .models import Contact, Service, PasswordChange
 
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
@@ -13,3 +13,5 @@ class ContactAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Service)
+
+admin.site.register(PasswordChange)

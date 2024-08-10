@@ -9,14 +9,14 @@ Version      : 1.3
 
 	// Stick Sidebar
 
-	if ($(window).width() > 767) {
-		if ($('.theiaStickySidebar').length > 0) {
-			$('.theiaStickySidebar').theiaStickySidebar({
-				// Settings
-				additionalMarginTop: 30
-			});
-		}
-	}
+	// if ($(window).width() > 767) {
+	// 	if ($('.theiaStickySidebar').length > 0) {
+	// 		$('.theiaStickySidebar').theiaStickySidebar({
+	// 			// Settings
+	// 			additionalMarginTop: 30
+	// 		});
+	// 	}
+	// }
 
 	// Sidebar
 
@@ -2441,29 +2441,27 @@ Version      : 1.3
 
 	// Toggle Password
 
-	if ($('.toggle-password').length > 0) {
-		$(document).on('click', '.toggle-password', function () {
-			$(this).toggleClass("feather-eye");
-			var input = $(".pass-input");
-			if (input.attr("type") == "password") {
-				input.attr("type", "text");
-			} else {
-				input.attr("type", "password");
-			}
-		});
-	}
-
-	if ($('.toggle-password-sub').length > 0) {
-		$(document).on('click', '.toggle-password-sub', function () {
-			$(this).toggleClass("feather-eye");
-			var input = $(".pass-input-sub");
-			if (input.attr("type") == "password") {
-				input.attr("type", "text");
-			} else {
-				input.attr("type", "password");
-			}
-		});
-	}
+	document.addEventListener('DOMContentLoaded', function() {
+        const togglePassword = document.querySelector('.toggle-password');
+        const password = document.querySelector('.pass-input');
+    
+        togglePassword.addEventListener('click', function () {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            this.classList.toggle('feather-eye');
+            this.classList.toggle('feather-eye-off');
+        });
+    
+        const togglePasswordSub = document.querySelector('.toggle-password-sub');
+        const passwordSub = document.querySelector('.pass-input-sub');
+    
+        togglePasswordSub.addEventListener('click', function () {
+            const type = passwordSub.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordSub.setAttribute('type', type);
+            this.classList.toggle('feather-eye');
+            this.classList.toggle('feather-eye-off');
+        });
+    });
 
 	// Custom Country Code Selector
 

@@ -3,7 +3,21 @@ from django.contrib import messages
 from .models import Contact
 from core.models import Service
 from django.http import JsonResponse
-
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from django.utils.timezone import now
+from datetime import timedelta
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import update_session_auth_hash
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from django.utils import timezone
+from datetime import timedelta
+from .models import PasswordChange
+from django.contrib.auth.forms import PasswordChangeForm
 # Create your views here.
 
 def HomePage(request):
@@ -86,6 +100,48 @@ def UserProfileSettings(request):
 
 
 
-def UserChangePassword(request):
-    return render(request, 'user/user-change-password.html') 
 
+@login_required
+def UserChangePassword(request):
+    user = request.user
+    last_change = PasswordChange.objects.filter(user=user).order_by('-timestamp').first()
+
+    # Check if the user has changed their password in the last 24 hours
+    if last_change:
+        time_since_last_change = timezone.now() - last_change.timestamp
+        if time_since_last_change < timedelta(hours=24):
+            remaining_time = timedelta(hours=24) - time_since_last_change
+            remaining_seconds = int(remaining_time.total_seconds())
+            hours, remainder = divmod(remaining_seconds, 3600)
+            minutes, seconds = divmod(remainder, 60)
+
+            # Check session to prevent redirect loop
+            if not request.session.get('password_redirected'):
+                messages.error(request, f"You can change your password again in {hours} hours, {minutes} minutes, and {seconds} seconds.", extra_tags='danger')
+                request.session['password_redirected'] = True
+                return redirect('core:UserChangePassword')
+
+    # Clear session variable if user accesses the page without restriction
+    request.session['password_redirected'] = False
+
+    if request.method == 'POST':
+        form = PasswordChangeForm(user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            # Save the timestamp of the password change
+            PasswordChange.objects.create(user=user)
+            # Update the session with the new password
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Your password was successfully updated!', extra_tags='primary')
+            return redirect('core:UserChangePassword')
+        else:
+            # Debugging information
+            for field, errors in form.errors.items():
+                for error in errors:
+                    print(f"Error in {field}: {error}")  # Log errors to console or wherever you're capturing logs
+                    messages.error(request, f"{field.capitalize()}: {error}", extra_tags='danger')
+            messages.error(request, 'Please correct the errors below.', extra_tags='danger')
+    else:
+        form = PasswordChangeForm(user)
+
+    return render(request, 'user/user-change-password.html', {'form': form})
