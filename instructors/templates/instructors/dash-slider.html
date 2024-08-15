@@ -16,16 +16,17 @@
             <div class="profile-det-info">
                 <h3><a href="doctor-profile.html">{{ user.first_name }} {{ user.last_name }}</a></h3>
                 <div class="patient-details">
-                    <h5 class="mb-0">BDS, MDS - Oral & Maxillofacial Surgery</h5>
+                    <h5 class="mb-1">{{ user.instructorprofile.service }}</h5>
+                    <h6 class="mb-0">{{ user.email }}</h6>
                 </div>
-                <span class="badge doctor-role-badge"><i class="fa-solid fa-circle"></i>Dentist</span>
+                <span class="badge doctor-role-badge"><i class="fa-solid fa-circle"></i>{{ user.gender }}</span>
             </div>
         </div>
     </div>
     <div class="doctor-available-head">
         <div class="input-block input-block-new">
-            <label class="form-label">Availability <span class="text-danger">*</span></label>
-            <select class="select form-control">
+            <label class="col-form-label">Availability <span class="text-danger">*</span></label>
+            <select name="" class="form-select form-control floating">
                 <option>I am Available Now</option>
                 <option>Not Available</option>
             </select>

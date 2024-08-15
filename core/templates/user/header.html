@@ -13,13 +13,13 @@
                         <span></span>
                     </span>
                 </a>
-                <a href="index.html" class="navbar-brand logo">
+                <a href="{% url 'core:HomePage' %}" class="navbar-brand logo">
                     <img src="{% static 'img/logo.png' %}" class="img-fluid" alt="Logo">
                 </a>
             </div>
             <div class="main-menu-wrapper">
                 <div class="menu-header">
-                    <a href="index.html" class="menu-logo">
+                    <a href="{% url 'core:HomePage' %}" class="menu-logo">
                         <img src="{% static 'img/logo.png' %}" class="img-fluid" alt="Logo">
                     </a>
                     <a id="menu_close" class="menu-close" href="javascript:void(0);">
@@ -85,8 +85,8 @@
                     <p class="text-success mb-0">{{ user.last_name }}</p>
                 </div>
             </div>
-            <a class="dropdown-item" href="user-dash">Dashboard</a>
-            <a class="dropdown-item" href="">Profile Settings</a>
+            <a class="dropdown-item" href="{% url 'core:UserDash' %}">Dashboard</a>
+            <a class="dropdown-item" href="{% url 'core:UserProfileSettings' %}">Profile Settings</a>
             <a class="dropdown-item" href="{% url 'instructors:DashPage' %}">Instructor User</a>
             <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#confirm_delete">Delete Account</a>
         </div>

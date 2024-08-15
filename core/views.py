@@ -16,10 +16,12 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from datetime import timedelta
-from .models import PasswordChange
+from core.models import PasswordChange
 from django.contrib.auth.forms import PasswordChangeForm
-# Create your views here.
+from core.forms import UserProfileUpdateForm
+from .decorators import simple_user_required
 
+@simple_user_required
 def HomePage(request):
     services = Service.objects.all()
     return render(request, 'user/index.html', {'services': services})
@@ -94,11 +96,31 @@ def UserAppointments(request):
 
 
 
+@login_required
 def UserProfileSettings(request):
-    return render(request, 'user/user-profile-settings.html') 
+    user = request.user
+    
+    if request.method == 'POST':
+        form = UserProfileUpdateForm(request.POST, request.FILES, instance=user)
 
-
-
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your profile has been updated successfully!', extra_tags='success')
+            return redirect('core:UserProfileSettings')
+        else:
+            # Debugging information
+            for field, errors in form.errors.items():
+                for error in errors:
+                    print(f"Error in {field}: {error}")  # Log errors to console or wherever you're capturing logs
+                    messages.error(request, f"{field.capitalize()}: {error}", extra_tags='danger')
+            messages.error(request, 'Please correct the errors below.', extra_tags='danger')
+    else:
+        form = UserProfileUpdateForm(instance=user)
+    
+    return render(request, 'user/user-profile-settings.html', {
+        'form': form,
+        'user': user,
+    })
 
 
 @login_required
@@ -145,3 +167,11 @@ def UserChangePassword(request):
         form = PasswordChangeForm(user)
 
     return render(request, 'user/user-change-password.html', {'form': form})
+
+
+
+
+
+
+
+

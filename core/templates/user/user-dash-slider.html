@@ -1,10 +1,11 @@
 {% load static %} 
+{% load custom_tags %}
 
 
 <div class="profile-sidebar patient-sidebar profile-sidebar-new">
     <div class="widget-profile pro-widget-content">
         <div class="profile-info-widget">
-            <a href="profile-settings.html" class="booking-doc-img">
+            <a href="{% url 'core:UserDash' %}" class="booking-doc-img">
                 {% if user.profile_image %}
                         <img src="{{ user.profile_image.url }}" alt="User Image" class="avatar-img rounded-circle">
                     {% elif user.profile_image_url %}
@@ -18,32 +19,32 @@
                 <div class="patient-details">
                     <h5 class="mb-0">{{ user.email }}</h5>
                 </div>
-                <span>Female <i class="fa-solid fa-circle"></i> 32 years 03 Months</span>
+                <span class="badge doctor-role-badge"><i class="fa-solid fa-circle"></i>{{ user.gender }}</span>
             </div>
         </div>
     </div>
     <div class="dashboard-widget">
         <nav class="dashboard-menu">
             <ul>
-                <li class="active">
+                <li class="{% active_class 'UserDash' %}">
                     <a href="{% url 'core:UserDash' %}">
                         <i class="fa-solid fa-shapes"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
-                <li>
-                    <a href="user-{% url 'core:UserDash' %}">
+                <li class="{% active_class 'UserAppointments' %}">
+                    <a href="{% url 'core:UserAppointments' %}">
                         <i class="fa-solid fa-calendar-days"></i>
                         <span>My Appointments</span>
                     </a>
                 </li>
-                <li>
-                    <a href="{% url 'core:UserAppointments' %}">
+                <li class="{% active_class 'UserProfileSettings' %}">
+                    <a href="{% url 'core:UserProfileSettings' %}">
                         <i class="fa-solid fa-user-pen"></i>
                         <span>Profile Settings</span>
                     </a>
                 </li>
-                <li>
+                <li class="{% active_class 'UserChangePassword' %}">
                     <a href="{% url 'core:UserChangePassword' %}">
                         <i class="fa-solid fa-key"></i>
                         <span>Change Password</span>
@@ -56,6 +57,7 @@
                     </a>
                 </li>
             </ul>
+            
         </nav>
     </div>
 </div>

@@ -25,7 +25,7 @@
     <meta name="twitter:image" content="assets/img/preview-banner.jpg">
     <title>Appointment {% block title%}{% endblock %}</title>
 
-    <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
 
     {% comment %} <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"> {% endcomment %}
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
@@ -676,7 +676,7 @@
 
     <link rel="stylesheet" href="{% static 'css/feather.css' %}">
 
-    <link rel="stylesheet" href="{% static 'css/bootstrap-datetimepicker.min.css' %}">
+    <link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css">
 
 
     <link rel="stylesheet" href="{% static 'css/aos.css' %}">
@@ -761,40 +761,55 @@
 
 
     <script data-cfasync="false" src="/static/js/email-decode.min.js"></script>
-    <script src="/static/js/jquery-3.7.1.min.js" type="f1efa39439cdf5a6c4a68c1e-text/javascript"></script>
+    <script src="/static/js/jquery-3.7.1.min.js" ></script>
 
-    <script src="/static/js/bootstrap.bundle.min.js" type="f1efa39439cdf5a6c4a68c1e-text/javascript"></script>
+    <script src="/static/js/bootstrap.bundle.min.js" ></script>
 
-    <script src="/static/js/feather.min.js" type="f1efa39439cdf5a6c4a68c1e-text/javascript"></script>
+    <script src="/static/js/feather.min.js" ></script>
 
-    <script src="/static/js/moment.min.js" type="f1efa39439cdf5a6c4a68c1e-text/javascript"></script>
+    <script src="/static/js/moment.min.js" ></script>
     
-    <script src="/static/js/bootstrap-datetimepicker.min.js" type="f1efa39439cdf5a6c4a68c1e-text/javascript"></script>
+    <script src="/static/js/bootstrap-datetimepicker.min.js" ></script>
 
-    <script src="/static/js/owl.carousel.min.js" type="f1efa39439cdf5a6c4a68c1e-text/javascript"></script>
+    <script src="/static/js/owl.carousel.min.js" ></script>
 
-    <script src="/static/js/slick.js" type="f1efa39439cdf5a6c4a68c1e-text/javascript"></script>
+    <script src="/static/js/slick.js" ></script>
 
-    <script src="/static/js/aos.js" type="f1efa39439cdf5a6c4a68c1e-text/javascript"></script>
+    <script src="/static/js/aos.js" ></script>
 
-    <script src="/static/js/counter.js" type="f1efa39439cdf5a6c4a68c1e-text/javascript"></script>
+    <script src="/static/js/counter.js" ></script>
 
-    <script src="/static/js/backToTop.js" type="f1efa39439cdf5a6c4a68c1e-text/javascript"></script>
+    <script src="/static/js/backToTop.js" ></script>
 
-    <script src="/static/plugins/select2/js/select2.min.js" type="c7f080be5440ea7db50d269d-text/javascript"></script>
+    <script src="/static/plugins/select2/js/select2.min.js" ></script>
 
-    <script src="/static/plugins/fancybox/jquery.fancybox.min.js" type="c7f080be5440ea7db50d269d-text/javascript"></script>
+    <script src="/static/plugins/fancybox/jquery.fancybox.min.js" ></script>
 
-    <script src="/static/js/jquery.waypoints.js" type="c7f080be5440ea7db50d269d-text/javascript"></script>
+    <script src="/static/js/jquery.waypoints.js" ></script>
     
-    <script src="/static/js/jquery.counterup.min.js" type="c7f080be5440ea7db50d269d-text/javascript"></script>
+    <script src="/static/js/jquery.counterup.min.js" ></script>
     
-    <script src="/static/js/script.js" type="f1efa39439cdf5a6c4a68c1e-text/javascript"></script>
+    <script src="/static/js/script.js" ></script>
 
     <script src="/static/js/rocket-loader.min.js"
         data-cf-settings="f1efa39439cdf5a6c4a68c1e-|49" defer></script>
     
  
+            
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var alertElements = document.querySelectorAll('.alert');
+            alertElements.forEach(function(alertElement) {
+                setTimeout(function() {
+                    var alert = new bootstrap.Alert(alertElement);
+                    alert.close();
+                }, 10000); // 5000 milliseconds = 5 seconds
+            });
+        });
+    </script>
+
+
+
 
 
 

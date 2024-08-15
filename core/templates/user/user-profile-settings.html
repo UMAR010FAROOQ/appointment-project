@@ -1,7 +1,7 @@
 {% extends "user/base.html" %}
 {% load static %} 
 
-{% block title%}| About Us {% endblock %}
+{% block title%}| Profile Settings {% endblock %}
 
 {% block contentBody %}
 
@@ -9,6 +9,130 @@
 
 
 
+
+<div class="breadcrumb-bar-two">
+    <div class="container">
+        <div class="row align-items-center inner-banner">
+            <div class="col-md-12 col-12 text-center">
+                <h2 class="breadcrumb-title">Profile Settings</h2>
+                <nav aria-label="breadcrumb" class="page-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'core:HomePage' %}">Home</a></li>
+                        <li class="breadcrumb-item" aria-current="page">Profile Settings</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-xl-3 theiaStickySidebar">
+
+                {% include "user/user-dash-slider.html" %}
+
+            </div>
+            <div class="col-lg-8 col-xl-9">
+
+                <div class="dashboard-header">
+                    <h3>Profile Settings</h3>
+                </div>
+                               
+
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} text-center" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+    <form method="post" enctype="multipart/form-data" action="">
+        {% csrf_token %}
+        <div class="setting-card">
+            <div class="change-avatar img-upload">
+                <div class="profile-img">
+                    <img id="profileImagePreview" src="{% if user.profile_image %}{{ user.profile_image.url }}{% elif user.profile_image_url %}{{ user.profile_image_url }}{% else %}{% static 'img/shapes/profile-user.png' %}{% endif %}" alt="User Image" class="avatar-img rounded-circle">
+                </div>
+                <div class="upload-img">
+                    <h5>Profile Image</h5>
+                    <div class="imgs-load d-flex align-items-center">
+                        <div class="change-photo">
+                            Upload New
+                            <input type="file" id="id_profile_image" name="profile_image" class="upload" accept="image/*" onchange="previewProfileImage(this);">
+                        </div>
+                        <a href="#" class="upload-remove" onclick="removeProfileImage(); return false;">Remove</a>
+                    </div>
+                    <p class="form-text">Your Image should be below 2 MB, Accepted format: jpg, png, svg</p>
+                </div>
+            </div>
+        </div>
+        <div class="setting-title">
+            <h5>Personal Information</h5>
+        </div>
+        <div class="setting-card">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-wrap">
+                        <label class="col-form-label">First Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="first_name" value="{{ form.first_name.value }}">
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-wrap">
+                        <label class="col-form-label">Last Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="last_name" value="{{ form.last_name.value }}">
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-wrap">
+                        <label class="col-form-label">Gender <span class="text-danger">*</span></label>
+                        <select name="gender" class="form-select form-control floating">
+                            <option value="Male" {% if form.gender.value == 'Male' %}selected{% endif %}>Male</option>
+                            <option value="Female" {% if form.gender.value == 'Female' %}selected{% endif %}>Female</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-wrap">
+                        <label class="col-form-label">Email Address <span class="text-danger">*</span></label>
+                        <input type="email" class="form-control" value="{{ form.email.value }}" disabled>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-btn text-end">
+            <a href="#" class="btn btn-gray" onclick="window.history.back();">Cancel</a>
+            <button type="submit" class="btn btn-primary prime-btn">Save Changes</button>
+        </div>
+    </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script>
+    function previewProfileImage(input) {
+        var file = input.files[0];
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('profileImagePreview').src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+    }
+
+    function removeProfileImage() {
+        document.getElementById('id_profile_image').value = "";
+        document.getElementById('profileImagePreview').src = "{% static 'img/shapes/profile-user.png' %}";
+    }
+</script>
 
 
 {% endblock contentBody %}

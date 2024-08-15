@@ -52,7 +52,7 @@ def UserLogin(request):
 
                     login(request, user)
                     logger.debug(f"User logged in: {request.user.is_authenticated}")
-                    messages.success(request, "Login successful.", extra_tags='primary')
+                    # messages.success(request, "Login successful.", extra_tags='primary')
                     return redirect('core:HomePage')
                 else:
                     messages.error(request, "Your account is inactive. Please contact support.", extra_tags='danger')
@@ -69,6 +69,7 @@ def UserRegister(request):
     if request.method == 'POST':
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
+        gender = request.POST.get('gender')
         email = request.POST.get('email')
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
@@ -85,6 +86,7 @@ def UserRegister(request):
         user = CustomUser(
             first_name=first_name,
             last_name=last_name,
+            gender=gender,
             email=email,
             password=make_password(password1),
             profile_image=profile_image
@@ -156,7 +158,7 @@ def InstructorLogin(request):
 
                     login(request, user)
                     logger.debug(f"User logged in: {request.user.is_authenticated}")
-                    messages.success(request, "Login successful.", extra_tags='primary')
+                    # messages.success(request, "Login successful.", extra_tags='primary')
                     return redirect('instructors:DashPage')
                 else:
                     messages.error(request, "Your account is inactive or not an instructor. Please contact support.", extra_tags='danger')
@@ -174,6 +176,7 @@ def InstructorRegister(request):
     if request.method == 'POST':
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
+        gender = request.POST.get('gender')
         email = request.POST.get('email')
         city = request.POST.get('city')
         service_id = request.POST.get('service')
@@ -194,6 +197,7 @@ def InstructorRegister(request):
         user = CustomUser(
             first_name=first_name,
             last_name=last_name,
+            gender=gender,
             email=email,
             password=make_password(password1),
             profile_image=profile_image,

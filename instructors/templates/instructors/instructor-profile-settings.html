@@ -44,150 +44,163 @@
                     <h3>Profile Settings</h3>
                 </div>
 
-                <div class="setting-tab">
-                    <div class="appointment-tabs">
-                        <ul class="nav">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="doctor-profile-settings.html">Basic Details</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="doctor-experience-settings.html">Experience</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="doctor-education-settings.html">Education</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="doctor-awards-settings.html">Awards</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="doctor-insurance-settings.html">Insurances</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="doctor-clinics-settings.html">Clinics</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="doctor-business-settings.html">Business Hours</a>
-                            </li>
-                        </ul>
-                    </div>
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} text-center" role="alert">
+                    {{ message }}
                 </div>
+            {% endfor %}
 
-                <div class="setting-title">
-                    <h5>Profile</h5>
+    
+            <form method="post" enctype="multipart/form-data" action="" id="personal-info-form">
+                {% csrf_token %}
+                <div class="setting-card">
+                    <div class="change-avatar img-upload">
+                        <div class="profile-img">
+                            <img id="profileImagePreview" src="{% if user_form.instance.profile_image %}{{ user_form.instance.profile_image.url }}{% else %}{% static 'img/shapes/profile-user.png' %}{% endif %}" alt="User Image" class="avatar-img rounded-circle">
+                        </div>
+                        <div class="upload-img">
+                            <h5>Profile Image</h5>
+                            <div class="imgs-load d-flex align-items-center">
+                                <div class="change-photo">
+                                    Upload New
+                                    <input type="file" id="id_profile_image" name="profile_image" class="upload" accept="image/*" onchange="previewProfileImage(this);">
+                                </div>
+                                <a href="#" class="upload-remove" onclick="removeProfileImage(); return false;">Remove</a>
+                            </div>
+                            <p class="form-text">Your Image should be below 2 MB, Accepted format: jpg, png, svg</p>
+                        </div>
+                    </div>
                 </div>
-                <form action="https://doccure.dreamstechnologies.com/html/template/doctor-profile-settings.html">
-                    <div class="setting-card">
-                        <div class="change-avatar img-upload">
-                            <div class="profile-img">
-                                <i class="fa-solid fa-file-image"></i>
+            
+                <div class="setting-title">
+                    <h5>Personal Information</h5>
+                </div>
+                
+                <div class="setting-card">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-wrap">
+                                <label class="col-form-label">First Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="first_name" value="{{ user_form.first_name.value }}">
                             </div>
-                            <div class="upload-img">
-                                <h5>Profile Image</h5>
-                                <div class="imgs-load d-flex align-items-center">
-                                    <div class="change-photo">
-                                        Upload New
-                                        <input type="file" class="upload">
-                                    </div>
-                                    <a href="#" class="upload-remove">Remove</a>
-                                </div>
-                                <p class="form-text">Your Image should Below 4 MB, Accepted format jpg,png,svg
-                                </p>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-wrap">
+                                <label class="col-form-label">Last Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="last_name" value="{{ user_form.last_name.value }}">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-wrap">
+                                <label class="col-form-label">City <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="city" value="{{ profile_form.city.value }}">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-wrap">
+                                <label class="col-form-label">Gender <span class="text-danger">*</span></label>
+                                <select name="gender" class="form-select form-control floating">
+                                    <option value="Male" {% if user_form.gender.value == 'Male' %}selected{% endif %}>Male</option>
+                                    <option value="Female" {% if user_form.gender.value == 'Female' %}selected{% endif %}>Female</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-wrap">
+                                <label class="col-form-label">Service <span class="text-danger">*</span></label>
+                                <select name="service" class="form-select form-control floating">
+                                    {% for service in profile_form.service.field.queryset %}
+                                    <option value="{{ service.id }}" {% if profile_form.service.value == service.id %}selected{% endif %}>
+                                        {{ service.name }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-wrap">
+                                <label class="col-form-label">Email Address <span class="text-danger">*</span></label>
+                                <input type="email" class="form-control" value="{{ user_form.email.value }}" disabled>
+                                <input type="hidden" name="email" value="{{ user_form.email.value }}">
                             </div>
                         </div>
                     </div>
-                    <div class="setting-title">
-                        <h5>Information</h5>
-                    </div>
-                    <div class="setting-card">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-6">
-                                <div class="form-wrap">
-                                    <label class="col-form-label">First Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="form-wrap">
-                                    <label class="col-form-label">Last Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="form-wrap">
-                                    <label class="col-form-label">Display Name <span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="form-wrap">
-                                    <label class="col-form-label">Designation <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="form-wrap">
-                                    <label class="col-form-label">Phone Numbers <span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="form-wrap">
-                                    <label class="col-form-label">Email Address <span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="form-wrap">
-                                    <label class="col-form-label">Known Languages <span
-                                            class="text-danger">*</span></label>
-                                    <div class="input-block input-block-new mb-0">
-                                        <input class="input-tags form-control" id="inputBox3" type="text"
-                                            data-role="tagsinput" placeholder="Type New" name="Label"
-                                            value="English German,Portugese">
-                                        <a href="#" class="input-text save-btn">Save</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="setting-title">
-                        <h5>Memberships</h5>
-                    </div>
-                    <div class="setting-card">
-                        <div class="add-info membership-infos">
-                            <div class="row membership-content">
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-wrap">
-                                        <label class="col-form-label">Title <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" placeholder="Add Title">
-                                    </div>
-                                </div>
-                                <div class="col-lg-9 col-md-6">
-                                    <div class="d-flex align-items-center">
-                                        <div class="form-wrap w-100">
-                                            <label class="col-form-label">About Membership</label>
-                                            <input type="text" class="form-control">
+                </div>
+                
+                <div class="modal-btn text-end">
+                    <a href="#" class="btn btn-gray" onclick="window.history.back();">Cancel</a>
+                    <button type="submit" class="btn btn-primary prime-btn" id="personal-info-submit">Save Changes</button>
+                </div>
+            </form>
+
+
+            <form method="post" enctype="multipart/form-data" action="" id="education-form" class="mt-5"> 
+                {% csrf_token %}
+                <div class="accordions education-infos" id="list-accord">
+                    <div class="user-accordion-item">
+                        <a href="#" class="accordion-wrap" data-bs-toggle="collapse" data-bs-target="#education1">Education<span></span></a>
+                        <div class="accordion-collapse collapse" id="education1" data-bs-parent="#list-accord">
+                            <div class="content-collapse">
+                                <div class="add-service-info">
+                                    <div class="add-info">
+                                        <div class="row align-items-center">
+                                            <div class="col-md-6">
+                                                <div class="form-wrap">
+                                                    <label class="col-form-label">Name of the Institution</label>
+                                                    <input type="text" class="form-control" name="institution_name" value="{{ education_form.institution_name.value }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-wrap">
+                                                    <label class="col-form-label">Course</label>
+                                                    <input type="text" class="form-control" name="course" value="{{ education_form.course.value }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-6">
+                                                <div class="form-wrap">
+                                                    <label class="col-form-label">Start Date {% if not education_form.start_date.value %}<span class="text-danger">*</span>{% endif %}</label>
+                                                    <div class="form-icon">
+                                                        <input type="date" class="form-control" name="start_date" value="{{ education_form.start_date.value }}" {% if not education_form.start_date.value %}required{% endif %}>
+                                                        <span class="icon"><i class="fa-regular fa-calendar-days"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-6">
+                                                <div class="form-wrap">
+                                                    <label class="col-form-label">End Date {% if not education_form.end_date.value %}<span class="text-danger">*</span>{% endif %}</label>
+                                                    <div class="form-icon">
+                                                        <input type="date" class="form-control" name="end_date" value="{{ education_form.end_date.value }}" {% if not education_form.end_date.value %}required{% endif %}>
+                                                        <span class="icon"><i class="fa-regular fa-calendar-days"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-6">
+                                                <div class="form-wrap">
+                                                    <label class="col-form-label">Marks <span class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control" name="marks" value="{{ education_form.marks.value }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="form-wrap">
+                                                    <label class="col-form-label">Description <span class="text-danger">*</span></label>
+                                                    <textarea class="form-control" name="description" rows="3">{{ education_form.description.value }}</textarea>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="form-wrap ms-2">
-                                            <label class="col-form-label d-block">&nbsp;</label>
-                                            <a href="javascript:void(0);" class="trash-icon trash">Delete</a>
+                                    </div>
+                                    <div class="text-end">
+                                        <div class="modal-btn text-end">
+                                            <button type="submit" class="btn btn-primary prime-btn" id="education-submit">Save Changes</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="text-end">
-                            <a href="#" class="add-membership-info more-item">Add New</a>
-                        </div>
                     </div>
-                    <div class="modal-btn text-end">
-                        <a href="#" class="btn btn-gray">Cancel</a>
-                        <button type="submit" class="btn btn-primary prime-btn">Save Changes</button>
-                    </div>
-                </form>
+                </div>
+            </form>
+            
+
 
             </div>
         </div>
@@ -197,8 +210,31 @@
 
 
 
-
-
+<script>
+    //profile pic 
+    function previewProfileImage(input) {
+        var file = input.files[0];
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('profileImagePreview').src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+    }
+    
+    function removeProfileImage() {
+        document.getElementById('id_profile_image').value = "";
+        document.getElementById('profileImagePreview').src = "{% static 'img/shapes/profile-user.png' %}";
+    }    
+    
+    <!-- JavaScript to Disable the Other Form's Submit Button -->
+    document.getElementById('personal-info-form').addEventListener('submit', function() {
+        document.getElementById('education-submit').disabled = true;
+    });
+    
+    document.getElementById('education-form').addEventListener('submit', function() {
+        document.getElementById('personal-info-submit').disabled = true;
+    });
+</script>
 
 
 
