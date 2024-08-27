@@ -3,25 +3,20 @@ from django.contrib import messages
 from .models import Contact
 from core.models import Service
 from django.http import JsonResponse
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth import update_session_auth_hash
-from django.contrib import messages
-from django.shortcuts import render, redirect
 from django.utils.timezone import now
-from datetime import timedelta
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
-from django.contrib import messages
-from django.shortcuts import render, redirect
 from django.utils import timezone
 from datetime import timedelta
 from core.models import PasswordChange
 from django.contrib.auth.forms import PasswordChangeForm
 from core.forms import UserProfileUpdateForm
 from .decorators import simple_user_required
+from authentication.models import InstructorProfile
+from instructors.models import Education
+from django.db.models import Min, Max
 
-@simple_user_required
+# @simple_user_required
 def HomePage(request):
     services = Service.objects.all()
     return render(request, 'user/index.html', {'services': services})
@@ -70,11 +65,17 @@ def ContactPage(request):
     return render(request, 'user/contactus.html', {'services': services})
 
 
-
 def HealthCare(request):
-    return render(request, 'user/healthcare.html') 
+    instructors = InstructorProfile.objects.select_related('user', 'service').prefetch_related('educations')
 
-
+    for instructor in instructors:
+        education_data = instructor.educations.aggregate(
+            min_cost=Min('minicost'),
+            max_cost=Max('maxcost')
+        )
+        instructor.min_cost = education_data['min_cost']
+        instructor.max_cost = education_data['max_cost']
+    return render(request, 'user/healthcare.html', {'instructors': instructors})
 
 def PersonalTrainer(request):
     return render(request, 'user/personaltrainer.html') 
@@ -170,6 +171,10 @@ def UserChangePassword(request):
 
 
 
+
+
+def UserAppointments(request):
+    return render(request, 'user/user-appointments.html') 
 
 
 

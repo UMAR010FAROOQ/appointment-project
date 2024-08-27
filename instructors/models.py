@@ -21,6 +21,10 @@ class Education(models.Model):
     end_date = models.DateField()
     marks = models.CharField(max_length=100)
     description = models.TextField()
+    speciality = models.CharField(max_length=255, default="")
+    minicost = models.IntegerField(blank=True, null=True)
+    maxcost = models.IntegerField(blank=True, null=True)
+
 
     def __str__(self):
         return f"{self.course} at {self.institution_name}"

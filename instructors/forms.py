@@ -34,18 +34,18 @@ class InstructorProfileUpdateForm(forms.ModelForm):
         super(InstructorProfileUpdateForm, self).__init__(*args, **kwargs)
         self.fields['service'].queryset = Service.objects.all()
 
-
-
 class EducationForm(forms.ModelForm):
     class Meta:
         model = Education
-        fields = ['institution_name', 'course', 'start_date', 'end_date', 'marks', 'description']
+        fields = ['institution_name', 'course', 'start_date', 'end_date', 'marks', 'description', 'speciality', 'minicost', 'maxcost']
 
-    def __init__(self, *args, **kwargs):
-        super(EducationForm, self).__init__(*args, **kwargs)
-        for field_name, field in self.fields.items():
-            if self.initial.get(field_name) in [None, 'None']:
-                self.initial[field_name] = ''
+    def clean_minicost(self):
+        minicost = self.cleaned_data.get('minicost')
+        return minicost if minicost else None
+
+    def clean_maxcost(self):
+        maxcost = self.cleaned_data.get('maxcost')
+        return maxcost if maxcost else None
 
     def clean_end_date(self):
         start_date = self.cleaned_data.get('start_date')
@@ -53,4 +53,3 @@ class EducationForm(forms.ModelForm):
         if start_date and end_date and start_date > end_date:
             raise forms.ValidationError("End date should be greater than start date.")
         return end_date
-

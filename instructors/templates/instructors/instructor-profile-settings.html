@@ -186,6 +186,31 @@
                                                     <textarea class="form-control" name="description" rows="3">{{ education_form.description.value }}</textarea>
                                                 </div>
                                             </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="setting-title">
+                                                <h5>More Information</h5>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-wrap">
+                                                    <label class="col-form-label">Sprcialities</label>
+                                                    <input type="text" class="form-control" name="speciality" value="{{ education_form.speciality.value }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-wrap">
+                                                    <label class="col-form-label">Minimum Cost</label>
+                                                    <input type="text" class="form-control" name="minicost" value="{{ education_form.minicost.value|default_if_none:'' }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-wrap">
+                                                    <label class="col-form-label">Maximum Cost</label>
+                                                    <input type="text" class="form-control" name="maxcost" value="{{ education_form.maxcost.value|default_if_none:'' }}">
+                                                </div>
+                                            </div>
+                                            
                                         </div>
                                     </div>
                                     <div class="text-end">

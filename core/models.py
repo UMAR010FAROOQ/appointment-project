@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.conf import settings
 
 class Service(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=19)
     heading = models.CharField(max_length=200)
     content = models.TextField(max_length=800)
     image = models.ImageField(upload_to='service_images/')
