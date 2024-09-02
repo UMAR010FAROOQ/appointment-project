@@ -1,0 +1,307 @@
+{% extends "user/base.html" %}
+{% load static %} 
+
+{% block title%}| Instructor Profile {% endblock %}
+
+{% block contentBody %}
+
+
+
+
+<div class="breadcrumb-bar-two">
+    <div class="container">
+        <div class="row align-items-center inner-banner">
+            <div class="col-md-12 col-12 text-center">
+                <h2 class="breadcrumb-title">Profile</h2>
+                <nav aria-label="breadcrumb" class="page-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item" aria-current="page">Profile</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="content">
+    <div class="container">
+
+        <div class="card">
+            <div class="card-body">
+                <div class="doctor-widget">
+                    <div class="doc-info-left">
+                        <div class="doctor-img">
+                            {% if instructor.user.profile_image %}
+                                    <img src="{{ instructor.user.profile_image.url }}" alt="User Image" class="img-fluid">
+                                {% elif instructor.user.profile_image_url %}
+                                    <img src="{{ instructor.user.profile_image_url }}" alt="User Image" class="img-fluid">
+                                {% else %}
+                                    <img src="{% static 'img/shapes/profile-user.png' %}" alt="User Image" class="img-fluid">
+                                {% endif %}
+                        </div>
+                        <div class="doc-info-cont">
+                            <h4 class="doc-name">Dr. {{ instructor.user.first_name }} {{ instructor.user.last_name }}</h4>
+                            <p class="doc-speciality">{% if instructor.educations.exists %}{{ instructor.educations.first.speciality }}{% else %}No speciality available{% endif %}</p>
+                            <p class="doc-department">{{ user.instructorprofile.service }}</p>
+                            <div class="clinic-details">
+                                <p class="doc-location"><i class="fas fa-map-marker-alt"></i> {{ instructor.city }} <a
+                                        href="javascript:void(0);"></a></p>
+                                <ul class="clinic-gallery">
+                                    <li>
+                                        <a href="assets/img/features/feature-01.jpg" data-fancybox="gallery">
+                                            <img src="assets/img/features/feature-01.jpg" alt="Feature">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="assets/img/features/feature-02.jpg" data-fancybox="gallery">
+                                            <img src="assets/img/features/feature-02.jpg" alt="Feature Image">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="assets/img/features/feature-03.jpg" data-fancybox="gallery">
+                                            <img src="assets/img/features/feature-03.jpg" alt="Feature">
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="assets/img/features/feature-04.jpg" data-fancybox="gallery">
+                                            <img src="assets/img/features/feature-04.jpg" alt="Feature">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- <div class="clinic-services">
+                                <span>Dental Fillings</span>
+                                <span>Teeth Whitneing</span>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="doc-info-right">
+                        <div class="clini-infos">
+                            <ul>
+                                <li><i class="far fa-thumbs-up"></i> 99%</li>
+                                <li><i class="fas fa-map-marker-alt"></i> {{ instructor.city }}</li>
+                                    {% if instructor.educations.exists %}
+                                        <li><i class="far fa-money-bill-alt"></i> ${{ instructor.educations.first.perhpur }} per hour</li>
+                                    {% else %}
+                                        <li><i class="far fa-money-bill-alt"></i> No per hour rate available</li>
+                                    {% endif %}
+                            </ul>
+                        </div>
+                        <div class="clinic-booking">
+                            <a class="apt-btn" href="booking.html">Book Appointment</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-body pt-0">
+
+                <nav class="user-tabs mb-4">
+                    <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#doc_overview" data-bs-toggle="tab">Overview</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#doc_business_hours" data-bs-toggle="tab">Business
+                                Hours</a>
+                        </li>
+                    </ul>
+                </nav>
+
+
+                <div class="tab-content pt-0">
+
+                    <div role="tabpanel" id="doc_overview" class="tab-pane fade show active">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-9">
+
+                                <div class="widget about-widget">
+                                    <h4 class="widget-title">About Me</h4>
+                                    {% if instructor.educations.exists %}
+                                        <p>{{ instructor.educations.first.aboutme }}</p>
+                                    {% else %}
+                                        <p>No information available</p>
+                                    {% endif %}
+                                </div>
+
+
+                                <div class="widget education-widget">
+                                    <h4 class="widget-title">Education</h4>
+                                    <div class="experience-box">
+                                        <ul class="experience-list">
+                                            <li>
+                                                <div class="experience-user">
+                                                    <div class="before-circle"></div>
+                                                </div>
+                                                <div class="experience-content">
+                                                    <div class="timeline-content">
+                                                        <a href="#/" class="name">institution_name here</a>
+                                                        <div>course name here</div>
+                                                        <span class="time">start date - end date</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+
+                                <div class="widget experience-widget">
+                                    <h4 class="widget-title">Work & Experience</h4>
+                                    <div class="experience-box">
+                                        <ul class="experience-list">
+                                            <li>
+                                                <div class="experience-user">
+                                                    <div class="before-circle"></div>
+                                                </div>
+                                                <div class="experience-content">
+                                                    <div class="timeline-content">
+                                                        <a href="#/" class="name">Glowing Smiles Family Dental
+                                                            Clinic</a>
+                                                        <span class="time">2010 - Present (5 years)</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="experience-user">
+                                                    <div class="before-circle"></div>
+                                                </div>
+                                                <div class="experience-content">
+                                                    <div class="timeline-content">
+                                                        <a href="#/" class="name">Comfort Care Dental Clinic</a>
+                                                        <span class="time">2007 - 2010 (3 years)</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="experience-user">
+                                                    <div class="before-circle"></div>
+                                                </div>
+                                                <div class="experience-content">
+                                                    <div class="timeline-content">
+                                                        <a href="#/" class="name">Dream Smile Dental
+                                                            Practice</a>
+                                                        <span class="time">2005 - 2007 (2 years)</span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+
+                                <div class="service-list">
+                                    <h4>Services</h4>
+                                    <ul class="clearfix">
+                                        <li>Tooth cleaning </li>
+                                        <li>Root Canal Therapy</li>
+                                        <li>Implants</li>
+                                        <li>Composite Bonding</li>
+                                        <li>Fissure Sealants</li>
+                                        <li>Surgical Extractions</li>
+                                    </ul>
+                                </div>
+
+
+                                <div class="service-list">
+                                    <h4>Specializations</h4>
+                                    <ul class="clearfix">
+                                        <li>Children Care</li>
+                                        <li>Dental Care</li>
+                                        <li>Oral and Maxillofacial Surgery </li>
+                                        <li>Orthodontist</li>
+                                        <li>Periodontist</li>
+                                        <li>Prosthodontics</li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div role="tabpanel" id="doc_business_hours" class="tab-pane fade">
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+
+                                <div class="widget business-widget">
+                                    <div class="widget-content">
+                                        <div class="listing-hours">
+                                            <div class="listing-day current">
+                                                <div class="day">Today <span>5 Nov 2023</span></div>
+                                                <div class="time-items">
+                                                    <span class="open-status"><span class="badge bg-success-light">Open
+                                                            Now</span></span>
+                                                    <span class="time">07:00 AM - 09:00 PM</span>
+                                                </div>
+                                            </div>
+                                            <div class="listing-day">
+                                                <div class="day">Monday</div>
+                                                <div class="time-items">
+                                                    <span class="time">07:00 AM - 09:00 PM</span>
+                                                </div>
+                                            </div>
+                                            <div class="listing-day">
+                                                <div class="day">Tuesday</div>
+                                                <div class="time-items">
+                                                    <span class="time">07:00 AM - 09:00 PM</span>
+                                                </div>
+                                            </div>
+                                            <div class="listing-day">
+                                                <div class="day">Wednesday</div>
+                                                <div class="time-items">
+                                                    <span class="time">07:00 AM - 09:00 PM</span>
+                                                </div>
+                                            </div>
+                                            <div class="listing-day">
+                                                <div class="day">Thursday</div>
+                                                <div class="time-items">
+                                                    <span class="time">07:00 AM - 09:00 PM</span>
+                                                </div>
+                                            </div>
+                                            <div class="listing-day">
+                                                <div class="day">Friday</div>
+                                                <div class="time-items">
+                                                    <span class="time">07:00 AM - 09:00 PM</span>
+                                                </div>
+                                            </div>
+                                            <div class="listing-day">
+                                                <div class="day">Saturday</div>
+                                                <div class="time-items">
+                                                    <span class="time">07:00 AM - 09:00 PM</span>
+                                                </div>
+                                            </div>
+                                            <div class="listing-day closed">
+                                                <div class="day">Sunday</div>
+                                                <div class="time-items">
+                                                    <span class="time"><span
+                                                            class="badge bg-danger-light">Closed</span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+{% endblock contentBody %}

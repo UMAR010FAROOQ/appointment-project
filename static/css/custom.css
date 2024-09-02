@@ -51685,6 +51685,7 @@ ul li {
   position: relative;
   color: #0F172A;
   font-size: 16px;
+  padding-right: 50px;
 }
 .user-accordion-item .accordion-wrap span {
   color: #E11D48;

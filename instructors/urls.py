@@ -12,6 +12,8 @@ urlpatterns = [
     path("available-timings/", views.AvailableTimings, name="AvailableTimings"),
     path("instructor-profile-settings/", views.InstructorProfileSettings, name="InstructorProfileSettings"),
     path("instructor-change-password/", views.InstructorChangePassword, name="InstructorChangePassword"),
+    path("instructor-profile-info/", views.InstructorProfileInfo, name="InstructorProfileInfo"),
+    path('manage-profile/', views.manage_profile, name='manage_profile')
 
 
 ]

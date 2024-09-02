@@ -37,7 +37,7 @@ class InstructorProfileUpdateForm(forms.ModelForm):
 class EducationForm(forms.ModelForm):
     class Meta:
         model = Education
-        fields = ['institution_name', 'course', 'start_date', 'end_date', 'marks', 'description', 'speciality', 'minicost', 'maxcost']
+        fields = ['speciality', 'minicost', 'maxcost', 'perhpur', 'aboutme']
 
     def clean_minicost(self):
         minicost = self.cleaned_data.get('minicost')
@@ -47,9 +47,9 @@ class EducationForm(forms.ModelForm):
         maxcost = self.cleaned_data.get('maxcost')
         return maxcost if maxcost else None
 
-    def clean_end_date(self):
-        start_date = self.cleaned_data.get('start_date')
-        end_date = self.cleaned_data.get('end_date')
-        if start_date and end_date and start_date > end_date:
-            raise forms.ValidationError("End date should be greater than start date.")
-        return end_date
+    # def clean_end_date(self):
+    #     start_date = self.cleaned_data.get('start_date')
+    #     end_date = self.cleaned_data.get('end_date')
+    #     if start_date and end_date and start_date > end_date:
+    #         raise forms.ValidationError("End date should be greater than start date.")
+    #     return end_date

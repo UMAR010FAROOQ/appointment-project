@@ -1,0 +1,194 @@
+{% extends "instructors/base.html" %}
+{% load static %}
+
+{% block title %}| Profile Information Edit {% endblock %}
+
+{% block contentBody %}
+
+<div class="breadcrumb-bar-two">
+    <div class="container">
+        <div class="row align-items-center inner-banner">
+            <div class="col-md-12 col-12 text-center">
+                <h2 class="breadcrumb-title">Profile Information Edit</h2>
+                <nav aria-label="breadcrumb" class="page-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item" aria-current="page">Profile Information</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content doctor-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-xl-3 theiaStickySidebar">
+                {% include "instructors/dash-slider.html" %}
+            </div>
+            <div class="col-lg-8 col-xl-9">
+                <div class="dashboard-header">
+                    <h3>Profile Information</h3>
+                </div>
+
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} text-center" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+
+                <div class="setting-title">
+                    <h5>Manage Profile Information</h5>
+                </div>
+                <div class="accordions mt-5" id="list-accord">
+
+                    <!-- Loop through each profile information entry -->
+                    {% for entry in instructor_profile_info %}
+                        <div class="user-accordion-item">
+                            <a href="#" class="accordion-wrap collapsed" data-bs-toggle="collapse" data-bs-target="#entry-{{ entry.id }}">
+                                {% if entry.institution_name %}
+                                    <b>Education: </b> {{ entry.institution_name }}
+                                {% elif entry.work_history_institution %}
+                                    <b>Work History: </b> {{ entry.work_history_institution }}
+                                {% elif entry.services %}
+                                    <b>Services: </b> {{ entry.services }}
+                                {% elif entry.specializations %}
+                                    <b>Specializations: </b> {{ entry.specializations }}
+                                {% elif entry.workspace_image %}
+                                    <b>workspace Image: </b> 
+                                {% endif %}
+                            </a>
+                            <div class="accordion-collapse collapse" id="entry-{{ entry.id }}" data-bs-parent="#list-accord">
+                                <div class="content-collapse">
+                                    <form method="post" enctype="multipart/form-data" action="{% url 'instructors:manage_profile' %}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="entry_id" value="{{ entry.id }}">
+
+                                        <!-- Display Fields (Make inputs editable if needed) -->
+                                        <div class="row">
+                                            {% if entry.institution_name %}
+                                                <div class="col-md-6">
+                                                    <label>Institution Name:</label>
+                                                    <input type="text" class="form-control" name="institution_name" value="{{ entry.institution_name }}">
+                                                </div>
+                                            {% endif %}
+                                            {% if entry.course %}
+                                                <div class="col-md-6">
+                                                    <label>Course:</label>
+                                                    <input type="text" class="form-control" name="course" value="{{ entry.course }}">
+                                                </div>
+                                            {% endif %}
+                                            {% if entry.start_date %}
+                                                <div class="col-md-6">
+                                                    <label>Start Date:</label>
+                                                    <input type="date" class="form-control" name="start_date" value="{{ entry.start_date }}">
+                                                </div>
+                                            {% endif %}
+                                            {% if entry.end_date %}
+                                                <div class="col-md-6">
+                                                    <label>End Date:</label>
+                                                    <input type="date" class="form-control" name="end_date" value="{{ entry.end_date }}">
+                                                </div>
+                                            {% endif %}
+                                            {% if entry.work_history_institution %}
+                                                <div class="col-md-6">
+                                                    <label>Work History Institution:</label>
+                                                    <input type="text" class="form-control" name="work_history_institution" value="{{ entry.work_history_institution }}">
+                                                </div>
+                                            {% endif %}
+                                            {% if entry.work_start_date %}
+                                                <div class="col-md-6">
+                                                    <label>Work Start Date:</label>
+                                                    <input type="text" class="form-control" name="work_start_date" value="{{ entry.work_start_date }}">
+                                                </div>
+                                            {% endif %}
+                                            {% if entry.work_end_date %}
+                                                <div class="col-md-6">
+                                                    <label>Work End Date:</label>
+                                                    <input type="text" class="form-control" name="work_end_date" value="{{ entry.work_end_date }}">
+                                                </div>
+                                            {% endif %}
+                                            {% if entry.services %}
+                                                <div class="col-md-6">
+                                                    <label>Services:</label>
+                                                    <input type="text" class="form-control" name="services" value="{{ entry.services }}">
+                                                </div>
+                                            {% endif %}
+                                            {% if entry.specializations %}
+                                                <div class="col-md-6">
+                                                    <label>Specializations:</label>
+                                                    <input type="text" class="form-control" name="specializations" value="{{ entry.specializations }}">
+                                                </div>
+                                            {% endif %}
+                                            {% if entry.workspace_image %}
+                                                <div class="col-md-6">
+                                                    <label>Workspace Image:</label>
+                                                    <img src="{{ entry.workspace_image.url }}" alt="Workspace Image" class="img-thumbnail" style="max-width: 100px;float: right;">
+                                                    <input type="file" class="form-control" name="workspace_image" accept="image/*" value="{{ entry.workspace_image }}">
+                                                </div>
+                                            {% endif %}
+                                        </div>
+
+                                        <!-- Action Buttons -->
+                                        <div class="mt-3">
+                                            <button type="submit" class="btn btn-danger" name="action" value="delete">
+                                                <i class="fa-solid fa-trash-can"></i> Delete
+                                            </button>
+                                            <button type="submit" class="btn btn-success" name="action" value="update">
+                                                <i class="fa-solid fa-pen-to-square"></i> Update
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Confirm before deletion
+        const deleteButtons = document.querySelectorAll('button[name="action"][value="delete"]');
+
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function (event) {
+                if (!confirm('Are you sure you want to delete this entry?')) {
+                    event.preventDefault();
+                }
+            });
+        });
+
+        // Expand/Collapse accordion items
+        const accordionLinks = document.querySelectorAll('.accordion-wrap');
+
+        accordionLinks.forEach(link => {
+            link.addEventListener('click', function () {
+                const target = this.getAttribute('data-bs-target');
+                const content = document.querySelector(target);
+
+                if (content.classList.contains('show')) {
+                    content.classList.remove('show');
+                } else {
+                    document.querySelectorAll('.accordion-collapse.show').forEach(openContent => {
+                        openContent.classList.remove('show');
+                    });
+                    content.classList.add('show');
+                }
+            });
+        });
+    });
+</script>
+
+
+
+{% endblock %}

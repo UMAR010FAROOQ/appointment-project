@@ -12,6 +12,7 @@ urlpatterns = [
     path("healthcare/", views.HealthCare, name="HealthCare"),
     path("personaltrainer/", views.PersonalTrainer, name="PersonalTrainer"),
     path("beauty/", views.Beauty, name="Beauty"),
+    path('instructor-profile/<int:pk>/', views.InstructorProfileDetail, name='InstructorProfileDetail'),
 
     path("user-dash/", views.UserDash, name="UserDash"),
     path("user-appointments/", views.UserAppointments, name="UserAppointments"),

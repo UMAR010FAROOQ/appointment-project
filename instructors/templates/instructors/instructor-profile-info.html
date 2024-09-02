@@ -1,0 +1,237 @@
+{% extends "instructors/base.html" %}
+{% load static %} 
+
+{% block title%}| Profile Information {% endblock %}
+
+{% block contentBody %}
+
+
+
+
+
+
+
+
+
+<div class="breadcrumb-bar-two">
+    <div class="container">
+        <div class="row align-items-center inner-banner">
+            <div class="col-md-12 col-12 text-center">
+                <h2 class="breadcrumb-title">Profile Information</h2>
+                <nav aria-label="breadcrumb" class="page-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item" aria-current="page">Profile Information</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="content doctor-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-xl-3 theiaStickySidebar">
+                {% include "instructors/dash-slider.html" %}
+            </div>
+            <div class="col-lg-8 col-xl-9">
+                <div class="dashboard-header">
+                    <h3>Profile Information</h3>
+                    <a href="{% url 'instructors:manage_profile' %}">Edit</a>
+                </div>
+
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} text-center" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+
+                <!-- Education Form -->
+                <form method="post" enctype="multipart/form-data" action="" id="personal-info-form">
+                    {% csrf_token %}
+                    <div class="setting-title">
+                        <h5>Education</h5>
+                    </div>
+                    <div class="setting-card">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-wrap">
+                                    <label class="col-form-label">Name of the Institution</label>
+                                    <input type="text" class="form-control" name="institution_name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-wrap">
+                                    <label class="col-form-label">Course</label>
+                                    <input type="text" class="form-control" name="course">
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="form-wrap">
+                                    <label class="col-form-label">Start Date <span class="text-danger">*</span></label>
+                                    <div class="form-icon">
+                                        <input type="date" class="form-control" name="start_date" required>
+                                        <span class="icon"><i class="fa-regular fa-calendar-days"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="form-wrap">
+                                    <label class="col-form-label">End Date <span class="text-danger">*</span></label>
+                                    <div class="form-icon">
+                                        <input type="date" class="form-control" name="end_date" required>
+                                        <span class="icon"><i class="fa-regular fa-calendar-days"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="form-wrap">
+                                    <label class="col-form-label">Marks <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="marks">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-btn text-end">
+                        <a href="#" class="btn btn-gray" onclick="window.history.back();">Cancel</a>
+                        <button type="submit" class="btn btn-primary prime-btn" name="personal-info-submit">Save Changes</button>
+                    </div>
+                </form>
+
+                <!-- Work History Form -->
+                <form method="post" enctype="multipart/form-data" action="" id="work-history-form">
+                    {% csrf_token %}
+                    <div class="setting-title">
+                        <h5>Work History</h5>
+                    </div>
+                    <div class="setting-card">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-wrap">
+                                    <label class="col-form-label">Name of the Institution</label>
+                                    <input type="text" class="form-control" name="work_history_institution">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-wrap">
+                                    <label class="col-form-label">Start Date <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" placeholder="dd-mm-yyyy" name="work_start_date">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-wrap">
+                                    <label class="col-form-label">End Date <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" placeholder="dd-mm-yyyy / present" name="work_end_date">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-btn text-end">
+                        <a href="#" class="btn btn-gray" onclick="window.history.back();">Cancel</a>
+                        <button type="submit" class="btn btn-primary prime-btn" name="work-history-submit">Save Changes</button>
+                    </div>
+                </form>
+
+                <!-- Instructor Services Form -->
+                <form method="post" enctype="multipart/form-data" action="" id="instructor-services-form">
+                    {% csrf_token %}
+                    <div class="setting-title">
+                        <h5>Instructor Services</h5>
+                    </div>
+                    <div class="setting-card">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-wrap">
+                                    <label class="col-form-label">Instructor Services</label>
+                                    <input type="text" class="form-control" name="instructor_services">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-btn text-end">
+                        <a href="#" class="btn btn-gray" onclick="window.history.back();">Cancel</a>
+                        <button type="submit" class="btn btn-primary prime-btn" name="instructor-services-submit">Save Changes</button>
+                    </div>
+                </form>
+
+                <!-- Instructor Specializations Form -->
+                <form method="post" enctype="multipart/form-data" action="" id="instructor-specializations-form">
+                    {% csrf_token %}
+                    <div class="setting-title">
+                        <h5>Instructor Specializations</h5>
+                    </div>
+                    <div class="setting-card">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-wrap">
+                                    <label class="col-form-label">Instructor Specializations</label>
+                                    <input type="text" class="form-control" name="instructor_specializations">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-btn text-end">
+                        <a href="#" class="btn btn-gray" onclick="window.history.back();">Cancel</a>
+                        <button type="submit" class="btn btn-primary prime-btn" name="instructor-specializations-submit">Save Changes</button>
+                    </div>
+                </form>
+
+                <!-- Workspace Image Form -->
+                <form method="post" enctype="multipart/form-data" action="" id="workspace-image-form">
+                    {% csrf_token %}
+                    <div class="setting-title">
+                        <h5>Workspace Image</h5>
+                    </div>
+                    <div class="setting-card">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-wrap">
+                                    <label class="col-form-label">Upload Workspace Image</label>
+                                    <input type="file" class="form-control" name="workspace_image" accept="image/*" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-btn text-end">
+                        <a href="#" class="btn btn-gray" onclick="window.history.back();">Cancel</a>
+                        <button type="submit" class="btn btn-primary prime-btn" name="workspace-img-submit">Save Changes</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    
+    // JavaScript to Disable the Other Form's Submit Button
+    document.getElementById('personal-info-form').addEventListener('submit', function() {
+        document.getElementById('education-submit').disabled = true;
+    });
+    
+    document.getElementById('work-history-form').addEventListener('submit', function() {
+        document.getElementById('work-history-submit').disabled = true;
+    });
+    
+    document.getElementById('instructor-services-form').addEventListener('submit', function() {
+        document.getElementById('instructor-services-submit').disabled = true;
+    });
+    
+    document.getElementById('instructor-specializations-form').addEventListener('submit', function() {
+        document.getElementById('instructor-specializations-submit').disabled = true;
+    });
+    
+    document.getElementById('workspace-img-form').addEventListener('submit', function() {
+        document.getElementById('workspace-img-submit').disabled = true;
+    });
+</script>
+
+
+
+
+{% endblock contentBody %}

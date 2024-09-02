@@ -15,6 +15,9 @@ from .decorators import simple_user_required
 from authentication.models import InstructorProfile
 from instructors.models import Education
 from django.db.models import Min, Max
+from django.shortcuts import render, get_object_or_404
+
+
 
 # @simple_user_required
 def HomePage(request):
@@ -172,11 +175,9 @@ def UserChangePassword(request):
 
 
 
-
-def UserAppointments(request):
-    return render(request, 'user/user-appointments.html') 
-
-
+def InstructorProfileDetail(request, pk):
+    instructor = get_object_or_404(InstructorProfile, pk=pk)
+    return render(request, 'user/instructor-profile.html', {'instructor': instructor})
 
 
 

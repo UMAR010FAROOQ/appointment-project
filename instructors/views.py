@@ -4,14 +4,19 @@ from datetime import timedelta
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from datetime import timedelta
-from instructors.models import InstructorPasswordChange, Education
+from instructors.models import InstructorPasswordChange, Education, InstructorProfileInformation
 from django.contrib.auth.forms import PasswordChangeForm
 from authentication.models import InstructorProfile, CustomUser
 from .forms import InstructorProfileUpdateForm, CustomUserUpdateForm, EducationForm
 from core.models import Service
+from django.db.models import Q
+from django.http import JsonResponse
+from django.core.exceptions import ValidationError
+from django.db import IntegrityError
+
 
 @instructor_required
 def DashPage(request):
@@ -77,19 +82,19 @@ def InstructorProfileSettings(request):
                             messages.error(request, f"{field.capitalize()}: {error}", extra_tags='danger')
                 messages.error(request, 'Please correct the errors in your personal information.', extra_tags='danger')
 
-        elif 'institution_name' in request.POST:  # Education form submission
+        elif 'speciality' in request.POST:  # Education form submission
             education_form = EducationForm(request.POST, instance=education)
             if education_form.is_valid():
                 education = education_form.save(commit=False)
                 education.instructor = instructor
                 education.save()
-                messages.success(request, 'Your education details have been updated successfully!', extra_tags='success')
+                messages.success(request, 'Your information details have been updated successfully!', extra_tags='success')
             else:
                 for field, errors in education_form.errors.items():
                     for error in errors:
                         print(f"Error in {field}: {error}")
                         messages.error(request, f"{field.capitalize()}: {error}", extra_tags='danger')
-                messages.error(request, 'Please correct the errors in your education details.', extra_tags='danger')
+                messages.error(request, 'Please correct the errors in your information details.', extra_tags='danger')
 
     return render(request, 'instructors/instructor-profile-settings.html', {
         'user_form': user_form,
@@ -98,6 +103,208 @@ def InstructorProfileSettings(request):
         'user': user,
         'services': Service.objects.all(),
     })
+
+
+
+
+
+
+# Helper function to handle errors for all forms
+def handle_form_errors(form):
+    for field, errors in form.errors.items():
+        for error in errors:
+            print(f"Error in {field}: {error}")
+            messages.error(form.request, f"{field.capitalize()}: {error}", extra_tags='danger')
+    messages.error(form.request, 'Please correct the errors in your information details.', extra_tags='danger')
+
+
+
+def InstructorProfileInfo(request):
+    instructor = get_object_or_404(InstructorProfile, user=request.user)
+
+    if request.method == 'POST':
+        if 'personal-info-submit' in request.POST:
+            # Check for existing record based on unique fields
+            institution_name = request.POST.get('institution_name')
+            course = request.POST.get('course')
+            start_date = request.POST.get('start_date')
+            end_date = request.POST.get('end_date')
+            marks = request.POST.get('marks')
+
+            # Create a new record; do not update existing ones
+            try:
+                existing_education = InstructorProfileInformation.objects.filter(
+                    instructor=instructor,
+                    institution_name=institution_name,
+                    course=course,
+                    start_date=start_date,
+                    end_date=end_date
+                )
+                if existing_education.exists():
+                    messages.warning(request, 'Similar education information already exists.')
+                else:
+                    InstructorProfileInformation.objects.create(
+                        instructor=instructor,
+                        institution_name=institution_name,
+                        course=course,
+                        start_date=start_date,
+                        end_date=end_date,
+                        marks=marks
+                    )
+                    messages.success(request, 'Education information saved successfully.')
+            except Exception as e:
+                messages.error(request, f'Error saving education information: {str(e)}')
+
+        elif 'work-history-submit' in request.POST:
+            work_history_institution = request.POST.get('work_history_institution')
+            work_start_date = request.POST.get('work_start_date')
+            work_end_date = request.POST.get('work_end_date')
+
+            try:
+                existing_work_history = InstructorProfileInformation.objects.filter(
+                    instructor=instructor,
+                    work_history_institution=work_history_institution,
+                    work_start_date=work_start_date,
+                    work_end_date=work_end_date
+                )
+                if existing_work_history.exists():
+                    messages.warning(request, 'Similar work history information already exists.')
+                else:
+                    InstructorProfileInformation.objects.create(
+                        instructor=instructor,
+                        work_history_institution=work_history_institution,
+                        work_start_date=work_start_date,
+                        work_end_date=work_end_date
+                    )
+                    messages.success(request, 'Work history information saved successfully.')
+            except Exception as e:
+                messages.error(request, f'Error saving work history information: {str(e)}')
+
+        elif 'instructor-services-submit' in request.POST:
+            services = request.POST.get('instructor_services')
+
+            try:
+                existing_services = InstructorProfileInformation.objects.filter(
+                    instructor=instructor,
+                    services=services
+                )
+                if existing_services.exists():
+                    messages.warning(request, 'Similar services information already exists.')
+                else:
+                    InstructorProfileInformation.objects.create(
+                        instructor=instructor,
+                        services=services
+                    )
+                    messages.success(request, 'Services information saved successfully.')
+            except Exception as e:
+                messages.error(request, f'Error saving services information: {str(e)}')
+
+        elif 'instructor-specializations-submit' in request.POST:
+            specializations = request.POST.get('instructor_specializations')
+
+            try:
+                existing_specializations = InstructorProfileInformation.objects.filter(
+                    instructor=instructor,
+                    specializations=specializations
+                )
+                if existing_specializations.exists():
+                    messages.warning(request, 'Similar specializations information already exists.')
+                else:
+                    InstructorProfileInformation.objects.create(
+                        instructor=instructor,
+                        specializations=specializations
+                    )
+                    messages.success(request, 'Specializations information saved successfully.')
+            except Exception as e:
+                messages.error(request, f'Error saving specializations information: {str(e)}')
+
+        elif 'workspace-img-submit' in request.POST and request.FILES:
+            workspace_image = request.FILES.get('workspace_image')
+
+            try:
+                existing_image = InstructorProfileInformation.objects.filter(
+                    instructor=instructor,
+                    workspace_image=workspace_image
+                )
+                if existing_image.exists():
+                    messages.warning(request, 'Similar workspace image already exists.')
+                else:
+                    InstructorProfileInformation.objects.create(
+                        instructor=instructor,
+                        workspace_image=workspace_image
+                    )
+                    messages.success(request, 'Workspace image saved successfully.')
+            except Exception as e:
+                messages.error(request, f'Error saving workspace image: {str(e)}')
+
+        return redirect('instructors:InstructorProfileInfo')
+
+    context = {
+        'instructor': instructor,
+    }
+
+    return render(request, 'instructors/instructor-profile-info.html', context)
+
+
+
+
+
+def manage_profile(request):
+    # Fetch the currently logged-in instructor's profile
+    instructor_profile = get_object_or_404(InstructorProfile, user=request.user)
+
+    # Retrieve all associated information records for the instructor
+    instructor_profile_info = InstructorProfileInformation.objects.filter(instructor=instructor_profile)
+
+    if request.method == 'POST':
+        # Handle update and delete operations
+        action = request.POST.get('action')
+        entry_id = request.POST.get('entry_id')
+
+        if action and entry_id:
+            entry = get_object_or_404(InstructorProfileInformation, id=entry_id)
+
+            if action == 'delete':
+                entry.delete()
+                messages.success(request, 'Profile entry deleted successfully.')
+                return redirect('instructors:manage_profile')
+
+            elif action == 'update':
+                # Handle empty or incorrect date fields
+                start_date = request.POST.get('start_date', entry.start_date)
+                end_date = request.POST.get('end_date', entry.end_date)
+                work_start_date = request.POST.get('work_start_date', entry.work_start_date)
+                work_end_date = request.POST.get('work_end_date', entry.work_end_date)
+
+                # Update the entry fields
+                entry.institution_name = request.POST.get('institution_name', entry.institution_name)
+                entry.course = request.POST.get('course', entry.course)
+                entry.start_date = start_date if start_date else None
+                entry.end_date = end_date if end_date else None
+                entry.work_history_institution = request.POST.get('work_history_institution', entry.work_history_institution)
+                entry.work_start_date = work_start_date if work_start_date else None
+                entry.work_end_date = work_end_date if work_end_date else None
+                entry.services = request.POST.get('services', entry.services)
+                entry.specializations = request.POST.get('specializations', entry.specializations)
+
+                if 'workspace_image' in request.FILES:
+                    entry.workspace_image = request.FILES['workspace_image']
+
+                try:
+                    entry.save()
+                    messages.success(request, 'Profile entry updated successfully.')
+                except ValidationError as e:
+                    messages.error(request, f"Error updating profile: {e}")
+
+                return redirect('instructors:manage_profile')
+
+    context = {
+        'instructor_profile': instructor_profile,
+        'instructor_profile_info': instructor_profile_info,
+    }
+
+    return render(request, 'instructors/profile-info-manage.html', context)
+
 
 
 
