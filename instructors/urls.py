@@ -9,7 +9,10 @@ urlpatterns = [
     path("dash/", views.DashPage, name="DashPage"),
     path("appointment-request/", views.AppointmentRequest, name="AppointmentRequest"),
     path("instructor-appointments/", views.InstructorAppointments, name="InstructorAppointments"),
-    path("available-timings/", views.AvailableTimings, name="AvailableTimings"),
+    
+    path('available-timings/', views.available_timings, name='available_timings'),
+    path('manage-time-slot/', views.manage_time_slot, name='manage_time_slot'),
+
     path("instructor-profile-settings/", views.InstructorProfileSettings, name="InstructorProfileSettings"),
     path("instructor-change-password/", views.InstructorChangePassword, name="InstructorChangePassword"),
     path("instructor-profile-info/", views.InstructorProfileInfo, name="InstructorProfileInfo"),

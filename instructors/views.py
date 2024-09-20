@@ -7,15 +7,19 @@ from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from datetime import timedelta
-from instructors.models import InstructorPasswordChange, Education, InstructorProfileInformation
+from instructors.models import InstructorPasswordChange, Education, InstructorProfileInformation, AvailableTimeSlot
 from django.contrib.auth.forms import PasswordChangeForm
 from authentication.models import InstructorProfile, CustomUser
-from .forms import InstructorProfileUpdateForm, CustomUserUpdateForm, EducationForm
+from .forms import InstructorProfileUpdateForm, CustomUserUpdateForm, EducationForm, AvailableTimeSlotForm
 from core.models import Service
 from django.db.models import Q
 from django.http import JsonResponse
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
+from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
+import traceback
+
 
 
 @instructor_required
@@ -33,8 +37,69 @@ def InstructorAppointments(request):
 
 
 
-def AvailableTimings(request):
-    return render(request, 'instructors/available-timings.html') 
+
+@login_required
+def available_timings(request):
+    # Fetch the instructor profile related to the logged-in user
+    instructor_profile = get_object_or_404(InstructorProfile, user=request.user)
+
+    # Initialize the form and fetch available slots for this instructor profile
+    form = AvailableTimeSlotForm()
+    available_slots = AvailableTimeSlot.objects.filter(instructor=instructor_profile)
+
+    # Pass all necessary context variables
+    context = {
+        'form': form,
+        'available_slots': available_slots,
+        'instructor': instructor_profile,
+    }
+
+    return render(request, 'instructors/available-timings.html', context)
+
+
+
+@csrf_exempt
+@login_required
+def manage_time_slot(request):
+    instructor_profile = get_object_or_404(InstructorProfile, user=request.user)
+
+    if request.method == 'POST':
+        # Extract data manually from POST request
+        form = AvailableTimeSlotForm(request.POST)
+
+        if form.is_valid():
+            # Create the time slot but don't save to DB yet
+            time_slot = form.save(commit=False)
+            time_slot.instructor = instructor_profile  # Associate the time slot with the instructor
+            time_slot.save()  # Now save it to the DB
+            return JsonResponse({'status': 'success', 'message': 'Time slot saved successfully.'})
+        else:
+            # Return form errors as JSON response
+            errors = form.errors.as_json()
+            return JsonResponse({'status': 'error', 'message': 'Invalid form data.', 'errors': errors}, status=400)
+
+    elif request.method == 'DELETE':
+        slot_id = request.GET.get('slot_id')
+        day = request.GET.get('day')
+
+        try:
+            if slot_id:
+                time_slot = get_object_or_404(AvailableTimeSlot, id=slot_id, instructor=instructor_profile)
+                time_slot.delete()
+                return JsonResponse({'status': 'success', 'message': 'Time slot deleted successfully.'})
+            elif day:
+                # Delete all slots for the specified day
+                AvailableTimeSlot.objects.filter(instructor=instructor_profile, day_of_week=day).delete()
+                return JsonResponse({'status': 'success', 'message': f'All time slots for {day} deleted successfully.'})
+            else:
+                return JsonResponse({'status': 'error', 'message': 'Slot ID or Day is required.'}, status=400)
+
+        except Exception as e:
+            print(f"Error deleting time slot: {e}")
+            return JsonResponse({'status': 'error', 'message': 'An error occurred while deleting the time slot(s).'}, status=500)
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method.'}, status=400)
+
 
 
 
@@ -55,12 +120,11 @@ def InstructorProfileSettings(request):
     # Handling the date fields for proper display
     if education:
         education_data = {
-            'institution_name': education.institution_name,
-            'course': education.course,
-            'start_date': education.start_date.strftime('%Y-%m-%d') if education.start_date else '',
-            'end_date': education.end_date.strftime('%Y-%m-%d') if education.end_date else '',
-            'marks': education.marks,
-            'description': education.description,
+            'speciality': education.speciality,
+            'minicost': education.minicost,
+            'maxcost': education.maxcost,
+            'perhpur': education.perhpur,
+            'aboutme': education.aboutme,
         }
         education_form = EducationForm(initial=education_data, instance=education)
     else:

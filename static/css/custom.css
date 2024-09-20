@@ -14072,6 +14072,7 @@ html.menu-opened body {
 }
 .experience-list > li .experience-content .timeline-content a.name {
   font-weight: 500;
+  text-transform: capitalize;
 }
 .experience-list > li .time {
   color: #757575;
@@ -50715,20 +50716,7 @@ ul li {
   position: relative;
   transition: 0.5s;
 }
-.slot-box .slot-body .time-slots li:hover::before {
-  content: "Space : 2";
-  background: #0F172A;
-  color: #ffffff;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  border-radius: 6px;
-  margin: 0 15px 15px 0;
-  padding: 12px 13px;
-  transition: 0.5s;
-}
+
 .slot-box .slot-body .time-slots li i {
   margin-right: 10px;
 }
@@ -51576,7 +51564,7 @@ ul li {
 
 .add-billing-info,
 .add-prescripe-info, .add-info {
-  border-bottom: 1px solid #E2E8F0;
+  /* border-bottom: 1px solid #E2E8F0; */
   margin-bottom: 24px;
 }
 
@@ -52499,4 +52487,56 @@ ul li {
 .tab-service-content .list label.active-tab,
 .tab-service-content .list label.active-tab:hover {
   color: white; /* Ensure color stays white when active or hovered */
+}
+
+
+/* time slots */
+/* General time-slot styling */
+.time-slot {
+  display: inline-block;
+  margin: 10px;
+}
+
+/* Label design for the time slots */
+.time-slot-label {
+  display: block;
+  width: 160px;
+  padding: 10px;
+  border: 2px solid #007bff;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hide the default radio buttons */
+.time-slot input[type="radio"] {
+  display: none;
+}
+
+/* Active styling when the radio button is checked */
+.time-slot input[type="radio"]:checked + .time-slot-label {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Hover effect for the labels */
+.time-slot-label:hover {
+  background-color: #e9f2ff;
+  color: #007bff;
+}
+
+/* Mobile-friendly layout */
+@media (max-width: 576px) {
+  .time-slot-label {
+    padding: 8px;
+    font-size: 14px;
+  }
+}
+
+/* Adjust the calendar's appearance */
+.flatpickr-calendar {
+  width: 100% !important;
+  max-width: 350px;
+  margin: auto;
 }

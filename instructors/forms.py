@@ -1,10 +1,23 @@
 from django import forms
 from authentication.models import CustomUser, InstructorProfile
 from core.models import Service
-from instructors.models import Education
+from instructors.models import Education, AvailableTimeSlot
 
 
+class AvailableTimeSlotForm(forms.ModelForm):
+    class Meta:
+        model = AvailableTimeSlot
+        fields = ['day_of_week', 'start_time', 'end_time', 'is_available']
 
+    def clean(self):
+        cleaned_data = super().clean()
+        start_time = cleaned_data.get('start_time')
+        end_time = cleaned_data.get('end_time')
+
+        if start_time and end_time and start_time >= end_time:
+            self.add_error('start_time', 'Start time must be before end time.')
+
+        return cleaned_data    
 
 
 class CustomUserUpdateForm(forms.ModelForm):

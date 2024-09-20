@@ -1,5 +1,4 @@
 {% load static %}
-{% load custom_filters %}
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -677,8 +676,10 @@
 
     <link rel="stylesheet" href="{% static 'css/feather.css' %}">
 
-    <link rel="stylesheet" href="/static/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-datetimepicker.min.css' %}">
 
+
+    <link rel="stylesheet" href="{% static 'plugins/daterangepicker/daterangepicker.css' %}">
 
     <link rel="stylesheet" href="{% static 'css/aos.css' %}">
 
@@ -689,6 +690,7 @@
 
     <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
 
+    <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="{% static 'plugins/fancybox/jquery.fancybox.min.css' %}">
 
@@ -697,12 +699,13 @@
     <link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}">
 
     <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    
 
 </head>
 
 <body>
 
-    <div class="main-wrapper home-one">
+    <div class="main-wrapper home-one home-ten">
         {% comment %} home-ten home-thirteen home-three home-twelve home-thirteen body-eleven {% endcomment %}
         
 
@@ -713,7 +716,7 @@
 
 
         
-    {% include "instructors/header.html" %}
+    {% include "user/header.html" %}
 
 
 
@@ -725,68 +728,13 @@
 
 
         
-    {% include "instructors/footer.html" %}
+    {% include "user/footer.html" %}
   
 
 
     </div>
 
 
-
-
-    <!-- add slote in timetable -->
-    <div class="modal fade custom-modals" id="add_slot">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Add New Slot</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
-                <form id="add-slot-form">
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="day_of_week">Select Day of Week</label>
-                            <select name="day_of_week" id="day_of_week" class="form-control">
-                                {% for day in "Monday Tuesday Wednesday Thursday Friday Saturday Sunday"|split_string %}
-                                    <option value="{{ day }}">{{ day }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="start_time">Start Time</label>
-                            <input type="time" name="start_time" id="start_time" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="end_time">End Time</label>
-                            <input type="time" name="end_time" id="end_time" class="form-control">
-                        </div>
-                        {% comment %} <div class="form-group">
-                            <label for="is_available">Available?</label>
-                            <div>
-                                <input type="radio" name="is_available" id="available_yes" value="True" checked>
-                                <label for="available_yes">Yes</label>
-                                <input type="radio" name="is_available" id="available_no" value="False">
-                                <label for="available_no">No</label>
-                            </div>
-                        </div> {% endcomment %}
-                    </div>
-                    <div class="modal-footer">
-                        <div class="modal-btn text-end">
-                            <a href="#" class="btn btn-gray" data-bs-toggle="modal" data-bs-dismiss="modal">Cancel</a>
-                            <button type="submit" class="btn btn-primary prime-btn">Save Changes</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-
-
-
-    <!-- confirm delete account -->
     <div class="modal fade info-modal" id="confirm_delete">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -795,7 +743,7 @@
                         <span class="icon-success bg-red"><i class="fa-solid fa-xmark"></i></span>
                         <h3>Are you Sure</h3>
                         <p>Do you want to delete account</p>
-                        <a href="{% url 'authentication:instructor-delete-account' %}" class="btn btn-primary prime-btn">Delete</a>
+                        <a href="{% url 'authentication:delete-account' %}" class="btn btn-primary prime-btn">Delete</a>
                     </div>
                 </div>
             </div>
@@ -815,55 +763,119 @@
 
 
     <script data-cfasync="false" src="/static/js/email-decode.min.js"></script>
-    <script src="/static/js/jquery-3.7.1.min.js" ></script>
+    <script src="/static/js/jquery-3.7.1.min.js" type="f1efa39439cdf5a6c4a68c1e-text/javascript"></script>
 
-    <script src="/static/js/bootstrap.bundle.min.js" ></script>
+    <script src="/static/js/bootstrap.bundle.min.js" type="f1efa39439cdf5a6c4a68c1e-text/javascript"></script>
 
-    <script src="/static/js/feather.min.js" ></script>
+    <script src="/static/js/feather.min.js" type="f1efa39439cdf5a6c4a68c1e-text/javascript"></script>
 
-    <script src="/static/js/moment.min.js" ></script>
+    <script src="/static/js/moment.min.js" type="f1efa39439cdf5a6c4a68c1e-text/javascript"></script>
+    <script src="static/plugins/daterangepicker/daterangepicker.js" type="28b1752b1a2235bd257265db-text/javascript"></script>
+    <script src="/static/js/bootstrap-datetimepicker.min.js" type="f1efa39439cdf5a6c4a68c1e-text/javascript"></script>
+
+    <script src="/static/js/owl.carousel.min.js" type="f1efa39439cdf5a6c4a68c1e-text/javascript"></script>
+
+    <script src="/static/js/slick.js" type="f1efa39439cdf5a6c4a68c1e-text/javascript"></script>
+
+    <script src="/static/js/aos.js" type="f1efa39439cdf5a6c4a68c1e-text/javascript"></script>
+
+    {% comment %} <script src="/static/js/counter.js" type="f1efa39439cdf5a6c4a68c1e-text/javascript"></script> {% endcomment %}
+
+    <script src="/static/js/backToTop.js" type="f1efa39439cdf5a6c4a68c1e-text/javascript"></script>
+
+    <script src="/static/plugins/select2/js/select2.min.js" type="c7f080be5440ea7db50d269d-text/javascript"></script>
+
+    <script src="/static/plugins/fancybox/jquery.fancybox.min.js" type="c7f080be5440ea7db50d269d-text/javascript"></script>
+
+    <script src="/static/js/jquery.waypoints.js" type="c7f080be5440ea7db50d269d-text/javascript"></script>
     
-    <script src="/static/js/bootstrap-datetimepicker.min.js" ></script>
-
-    <script src="/static/js/owl.carousel.min.js" ></script>
-
-    <script src="/static/js/slick.js" ></script>
-
-    <script src="/static/js/aos.js" ></script>
-
-    <script src="/static/js/counter.js" ></script>
-
-    <script src="/static/js/backToTop.js" ></script>
-
-    <script src="/static/plugins/select2/js/select2.min.js" ></script>
-
-    <script src="/static/plugins/fancybox/jquery.fancybox.min.js" ></script>
-
-    <script src="/static/js/jquery.waypoints.js" ></script>
+    <script src="/static/js/jquery.counterup.min.js" type="c7f080be5440ea7db50d269d-text/javascript"></script>
     
-    <script src="/static/js/jquery.counterup.min.js" ></script>
     
-    <script src="/static/js/script.js" ></script>
-
     <script src="/static/js/rocket-loader.min.js"
-        data-cf-settings="f1efa39439cdf5a6c4a68c1e-|49" defer></script>
+    data-cf-settings="f1efa39439cdf5a6c4a68c1e-|49" defer></script>
     
- 
-            
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var alertElements = document.querySelectorAll('.alert');
-            alertElements.forEach(function(alertElement) {
-                setTimeout(function() {
-                    var alert = new bootstrap.Alert(alertElement);
-                    alert.close();
-                }, 10000); // 5000 milliseconds = 5 seconds
+    <script src="/static/js/script.js" type="f1efa39439cdf5a6c4a68c1e-text/javascript"></script>
+
+
+    
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+
+<script>
+    // Initialize Flatpickr for the inline calendar
+    flatpickr("#calendar", {
+        inline: true,
+        dateFormat: "Y-m-d",
+        minDate: "today",  // Prevent past dates selection
+        onChange: function(selectedDates, dateStr) {
+            // Fetch available time slots when a date is selected
+            fetchTimeSlots(dateStr);
+        }
+    });
+
+    // Fetch time slots based on selected date
+    function fetchTimeSlots(dateStr) {
+        const instructorId = "{{ instructor.id }}";  // Passed from the view
+
+        fetch(`/appointbooking/fetch-slots/?instructor_id=${instructorId}&selected_date=${dateStr}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.error) {
+                    console.error('Error fetching time slots:', data.error);
+                } else {
+                    updateTimeSlotUI(data);
+                }
+            })
+            .catch(error => console.error('Error fetching time slots:', error));
+    }
+
+    // Update the time slots UI
+    function updateTimeSlotUI(slots) {
+        const timeSlotContainer = document.getElementById('time-slot-container');
+        timeSlotContainer.innerHTML = '';  // Clear previous slots
+
+        if (slots.length === 0) {
+            timeSlotContainer.innerHTML = `<div class="slot-box">
+      <div class="slot-body">
+        <ul class="time-slots">
+          <li>No available time slots</li>
+        </ul>
+      </div>
+    </div>`;
+        } else {
+            slots.forEach((slot, index) => {
+                timeSlotContainer.innerHTML += `
+                    <div class="time-slot">
+                        <input type="radio" id="slot${index}" name="time-slot" value="${slot.start_time}">
+                        <label for="slot${index}" class="time-slot-label"> <i class="fa-regular fa-clock"></i> ${slot.start_time} - ${slot.end_time}</label>
+                    </div>
+                `;
             });
-        });
-    </script>
+        }
+    }
+</script>
 
 
 
+
+      
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var alertElements = document.querySelectorAll('.alert');
+                alertElements.forEach(function(alertElement) {
+                    setTimeout(function() {
+                        var alert = new bootstrap.Alert(alertElement);
+                        alert.close();
+                    }, 10000); // 5000 milliseconds = 5 seconds
+                });
+            });
+        </script>
 
 
 

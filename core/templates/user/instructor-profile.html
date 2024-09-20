@@ -15,7 +15,7 @@
                 <h2 class="breadcrumb-title">Profile</h2>
                 <nav aria-label="breadcrumb" class="page-breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'core:HomePage' %}">Home</a></li>
                         <li class="breadcrumb-item" aria-current="page">Profile</li>
                     </ol>
                 </nav>
@@ -34,42 +34,40 @@
                     <div class="doc-info-left">
                         <div class="doctor-img">
                             {% if instructor.user.profile_image %}
-                                    <img src="{{ instructor.user.profile_image.url }}" alt="User Image" class="img-fluid">
-                                {% elif instructor.user.profile_image_url %}
-                                    <img src="{{ instructor.user.profile_image_url }}" alt="User Image" class="img-fluid">
-                                {% else %}
-                                    <img src="{% static 'img/shapes/profile-user.png' %}" alt="User Image" class="img-fluid">
-                                {% endif %}
+                                        <img src="{{ instructor.user.profile_image.url }}" alt="User Image" class="img-fluid">
+                                    {% elif instructor.user.profile_image_url %}
+                                        <img src="{{ instructor.user.profile_image_url }}" alt="User Image" class="img-fluid">
+                                    {% else %}
+                                        <img src="{% static 'img/shapes/profile-user.png' %}" alt="User Image" class="img-fluid">
+                                    {% endif %}
                         </div>
                         <div class="doc-info-cont">
                             <h4 class="doc-name">Dr. {{ instructor.user.first_name }} {{ instructor.user.last_name }}</h4>
-                            <p class="doc-speciality">{% if instructor.educations.exists %}{{ instructor.educations.first.speciality }}{% else %}No speciality available{% endif %}</p>
-                            <p class="doc-department">{{ user.instructorprofile.service }}</p>
+                            
+                            {% for info in profile_info %}
+                                {% if info.course %}
+                                    <p class="doc-speciality d-inline-block">{{ info.course }}, </p>
+                                {% endif %}
+                            {% endfor %}
+
+                            <p class="doc-department">{% if instructor.educations.exists %}{{ instructor.educations.first.speciality }}{% else %}No speciality available{% endif %}</p>
+
                             <div class="clinic-details">
                                 <p class="doc-location"><i class="fas fa-map-marker-alt"></i> {{ instructor.city }} <a
                                         href="javascript:void(0);"></a></p>
-                                <ul class="clinic-gallery">
-                                    <li>
-                                        <a href="assets/img/features/feature-01.jpg" data-fancybox="gallery">
-                                            <img src="assets/img/features/feature-01.jpg" alt="Feature">
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="assets/img/features/feature-02.jpg" data-fancybox="gallery">
-                                            <img src="assets/img/features/feature-02.jpg" alt="Feature Image">
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="assets/img/features/feature-03.jpg" data-fancybox="gallery">
-                                            <img src="assets/img/features/feature-03.jpg" alt="Feature">
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="assets/img/features/feature-04.jpg" data-fancybox="gallery">
-                                            <img src="assets/img/features/feature-04.jpg" alt="Feature">
-                                        </a>
-                                    </li>
-                                </ul>
+                                
+                            <ul class="clinic-gallery">
+                                {% for info in profile_info %}
+                                    {% if info.workspace_image %}
+                                        <li>
+                                            <a href="{{ info.workspace_image.url }}" data-fancybox="gallery" target="_blank">
+                                                <img src="{{ info.workspace_image.url }}" alt="Feature Image">
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+           
                             </div>
                             <!-- <div class="clinic-services">
                                 <span>Dental Fillings</span>
@@ -134,89 +132,101 @@
                                     <h4 class="widget-title">Education</h4>
                                     <div class="experience-box">
                                         <ul class="experience-list">
-                                            <li>
-                                                <div class="experience-user">
-                                                    <div class="before-circle"></div>
-                                                </div>
-                                                <div class="experience-content">
-                                                    <div class="timeline-content">
-                                                        <a href="#/" class="name">institution_name here</a>
-                                                        <div>course name here</div>
-                                                        <span class="time">start date - end date</span>
-                                                    </div>
-                                                </div>
-                                            </li>
+                                            {% for info in profile_info %}
+                                                {% if info.institution_name or info.course or info.start_date or info.end_date %}
+                                                    <li>
+                                                        <div class="experience-user">
+                                                            <div class="before-circle"></div>
+                                                        </div>
+                                                        <div class="experience-content">
+                                                            <div class="timeline-content">
+                                                                {% if info.institution_name %}
+                                                                    <a href="#/" class="name">{{ info.institution_name }}</a>
+                                                                {% else %}
+                                                                    <a href="#/" class="name">No institution available</a>
+                                                                {% endif %}
+                                                                
+                                                                {% if info.course %}
+                                                                    <div>{{ info.course }}</div>
+                                                                {% else %}
+                                                                    <div>No course available</div>
+                                                                {% endif %}
+                                                                
+                                                                {% if info.start_date and info.end_date %}
+                                                                    <span class="time">{{ info.start_date|date:"j F Y" }} - {{ info.end_date|date:"j F Y" }}</span>
+                                                                {% elif info.start_date %}
+                                                                    <span class="time">{{ info.start_date|date:"j F Y" }} - Present</span>
+                                                                {% else %}
+                                                                    <span class="time">No dates available</span>
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                {% endif %}
+                                            {% endfor %}
                                         </ul>
                                     </div>
                                 </div>
+                                
 
 
                                 <div class="widget experience-widget">
                                     <h4 class="widget-title">Work & Experience</h4>
                                     <div class="experience-box">
                                         <ul class="experience-list">
-                                            <li>
-                                                <div class="experience-user">
-                                                    <div class="before-circle"></div>
-                                                </div>
-                                                <div class="experience-content">
-                                                    <div class="timeline-content">
-                                                        <a href="#/" class="name">Glowing Smiles Family Dental
-                                                            Clinic</a>
-                                                        <span class="time">2010 - Present (5 years)</span>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="experience-user">
-                                                    <div class="before-circle"></div>
-                                                </div>
-                                                <div class="experience-content">
-                                                    <div class="timeline-content">
-                                                        <a href="#/" class="name">Comfort Care Dental Clinic</a>
-                                                        <span class="time">2007 - 2010 (3 years)</span>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="experience-user">
-                                                    <div class="before-circle"></div>
-                                                </div>
-                                                <div class="experience-content">
-                                                    <div class="timeline-content">
-                                                        <a href="#/" class="name">Dream Smile Dental
-                                                            Practice</a>
-                                                        <span class="time">2005 - 2007 (2 years)</span>
-                                                    </div>
-                                                </div>
-                                            </li>
+                                            {% for info in profile_info %}
+                                                {% if info.work_history_institution or info.work_start_date or info.work_end_date %}
+                                                    <li>
+                                                        <div class="experience-user">
+                                                            <div class="before-circle"></div>
+                                                        </div>
+                                                        <div class="experience-content">
+                                                            <div class="timeline-content">
+                                                                {% if info.work_history_institution %}
+                                                                    <a href="#/" class="name">{{ info.work_history_institution }}</a>
+                                                                {% else %}
+                                                                    <a href="#/" class="name">No institution available</a>
+                                                                {% endif %}
+                                                                
+                                                                {% if info.work_start_date and info.work_end_date %}
+                                                                    <span class="time">{{ info.work_start_date }} - {{ info.work_end_date }}</span>
+                                                                {% elif info.work_start_date %}
+                                                                    <span class="time">{{ info.work_start_date }} - Present</span>
+                                                                {% else %}
+                                                                    <span class="time">No dates available</span>
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                {% endif %}
+                                            {% endfor %}
                                         </ul>
                                     </div>
                                 </div>
+                                
 
 
                                 <div class="service-list">
                                     <h4>Services</h4>
                                     <ul class="clearfix">
-                                        <li>Tooth cleaning </li>
-                                        <li>Root Canal Therapy</li>
-                                        <li>Implants</li>
-                                        <li>Composite Bonding</li>
-                                        <li>Fissure Sealants</li>
-                                        <li>Surgical Extractions</li>
+                                        {% for info in profile_info %}
+                                            {% if info.services %}
+                                                <li>{{ info.services }}</li>
+                                            {% endif %}
+                                        {% endfor %}
                                     </ul>
                                 </div>
-
-
+                                
+                                
+                                
                                 <div class="service-list">
                                     <h4>Specializations</h4>
                                     <ul class="clearfix">
-                                        <li>Children Care</li>
-                                        <li>Dental Care</li>
-                                        <li>Oral and Maxillofacial Surgery </li>
-                                        <li>Orthodontist</li>
-                                        <li>Periodontist</li>
-                                        <li>Prosthodontics</li>
+                                        {% for info in profile_info %}
+                                            {% if info.specializations %}
+                                                <li>{{ info.specializations }}</li>
+                                            {% endif %}
+                                        {% endfor %}
                                     </ul>
                                 </div>
 
@@ -227,65 +237,47 @@
 
                     <div role="tabpanel" id="doc_business_hours" class="tab-pane fade">
                         <div class="row">
-                            <div class="col-md-6 offset-md-3">
+                            <div class="col-md-10 offset-md-1">
 
-                                <div class="widget business-widget">
-                                    <div class="widget-content">
-                                        <div class="listing-hours">
-                                            <div class="listing-day current">
-                                                <div class="day">Today <span>5 Nov 2023</span></div>
-                                                <div class="time-items">
-                                                    <span class="open-status"><span class="badge bg-success-light">Open
-                                                            Now</span></span>
-                                                    <span class="time">07:00 AM - 09:00 PM</span>
-                                                </div>
-                                            </div>
-                                            <div class="listing-day">
-                                                <div class="day">Monday</div>
-                                                <div class="time-items">
-                                                    <span class="time">07:00 AM - 09:00 PM</span>
-                                                </div>
-                                            </div>
-                                            <div class="listing-day">
-                                                <div class="day">Tuesday</div>
-                                                <div class="time-items">
-                                                    <span class="time">07:00 AM - 09:00 PM</span>
-                                                </div>
-                                            </div>
-                                            <div class="listing-day">
-                                                <div class="day">Wednesday</div>
-                                                <div class="time-items">
-                                                    <span class="time">07:00 AM - 09:00 PM</span>
-                                                </div>
-                                            </div>
-                                            <div class="listing-day">
-                                                <div class="day">Thursday</div>
-                                                <div class="time-items">
-                                                    <span class="time">07:00 AM - 09:00 PM</span>
-                                                </div>
-                                            </div>
-                                            <div class="listing-day">
-                                                <div class="day">Friday</div>
-                                                <div class="time-items">
-                                                    <span class="time">07:00 AM - 09:00 PM</span>
-                                                </div>
-                                            </div>
-                                            <div class="listing-day">
-                                                <div class="day">Saturday</div>
-                                                <div class="time-items">
-                                                    <span class="time">07:00 AM - 09:00 PM</span>
-                                                </div>
-                                            </div>
-                                            <div class="listing-day closed">
-                                                <div class="day">Sunday</div>
-                                                <div class="time-items">
-                                                    <span class="time"><span
-                                                            class="badge bg-danger-light">Closed</span></span>
+                                <h4 class="mb-3">Available Slots for Booking</h4>
+
+                                <div class="accordions" id="list-accord">
+
+                                    {% for day, slots in days_of_week.items %}
+                                        <div class="user-accordion-item">
+                                            <a href="#" class="accordion-wrap" data-bs-toggle="collapse"
+                                                data-bs-target="#{{ day|lower }}">{{ day }}</a>
+                                            <div class="accordion-collapse collapse {% if day == 'Monday' %}show{% endif %}" id="{{ day|lower }}"
+                                                data-bs-parent="#list-accord">
+                                                <div class="content-collapse">
+                                                    <div class="add-service-info">
+                                                        <div class="add-info">
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="slot-box">
+                                                                        <div class="slot-body">
+                                                                            <ul class="time-slots">
+                                                                                {% if slots %}
+                                                                                    {% for slot in slots %}
+                                                                                        <li><i class="fa-regular fa-clock"></i>{{ slot.start_time|time:"h:i A" }} - {{ slot.end_time|time:"h:i A" }}</li>
+                                                                                    {% endfor %}
+                                                                                {% else %}
+                                                                                    <li>No available time slots</li>
+                                                                                {% endif %}
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    {% endfor %}
+                                
                                 </div>
+                                
 
                             </div>
                         </div>

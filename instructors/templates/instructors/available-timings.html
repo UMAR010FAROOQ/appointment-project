@@ -1,505 +1,260 @@
-{% extends "instructors/base.html" %}
-{% load static %} 
+{% extends 'instructors/base.html' %}
+{% load static %}
+{% load custom_filters %}
 
-{% block title%}| Appointment Request {% endblock %}
+{% block title %} | Appointment Request {% endblock %}
 
 {% block contentBody %}
-
-
-
-
-
-
 <div class="breadcrumb-bar-two">
-    <div class="container">
-        <div class="row align-items-center inner-banner">
-            <div class="col-md-12 col-12 text-center">
-                <h2 class="breadcrumb-title">Available Timings</h2>
-                <nav aria-label="breadcrumb" class="page-breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item" aria-current="page">Available Timings</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
+  <div class="container">
+    <div class="row align-items-center inner-banner">
+      <div class="col-md-12 col-12 text-center">
+        <h2 class="breadcrumb-title">Available Timings</h2>
+        <nav aria-label="breadcrumb" class="page-breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item" aria-current="page">Available Timings</li>
+          </ol>
+        </nav>
+      </div>
     </div>
+  </div>
 </div>
-
 
 <div class="content doctor-content">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 col-xl-3 theiaStickySidebar">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-xl-3 theiaStickySidebar">
+        {% include 'instructors/dash-slider.html' %}
+      </div>
 
-                {% include "instructors/dash-slider.html" %}
-
-            </div>
-            <div class="col-lg-8 col-xl-9">
-                <div class="dashboard-header">
-                    <h3>Available Timings</h3>
-                </div>
-                <div class="appointment-tabs">
-                    <ul class="nav available-nav">
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link active" href="#" data-bs-toggle="tab"
-                                data-bs-target="#general-availability">General Availability</a>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link" href="#" data-bs-toggle="tab"
-                                data-bs-target="#clinic-availability">Clinic Availability</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="tab-content pt-0 timing-content">
-
-                    <div class="tab-pane fade show active" id="general-availability">
-                        <div class="card custom-card">
-                            <div class="card-body">
-                                <div class="card-header">
-                                    <h3>Select Available Slots</h3>
-                                </div>
-                                <div class="available-tab">
-                                    <label class="form-label">Select Available days</label>
-                                    <ul class="nav">
-                                        <li>
-                                            <a href="#" class="active" data-bs-toggle="tab"
-                                                data-bs-target="#monday">Monday</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" data-bs-toggle="tab" data-bs-target="#tuesday">Tuesday</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" data-bs-toggle="tab" data-bs-target="#wednesday">Wednesday</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" data-bs-toggle="tab" data-bs-target="#thursday">Thursday</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" data-bs-toggle="tab" data-bs-target="#friday">Friday</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" data-bs-toggle="tab" data-bs-target="#saturday">Saturday</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" data-bs-toggle="tab" data-bs-target="#sunday">Sunday</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="tab-content pt-0">
-
-                                    <div class="tab-pane active show" id="monday">
-                                        <div class="slot-box">
-                                            <div class="slot-header">
-                                                <h5>Monday</h5>
-                                                <ul>
-                                                    <li>
-                                                        <a href="#" class="add-slot" data-bs-toggle="modal"
-                                                            data-bs-target="#add_slot">Add Slots</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" class="del-slot" data-bs-toggle="modal"
-                                                            data-bs-target="#delete_slot">Delete All</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="slot-body">
-                                                <ul class="time-slots">
-                                                    <li><i class="fa-regular fa-clock"></i>09:00 AM</li>
-                                                    <li><i class="fa-regular fa-clock"></i>09:30 AM</li>
-                                                    <li><i class="fa-regular fa-clock"></i>10:00 AM</li>
-                                                    <li><i class="fa-regular fa-clock"></i>10:30 AM</li>
-                                                    <li><i class="fa-regular fa-clock"></i>11:00 AM</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="tab-pane fade" id="tuesday">
-                                        <div class="slot-box">
-                                            <div class="slot-header">
-                                                <h5>Tuesday</h5>
-                                                <ul>
-                                                    <li>
-                                                        <a href="#" class="add-slot" data-bs-toggle="modal"
-                                                            data-bs-target="#add_slot">Add Slots</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" class="del-slot" data-bs-toggle="modal"
-                                                            data-bs-target="#delete_slot">Delete All</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="slot-body">
-                                                <p>No Slots Available</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="tab-pane fade" id="wednesday">
-                                        <div class="slot-box">
-                                            <div class="slot-header">
-                                                <h5>Wednesday</h5>
-                                                <ul>
-                                                    <li>
-                                                        <a href="#" class="add-slot" data-bs-toggle="modal"
-                                                            data-bs-target="#add_slot">Add Slots</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" class="del-slot" data-bs-toggle="modal"
-                                                            data-bs-target="#delete_slot">Delete All</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="slot-body">
-                                                <p>No Slots Available</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="tab-pane fade" id="thursday">
-                                        <div class="slot-box">
-                                            <div class="slot-header">
-                                                <h5>Thursday</h5>
-                                                <ul>
-                                                    <li>
-                                                        <a href="#" class="add-slot" data-bs-toggle="modal"
-                                                            data-bs-target="#add_slot">Add Slots</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" class="del-slot" data-bs-toggle="modal"
-                                                            data-bs-target="#delete_slot">Delete All</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="slot-body">
-                                                <p>No Slots Available</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="tab-pane fade" id="friday">
-                                        <div class="slot-box">
-                                            <div class="slot-header">
-                                                <h5>Friday</h5>
-                                                <ul>
-                                                    <li>
-                                                        <a href="#" class="add-slot" data-bs-toggle="modal"
-                                                            data-bs-target="#add_slot">Add Slots</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" class="del-slot" data-bs-toggle="modal"
-                                                            data-bs-target="#delete_slot">Delete All</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="slot-body">
-                                                <p>No Slots Available</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="tab-pane fade" id="saturday">
-                                        <div class="slot-box">
-                                            <div class="slot-header">
-                                                <h5>Saturday</h5>
-                                                <ul>
-                                                    <li>
-                                                        <a href="#" class="add-slot" data-bs-toggle="modal"
-                                                            data-bs-target="#add_slot">Add Slots</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" class="del-slot" data-bs-toggle="modal"
-                                                            data-bs-target="#delete_slot">Delete All</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="slot-body">
-                                                <p>No Slots Available</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="tab-pane fade" id="sunday">
-                                        <div class="slot-box">
-                                            <div class="slot-header">
-                                                <h5>Sunday</h5>
-                                                <ul>
-                                                    <li>
-                                                        <a href="#" class="add-slot" data-bs-toggle="modal"
-                                                            data-bs-target="#add_slot">Add Slots</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" class="del-slot" data-bs-toggle="modal"
-                                                            data-bs-target="#delete_slot">Delete All</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="slot-body">
-                                                <p>No Slots Available</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-wrap">
-                                        <label class="col-form-label">Appointment Fees ($)</label>
-                                        <input type="text" class="form-control" value="254">
-                                    </div>
-                                    <div class="modal-btn text-end">
-                                        <a href="#" class="btn btn-gray" data-bs-toggle="modal"
-                                            data-bs-dismiss="modal">Cancel</a>
-                                        <button class="btn btn-primary prime-btn">Save Changes</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="tab-pane fade" id="clinic-availability">
-                        <div class="clinic-wrap">
-                            <h5>Select Clinic</h5>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <select class="select-img">
-                                        <option data-image="assets/img/doctors-dashboard/clinic-01.jpg">The
-                                            Family Dentistry Clinic</option>
-                                        <option data-image="assets/img/doctors-dashboard/clinic-02.jpg">
-                                            Dentistry Clinic</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card custom-card">
-                            <div class="card-body">
-                                <div class="card-header">
-                                    <h3>Select Available Slots</h3>
-                                </div>
-                                <div class="available-tab">
-                                    <label class="form-label">Select Available days</label>
-                                    <ul class="nav">
-                                        <li>
-                                            <a href="#" class="active" data-bs-toggle="tab"
-                                                data-bs-target="#monday-slot">Monday</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" data-bs-toggle="tab" data-bs-target="#tuesday-slot">Tuesday</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" data-bs-toggle="tab"
-                                                data-bs-target="#wednesday-slot">Wedneday</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" data-bs-toggle="tab"
-                                                data-bs-target="#thursday-slot">Thursday</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" data-bs-toggle="tab" data-bs-target="#friday-slot">Friday</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" data-bs-toggle="tab"
-                                                data-bs-target="#saturday-slot">Saturday</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" data-bs-toggle="tab" data-bs-target="#sunday-slot">Sunday</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="tab-content pt-0">
-
-                                    <div class="tab-pane active show" id="monday-slot">
-                                        <div class="slot-box">
-                                            <div class="slot-header">
-                                                <h5>Monday</h5>
-                                                <ul>
-                                                    <li>
-                                                        <a href="#" class="add-slot" data-bs-toggle="modal"
-                                                            data-bs-target="#add_slot">Add Slots</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" class="del-slot" data-bs-toggle="modal"
-                                                            data-bs-target="#delete_slot">Delete All</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="slot-body">
-                                                <ul class="time-slots">
-                                                    <li><i class="fa-regular fa-clock"></i>09:00 AM</li>
-                                                    <li><i class="fa-regular fa-clock"></i>09:30 AM</li>
-                                                    <li class="slot-space">Space : 2</li>
-                                                    <li><i class="fa-regular fa-clock"></i>10:30 AM</li>
-                                                    <li><i class="fa-regular fa-clock"></i>11:00 AM</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="tab-pane fade" id="tuesday-slot">
-                                        <div class="slot-box">
-                                            <div class="slot-header">
-                                                <h5>Tuesday</h5>
-                                                <ul>
-                                                    <li>
-                                                        <a href="#" class="add-slot" data-bs-toggle="modal"
-                                                            data-bs-target="#add_slot">Add Slots</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" class="del-slot" data-bs-toggle="modal"
-                                                            data-bs-target="#delete_slot">Delete All</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="slot-body">
-                                                <p>No Slots Available</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="tab-pane fade" id="wednesday-slot">
-                                        <div class="slot-box">
-                                            <div class="slot-header">
-                                                <h5>Wednesday</h5>
-                                                <ul>
-                                                    <li>
-                                                        <a href="#" class="add-slot" data-bs-toggle="modal"
-                                                            data-bs-target="#add_slot">Add Slots</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" class="del-slot" data-bs-toggle="modal"
-                                                            data-bs-target="#delete_slot">Delete All</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="slot-body">
-                                                <p>No Slots Available</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="tab-pane fade" id="thursday-slot">
-                                        <div class="slot-box">
-                                            <div class="slot-header">
-                                                <h5>Thursday</h5>
-                                                <ul>
-                                                    <li>
-                                                        <a href="#" class="add-slot" data-bs-toggle="modal"
-                                                            data-bs-target="#add_slot">Add Slots</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" class="del-slot" data-bs-toggle="modal"
-                                                            data-bs-target="#delete_slot">Delete All</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="slot-body">
-                                                <p>No Slots Available</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="tab-pane fade" id="friday-slot">
-                                        <div class="slot-box">
-                                            <div class="slot-header">
-                                                <h5>Friday</h5>
-                                                <ul>
-                                                    <li>
-                                                        <a href="#" class="add-slot" data-bs-toggle="modal"
-                                                            data-bs-target="#add_slot">Add Slots</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" class="del-slot" data-bs-toggle="modal"
-                                                            data-bs-target="#delete_slot">Delete All</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="slot-body">
-                                                <p>No Slots Available</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="tab-pane fade" id="saturday-slot">
-                                        <div class="slot-box">
-                                            <div class="slot-header">
-                                                <h5>Saturday</h5>
-                                                <ul>
-                                                    <li>
-                                                        <a href="#" class="add-slot" data-bs-toggle="modal"
-                                                            data-bs-target="#add_slot">Add Slots</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" class="del-slot" data-bs-toggle="modal"
-                                                            data-bs-target="#delete_slot">Delete All</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="slot-body">
-                                                <p>No Slots Available</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="tab-pane fade" id="sunday-slot">
-                                        <div class="slot-box">
-                                            <div class="slot-header">
-                                                <h5>Sunday</h5>
-                                                <ul>
-                                                    <li>
-                                                        <a href="#" class="add-slot" data-bs-toggle="modal"
-                                                            data-bs-target="#add_slot">Add Slots</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" class="del-slot" data-bs-toggle="modal"
-                                                            data-bs-target="#delete_slot">Delete All</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="slot-body">
-                                                <p>No Slots Available</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-wrap">
-                                        <label class="col-form-label">Appointment Fees ($)</label>
-                                        <input type="text" class="form-control" value="254">
-                                    </div>
-                                    <div class="modal-btn text-end">
-                                        <a href="#" class="btn btn-gray" data-bs-toggle="modal"
-                                            data-bs-dismiss="modal">Cancel</a>
-                                        <button class="btn btn-primary prime-btn">Save Changes</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+      <div class="col-lg-8 col-xl-9">
+        <div class="dashboard-header">
+          <h3>Available Timings</h3>
         </div>
+        <div class="tab-content pt-0 timing-content">
+          <div class="tab-pane fade show active" id="general-availability">
+            <div class="card custom-card">
+              <div class="card-body">
+                <div class="card-header">
+                  <h3>Select Available Slots</h3>
+                </div>
+                <div class="available-tab">
+                  <label class="form-label">Select Available days</label>
+                  <ul class="nav">
+                    {% for day in 'Monday Tuesday Wednesday Thursday Friday Saturday Sunday'|split_string %}
+                    <li>
+                      <a href="#" class="{% if forloop.first %}active{% endif %}" data-bs-toggle="tab" data-bs-target="#{{ day|lower }}">{{ day }}</a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+                <div class="tab-content pt-0">
+                  {% for day in 'Monday Tuesday Wednesday Thursday Friday Saturday Sunday'|split_string %}
+                  <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="{{ day|lower }}">
+                    <div class="slot-box">
+                      <div class="slot-header">
+                        <h5>{{ day }}</h5>
+                        <ul>
+                          <li>
+                            <a href="#" class="add-slot" data-day="{{ day }}" data-bs-toggle="modal" data-bs-target="#add_slot">Add Slots</a>
+                          </li>
+                          <li>
+                            <a href="#" class="del-slot" data-day="{{ day }}">Delete All</a>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="slot-body">
+                        <ul class="time-slots" id="slots-{{ day|lower }}">
+                          {% for slot in available_slots %}
+                          {% if slot.day_of_week == day %}
+                          <li id="slot-{{ slot.id }}">
+                            <i class="fa-regular fa-clock"></i>{{ slot.start_time }} - {{ slot.end_time }}
+                            <a href="#" class="delete-slot" data-slot-id="{{ slot.id }}"><i class="fa-solid fa-trash-can"></i></a>
+                          </li>
+                          {% endif %}
+                          {% endfor %}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 
 
 
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const addSlotForm = document.getElementById('add-slot-form');
+    let requestInProgress = false;  // Flag to prevent multiple requests
+    
+    // Handle form submission for adding slots
+    const handleAddSlotSubmit = function (event) {
+      event.preventDefault();
+
+      if (requestInProgress) return;  // Prevent multiple submissions
+      requestInProgress = true;
+
+      const formData = new FormData(addSlotForm);
+
+      fetch("{% url 'instructors:manage_time_slot' %}", {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRFToken': '{{ csrf_token }}'
+        }
+      })
+        .then((response) => {
+          if (!response.ok) {
+            return response.text().then(text => {
+              console.error('Error Response:', text);
+              throw new Error('Network response was not ok');
+            });
+          }
+          return response.json();
+        })
+        .then((data) => {
+          requestInProgress = false;  // Reset flag
+          if (data.status === 'success') {
+            alert(data.message);  // Show success message
+            location.reload();    // Reload the page to reflect changes
+          } else {
+            alert('Errors:\n' + (Object.values(data.errors || {}).flat().join('\n') || data.message));
+          }
+        })
+        .catch((error) => {
+          requestInProgress = false;  // Reset flag
+          console.error('Error:', error);
+          alert('An error occurred while processing your request.');
+        });
+    };
+
+    // Ensure the form submission is handled correctly with only one listener
+    if (addSlotForm) {
+      addSlotForm.removeEventListener('submit', handleAddSlotSubmit);  // Remove if already attached
+      addSlotForm.addEventListener('submit', handleAddSlotSubmit);     // Attach the listener
+    }
+
+    // Handle delete slot buttons
+    document.querySelectorAll('.delete-slot').forEach(function (button) {
+      button.removeEventListener('click', handleDeleteClick);  // Remove any existing listener
+      button.addEventListener('click', handleDeleteClick, { once: true });
+    });
+
+    function handleDeleteClick(event) {
+      event.preventDefault();
+      
+      if (requestInProgress) return;  // Prevent multiple requests
+      requestInProgress = true;
+
+      const slotId = this.getAttribute('data-slot-id');
+
+      // Confirm delete operation with the user
+      if (confirm('Are you sure you want to delete this slot?')) {
+        const formData = new FormData();
+        formData.append('slot_id', slotId);
+
+        fetch("{% url 'instructors:manage_time_slot' %}?slot_id=" + slotId, { // Pass slot_id via query params
+          method: 'DELETE',
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRFToken': '{{ csrf_token }}'
+          }
+        })
+          .then((response) => {
+            if (!response.ok) {
+              return response.text().then(text => {
+                console.error('Error Response:', text);
+                throw new Error('Network response was not ok');
+              });
+            }
+            return response.json();
+          })
+          .then((data) => {
+            requestInProgress = false;  // Reset flag
+            if (data.status === 'success') {
+              alert(data.message);  // Show success message once
+              document.getElementById(`slot-${slotId}`).remove();  // Remove the slot from UI
+            } else {
+              alert(data.message);  // Show error message
+            }
+          })
+          .catch((error) => {
+            requestInProgress = false;  // Reset flag
+            console.error('Error:', error);
+            alert('An error occurred while processing your request.');
+          });
+      } else {
+        requestInProgress = false;  // Reset flag if the delete is cancelled
+      }
+    }
+
+    // Handle delete all slots for a specific day
+    document.querySelectorAll('.del-slot').forEach(function (button) {
+      button.addEventListener('click', function (event) {
+        event.preventDefault();
+
+        if (requestInProgress) return;  // Prevent multiple requests
+        requestInProgress = true;
+
+        const day = this.getAttribute('data-day');
+
+        if (confirm(`Are you sure you want to delete all slots for ${day}?`)) {
+          fetch("{% url 'instructors:manage_time_slot' %}?day=" + day, {
+            method: 'DELETE',
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              'X-CSRFToken': '{{ csrf_token }}'
+            }
+          })
+            .then((response) => {
+              if (!response.ok) {
+                return response.text().then(text => {
+                  console.error('Error Response:', text);
+                  throw new Error('Network response was not ok');
+                });
+              }
+              return response.json();
+            })
+            .then((data) => {
+              requestInProgress = false;  // Reset flag
+              if (data.status === 'success') {
+                alert(data.message);  // Show success message
+                document.getElementById(`slots-${day.toLowerCase()}`).innerHTML = '';  // Clear slots for the day
+              } else {
+                alert(data.message);  // Show error message
+              }
+            })
+            .catch((error) => {
+              requestInProgress = false;  // Reset flag
+              console.error('Error:', error);
+              alert('An error occurred while processing your request.');
+            });
+        } else {
+          requestInProgress = false;  // Reset flag if the delete is cancelled
+        }
+      });
+    });
+
+    // Ensure add-slot buttons correctly set the day for the modal form
+    document.querySelectorAll('.add-slot').forEach(function (button) {
+      button.addEventListener('click', function () {
+        const day = this.getAttribute('data-day');
+        document.getElementById('modal-day-of-week').value = day;
+      });
+    });
+  });
+</script>
 
 
 
-
-
-
-
-
-{% endblock contentBody %}
+{% endblock %}

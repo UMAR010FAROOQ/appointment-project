@@ -13,7 +13,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from core.forms import UserProfileUpdateForm
 from .decorators import simple_user_required
 from authentication.models import InstructorProfile
-from instructors.models import Education
+from instructors.models import InstructorProfileInformation, AvailableTimeSlot, Education
 from django.db.models import Min, Max
 from django.shortcuts import render, get_object_or_404
 
@@ -173,11 +173,24 @@ def UserChangePassword(request):
     return render(request, 'user/user-change-password.html', {'form': form})
 
 
-
-
 def InstructorProfileDetail(request, pk):
     instructor = get_object_or_404(InstructorProfile, pk=pk)
-    return render(request, 'user/instructor-profile.html', {'instructor': instructor})
+    profile_info = instructor.profile_info.all()
+    available_times = instructor.available_times.all().order_by('day_of_week', 'start_time')  # Retrieve and order time slots
 
+    # Group time slots by day
+    days_of_week = {
+        'Monday': available_times.filter(day_of_week='Monday'),
+        'Tuesday': available_times.filter(day_of_week='Tuesday'),
+        'Wednesday': available_times.filter(day_of_week='Wednesday'),
+        'Thursday': available_times.filter(day_of_week='Thursday'),
+        'Friday': available_times.filter(day_of_week='Friday'),
+        'Saturday': available_times.filter(day_of_week='Saturday'),
+        'Sunday': available_times.filter(day_of_week='Sunday')
+    }
 
-
+    return render(request, 'user/instructor-profile.html', {
+        'instructor': instructor,
+        'profile_info': profile_info,
+        'days_of_week': days_of_week,  # Pass the grouped time slots to the template
+    })

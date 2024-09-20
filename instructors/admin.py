@@ -1,9 +1,10 @@
 # admin.py
 from django.contrib import admin
-from .models import InstructorPasswordChange, Education, InstructorProfileInformation
+from .models import InstructorPasswordChange, Education, InstructorProfileInformation, AvailableTimeSlot
 
 admin.site.register(InstructorPasswordChange)
 admin.site.register(Education)
+admin.site.register(AvailableTimeSlot)
 
 
 class InstructorProfileInformationAdmin(admin.ModelAdmin):
