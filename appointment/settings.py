@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'instructors',
     'appointBooking',
 
+
+    'channels',
+
     'social_django',
 ]
 
@@ -79,7 +82,14 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'appointment.wsgi.application'
+ASGI_APPLICATION = 'appointment.asgi.application'  # replace with your project name
 
+# Channel layers setup (using in-memory for local testing)
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
