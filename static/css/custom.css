@@ -52500,7 +52500,7 @@ ul li {
 /* Label design for the time slots */
 .time-slot-label {
   display: block;
-  width: 160px;
+  width: 200px;
   padding: 10px;
   border: 2px solid #007bff;
   border-radius: 5px;

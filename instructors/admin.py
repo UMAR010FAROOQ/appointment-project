@@ -1,10 +1,24 @@
 # admin.py
 from django.contrib import admin
 from .models import InstructorPasswordChange, Education, InstructorProfileInformation, AvailableTimeSlot
+from django import forms
 
 admin.site.register(InstructorPasswordChange)
 admin.site.register(Education)
-admin.site.register(AvailableTimeSlot)
+
+
+class AvailableTimeSlotAdminForm(forms.ModelForm):
+    class Meta:
+        model = AvailableTimeSlot
+        fields = '__all__'
+        widgets = {
+            'start_time': forms.TimeInput(format='%H:%M', attrs={'type': 'time'}),
+            'end_time': forms.TimeInput(format='%H:%M', attrs={'type': 'time'}),
+        }
+
+@admin.register(AvailableTimeSlot)
+class AvailableTimeSlotAdmin(admin.ModelAdmin):
+    form = AvailableTimeSlotAdminForm
 
 
 class InstructorProfileInformationAdmin(admin.ModelAdmin):
