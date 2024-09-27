@@ -6,8 +6,8 @@ from django.conf.urls.static import static
 app_name = 'appointBooking'
 
 urlpatterns = [
-    path('booking/<int:pk>/', views.AppointBooking, name='AppointBooking'),
-    path('fetch-slots/', views.fetch_time_slots, name='fetch_time_slots'), 
+    path('booking/<int:pk>/', views.AppointBooking, name='appointment_booking'),
+    # path('fetch-slots/', views.fetch_time_slots, name='fetch_time_slots'), 
 
 
 ]

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+from celery.schedules import crontab
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -216,3 +217,13 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.user.user_details',
     'authentication.pipeline.save_profile_picture',
 )
+
+
+
+
+CELERY_BEAT_SCHEDULE = {
+    'update_past_time_slots_every_day': {
+        'task': 'appointment.tasks.update_past_time_slots',
+        'schedule': crontab(hour=0, minute=0),  # Run every day at midnight
+    },
+}
