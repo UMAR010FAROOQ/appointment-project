@@ -12,6 +12,10 @@ from django.core.exceptions import ValidationError
 def AppointBooking(request, pk):
     instructor = get_object_or_404(InstructorProfile, pk=pk)
     available_time_slots = AvailableTimeSlot.objects.filter(instructor=instructor, is_available=True).order_by('start_time')
+    # Print available time slots to terminal for debugging
+    for slot in available_time_slots:
+        print(f"ID: {slot.pk}, Start Time: {slot.start_time}, End Time: {slot.end_time}, Available: {slot.is_available}")
+
 
     if request.method == 'POST':
         first_name = request.POST.get('first_name')
@@ -42,7 +46,7 @@ def AppointBooking(request, pk):
         # Fetch the selected time slot
         try:
             time_slot = AvailableTimeSlot.objects.get(pk=time_slot_id)
-            print(f"Selected Time Slot: Start Time - {time_slot.start_time}, End Time - {time_slot.end_time}, Available - {time_slot.is_available}")
+            print(f"Selected Time Slot: ID - {time_slot_id}, Start Time - {time_slot.start_time}, End Time - {time_slot.end_time}, Available - {time_slot.is_available}")
         except AvailableTimeSlot.DoesNotExist:
             print(f"Time Slot with ID {time_slot_id} does not exist.")
             return JsonResponse({'error': 'Selected time slot does not exist.'}, status=404)
@@ -57,7 +61,7 @@ def AppointBooking(request, pk):
             phone=phone,
             address=address,
             appointment_date=appointment_date,
-            time_slot=time_slot_id,
+            time_slot=time_slot,
             status='pending'
         )
 
@@ -68,6 +72,7 @@ def AppointBooking(request, pk):
         print(f"Appointment created successfully for {first_name} {last_name} on {appointment_date}.")
 
         return JsonResponse({'message': 'Appointment booked successfully!'})
+
 
     return render(request, 'appointbooking/appointment.html', {
         'instructor': instructor,

@@ -125,6 +125,16 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    {% comment %} <div class="col-md-6 col-sm-12">
+                                                        {% for slot in available_time_slots %}
+                                                            <div class="time-slot">
+                                                                <input type="radio" id="slot{{ forloop.counter0 }}" name="time_slot" value="{{ slot.pk }}">
+                                                                <label for="slot{{ forloop.counter0 }}" class="time-slot-label">
+                                                                    <i class="fa-regular fa-clock"></i> {{ slot.start_time }} - {{ slot.end_time }}
+                                                                </label>
+                                                            </div>
+                                                        {% endfor %}
+                                                    </div> {% endcomment %}
                                                 </div>
                                                 
                                             </div>
@@ -224,7 +234,7 @@
         const timeSlotContainer = document.getElementById('time-slot-container');
         timeSlotContainer.innerHTML = '';  // Clear previous slots
 
-        console.log("[DEBUG] Updating UI with slots:", slots);
+        console.log("[DEBUG] Slots received:", slots);
 
         if (slots.length === 0) {
             timeSlotContainer.innerHTML = `<div class="slot-box">
@@ -236,16 +246,22 @@
             </div>`;
         } else {
             slots.forEach((slot, index) => {
-                timeSlotContainer.innerHTML += 
-                    `<div class="time-slot">
-                        <input type="radio" id="slot${index}" name="time-slot" value="${slot.id}">
-                        <label for="slot${index}" class="time-slot-label">
-                            <i class="fa-regular fa-clock"></i> ${slot.start_time} - ${slot.end_time}
-                        </label>
-                    </div>`;
+                console.log(`[DEBUG] Slot ${index}:`, slot);  // Ensure 'slot.id' is defined
+                if (slot.id) {
+                    timeSlotContainer.innerHTML += 
+                        `<div class="time-slot">
+                            <input type="radio" id="slot${index}" name="time-slot" value="${slot.id}">
+                            <label for="slot${index}" class="time-slot-label">
+                                <i class="fa-regular fa-clock"></i> ${slot.start_time} - ${slot.end_time}
+                            </label>
+                        </div>`;
+                } else {
+                    console.error(`[DEBUG] Slot ${index} is missing 'id'`);
+                }
             });
         }
     }
+
 </script>
 
 

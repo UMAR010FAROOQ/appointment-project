@@ -33,7 +33,8 @@ def time_slot_changed(sender, instance, **kwargs):
     print(f"[DEBUG] Available time slots after update: {available_time_slots}")
 
     # Convert the slots to a list of dicts for serialization and format time
-    slots = [{'start_time': slot.start_time.strftime('%I:%M %p'),
+    slots = [{'id': slot.id,
+              'start_time': slot.start_time.strftime('%I:%M %p'),
               'end_time': slot.end_time.strftime('%I:%M %p')} 
              for slot in available_time_slots]
 

@@ -33,7 +33,7 @@ class TimeSlotConsumer(AsyncWebsocketConsumer):
             print(f"[DEBUG] Available time slots: {available_time_slots}")
 
             # Create a list of time slots to send back, converting time to 12-hour format with AM/PM
-            slots = [{'start_time': slot['start_time'].strftime('%I:%M %p'), 
+            slots = [{'id': slot['id'],'start_time': slot['start_time'].strftime('%I:%M %p'), 
                       'end_time': slot['end_time'].strftime('%I:%M %p')}
                      for slot in available_time_slots]
 
@@ -57,11 +57,13 @@ class TimeSlotConsumer(AsyncWebsocketConsumer):
         print(f"[DEBUG] Querying available time slots for weekday: {weekday}")
         
         # Convert the QuerySet to a list of dicts for easier JSON serialization
-        return list(available_time_slots.values('start_time', 'end_time'))
+        return list(available_time_slots.values('id','start_time', 'end_time'))
 
     # Method to handle the time slot update
     async def time_slot_update(self, event):
         print(f"[DEBUG] Time slot update triggered: {event}")
         slots = event['slots']
+        # Log to confirm the slots contain 'id'
+        print(f"[DEBUG] Slots with ID being sent: {slots}")
         # Send the updated slots to the connected client
         await self.send(text_data=json.dumps(slots))
