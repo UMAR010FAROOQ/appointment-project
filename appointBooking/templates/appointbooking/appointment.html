@@ -5,6 +5,7 @@
 
 {% block contentBody %}
 
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 
 <div class="breadcrumb-bar-two">
@@ -163,7 +164,6 @@
 
 
     
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 
 
@@ -171,98 +171,86 @@
     let socket;
 
     function connectWebSocket(instructorId) {
-        console.log("[DEBUG] Attempting WebSocket connection for instructor:", instructorId);
-
         socket = new WebSocket(`ws://127.0.0.1:8001/ws/appointbooking/fetch-slots/${instructorId}/`);
 
-        socket.onopen = function(event) {
-            console.log("[DEBUG] WebSocket connection established");
+        socket.onopen = function() {
+            console.log("WebSocket connection established");
         };
 
         socket.onmessage = function(event) {
             const data = JSON.parse(event.data);
-            console.log("[DEBUG] WebSocket received data:", data);
-            if (data.error) {
-                console.error('[DEBUG] Error fetching time slots:', data.error);
-            } else {
+            if (!data.error) {
                 updateTimeSlotUI(data);
             }
         };
 
-        socket.onclose = function(event) {
-            console.error('[DEBUG] WebSocket closed unexpectedly');
-            // Attempt to reconnect
-            setTimeout(() => connectWebSocket(instructorId), 3000); // Try to reconnect after 3 seconds
+        socket.onclose = function() {
+            setTimeout(() => connectWebSocket(instructorId), 3000); 
         };
 
         socket.onerror = function(error) {
-            console.error('[DEBUG] WebSocket error:', error);
+            console.error('WebSocket error:', error);
         };
     }
 
-    // Initialize Flatpickr for the inline calendar
     flatpickr("#calendar", {
         inline: true,
         dateFormat: "Y-m-d",
-        minDate: "today",  // Prevent past dates selection
+        minDate: "today",
         onChange: function(selectedDates, dateStr) {
+            document.getElementById('calendar').value = dateStr;
             console.log("[DEBUG] Date selected:", dateStr);
-            const instructorId = "{{ instructor.id }}";  // Passed from the view
-            fetchTimeSlots(instructorId, dateStr);
+            fetchTimeSlots("{{ instructor.id }}", dateStr);
         }
     });
 
-    // Fetch time slots via WebSocket
     function fetchTimeSlots(instructorId, dateStr) {
         if (!socket || socket.readyState === WebSocket.CLOSED) {
-            console.log("[DEBUG] WebSocket not open, reconnecting...");
             connectWebSocket(instructorId);
         }
-
-        // Wait until the socket is open, retrying a few times if needed
+        
         const interval = setInterval(() => {
             if (socket.readyState === WebSocket.OPEN) {
-                console.log("[DEBUG] WebSocket is open, sending data...");
                 socket.send(JSON.stringify({ selected_date: dateStr }));
-                clearInterval(interval);  // Clear the interval once data is sent
+                clearInterval(interval);
             }
-        }, 100);  // Retry every 100ms until it's open
+        }, 100); 
     }
 
-    // Update the time slots UI
     function updateTimeSlotUI(slots) {
         const timeSlotContainer = document.getElementById('time-slot-container');
-        timeSlotContainer.innerHTML = '';  // Clear previous slots
-
-        console.log("[DEBUG] Slots received:", slots);
+        timeSlotContainer.innerHTML = '';
 
         if (slots.length === 0) {
-            timeSlotContainer.innerHTML = `<div class="slot-box">
-                <div class="slot-body">
-                    <ul class="time-slots">
-                        <li>No available time slots</li>
-                    </ul>
-                </div>
-            </div>`;
+            timeSlotContainer.innerHTML = `<div class="slot-box"><ul class="time-slots"><li>No available time slots</li></ul></div>`;
         } else {
             slots.forEach((slot, index) => {
-                console.log(`[DEBUG] Slot ${index}:`, slot);  // Ensure 'slot.id' is defined
-                if (slot.id) {
-                    timeSlotContainer.innerHTML += 
-                        `<div class="time-slot">
-                            <input type="radio" id="slot${index}" name="time-slot" value="${slot.id}">
-                            <label for="slot${index}" class="time-slot-label">
-                                <i class="fa-regular fa-clock"></i> ${slot.start_time} - ${slot.end_time}
-                            </label>
-                        </div>`;
-                } else {
-                    console.error(`[DEBUG] Slot ${index} is missing 'id'`);
-                }
+                timeSlotContainer.innerHTML += 
+                    `<div class="time-slot">
+                        <input type="radio" id="slot${index}" name="time_slot" value="${slot.id}" required>
+                        <label for="slot${index}" class="time-slot-label">
+                            <i class="fa-regular fa-clock"></i> ${slot.start_time} - ${slot.end_time}
+                        </label>
+                    </div>`;
             });
         }
     }
 
-</script>
+    document.querySelector('form').addEventListener('submit', function(event) {
+        const dateField = document.getElementById('calendar');
+        if (!dateField.value) {
+            event.preventDefault();
+            console.error("Appointment date is missing.");
+            return;
+        }
 
+        const timeSlot = document.querySelector('input[name="time_slot"]:checked');
+        if (!timeSlot) {
+            event.preventDefault();
+            console.error("Time slot is missing.");
+            return;
+        }
+    });
+</script>
 
 {% endblock contentBody %}

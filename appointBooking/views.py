@@ -9,7 +9,9 @@ from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 
 
+
 def AppointBooking(request, pk):
+    
     instructor = get_object_or_404(InstructorProfile, pk=pk)
     available_time_slots = AvailableTimeSlot.objects.filter(instructor=instructor, is_available=True).order_by('start_time')
     # Print available time slots to terminal for debugging
@@ -18,16 +20,28 @@ def AppointBooking(request, pk):
 
 
     if request.method == 'POST':
+        
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
         email = request.POST.get('email')
         phone = request.POST.get('phone')
         address = request.POST.get('address')
         appointment_date = request.POST.get('appointment_date')
+        if appointment_date:
+            try:
+                appointment_date = datetime.strptime(appointment_date, "%Y-%m-%d").date()
+            except ValueError:
+                print(f"[DEBUG] Invalid date format: {appointment_date}")
+        print(f"[DEBUG] Appointment Date: {appointment_date}")
+        # appointment_date = datetime.strptime(appointment_date, '%Y-%m-%d').date()
+        
+        import pdb 
+        # pdb.set_trace()
         time_slot_id = request.POST.get('time_slot')
+        print(f"[DEBUG] time_slot_id: {time_slot_id}")
         
         if not appointment_date or not time_slot_id:
-            return JsonResponse({"success": False, "error": "Select a time slot."})
+            return JsonResponse({"success": False, "error": "Select date and time slot."})
 
 
         # Print data to the terminal for debugging
@@ -37,7 +51,7 @@ def AppointBooking(request, pk):
 
         # Validate fields
         if not all([first_name, last_name, email, phone, address, appointment_date, time_slot_id]):
-            return JsonResponse({'success': False, 'error': 'All fields are required, including selecting a time slot.'})
+            return JsonResponse({'success': False, 'error': 'All fields are required'})
 
 
         if not time_slot_id:
