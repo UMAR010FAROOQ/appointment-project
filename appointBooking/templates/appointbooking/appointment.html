@@ -109,6 +109,7 @@
                                                         <div class="mb-3 card-label">
                                                             <label class="mb-2" for="calendar">Date</label>
                                                             <input type="text" name="appointment_date" class="form-control datetimepicker" id="calendar" placeholder="Select a date">
+                                                            <input type="hidden" name="appointment_date" id="appointment_date_hidden">
                                                         </div>
                                                     </div>
                                                 
@@ -199,10 +200,12 @@
         minDate: "today",
         onChange: function(selectedDates, dateStr) {
             document.getElementById('calendar').value = dateStr;
+            document.getElementById('appointment_date_hidden').value = dateStr; // Update hidden field
             console.log("[DEBUG] Date selected:", dateStr);
             fetchTimeSlots("{{ instructor.id }}", dateStr);
         }
     });
+    
 
     function fetchTimeSlots(instructorId, dateStr) {
         if (!socket || socket.readyState === WebSocket.CLOSED) {

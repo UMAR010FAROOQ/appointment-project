@@ -26,6 +26,8 @@ def AppointBooking(request, pk):
         email = request.POST.get('email')
         phone = request.POST.get('phone')
         address = request.POST.get('address')
+        import pdb 
+        # pdb.set_trace()
         appointment_date = request.POST.get('appointment_date')
         if appointment_date:
             try:
@@ -35,8 +37,7 @@ def AppointBooking(request, pk):
         print(f"[DEBUG] Appointment Date: {appointment_date}")
         # appointment_date = datetime.strptime(appointment_date, '%Y-%m-%d').date()
         
-        import pdb 
-        # pdb.set_trace()
+        
         time_slot_id = request.POST.get('time_slot')
         print(f"[DEBUG] time_slot_id: {time_slot_id}")
         
