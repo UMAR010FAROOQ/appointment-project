@@ -121,9 +121,7 @@ def InstructorProfileSettings(request):
     if education:
         education_data = {
             'speciality': education.speciality,
-            'minicost': education.minicost,
-            'maxcost': education.maxcost,
-            'perhpur': education.perhpur,
+            'service_cost': education.service_cost,
             'aboutme': education.aboutme,
         }
         education_form = EducationForm(initial=education_data, instance=education)

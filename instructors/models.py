@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.conf import settings
 from authentication.models import InstructorProfile
 from django.core.exceptions import ValidationError
-
+from datetime import date
 
 class InstructorPasswordChange(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -23,9 +23,7 @@ class Education(models.Model):
     marks = models.CharField(max_length=100)
     description = models.TextField()
     speciality = models.CharField(max_length=255, default="")
-    minicost = models.IntegerField(blank=True, null=True)
-    maxcost = models.IntegerField(blank=True, null=True)
-    perhpur = models.IntegerField(blank=True, null=True)
+    service_cost = models.IntegerField(blank=True, null=True)
     aboutme = models.CharField(max_length=650, default="")
 
     def __str__(self):
@@ -78,6 +76,7 @@ class AvailableTimeSlot(models.Model):
     day_of_week = models.CharField(max_length=9, choices=DAYS_OF_WEEK, default="")
     start_time = models.TimeField()
     end_time = models.TimeField()
+    date = models.DateField(default=date.today)
     is_available = models.BooleanField(default=True)
 
     

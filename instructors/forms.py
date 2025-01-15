@@ -50,16 +50,13 @@ class InstructorProfileUpdateForm(forms.ModelForm):
 class EducationForm(forms.ModelForm):
     class Meta:
         model = Education
-        fields = ['speciality', 'minicost', 'maxcost', 'perhpur', 'aboutme']
+        fields = ['speciality', 'service_cost', 'aboutme']
 
     def clean_minicost(self):
-        minicost = self.cleaned_data.get('minicost')
-        return minicost if minicost else None
+        service_cost = self.cleaned_data.get('service_cost')
+        return service_cost if service_cost else None
 
-    def clean_maxcost(self):
-        maxcost = self.cleaned_data.get('maxcost')
-        return maxcost if maxcost else None
-
+   
     # def clean_end_date(self):
     #     start_date = self.cleaned_data.get('start_date')
     #     end_date = self.cleaned_data.get('end_date')

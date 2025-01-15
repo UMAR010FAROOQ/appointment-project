@@ -170,8 +170,8 @@
                             </a>
 
                             <div class="img-overlay">
-                                {% if instructor.min_cost and instructor.max_cost %}
-                                    <span>${{ instructor.min_cost }} - ${{ instructor.max_cost }}</span>
+                                {% if instructor.service_cost %}
+                                    <span>${{ instructor.service_cost }}</span>
                                 {% else %}
                                     <span>No cost available</span>
                                 {% endif %}

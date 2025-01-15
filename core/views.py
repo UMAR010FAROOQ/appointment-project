@@ -7,6 +7,7 @@ from django.utils.timezone import now
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 from django.utils import timezone
+from django.utils.timezone import now
 from datetime import timedelta
 from core.models import PasswordChange
 from django.contrib.auth.forms import PasswordChangeForm
@@ -14,8 +15,10 @@ from core.forms import UserProfileUpdateForm
 from .decorators import simple_user_required
 from authentication.models import InstructorProfile
 from instructors.models import InstructorProfileInformation, AvailableTimeSlot, Education
+from appointBooking.models import Appointment
 from django.db.models import Min, Max
 from django.shortcuts import render, get_object_or_404
+from django.core.paginator import Paginator
 
 
 
@@ -72,12 +75,9 @@ def HealthCare(request):
     instructors = InstructorProfile.objects.select_related('user', 'service').prefetch_related('educations')
 
     for instructor in instructors:
-        education_data = instructor.educations.aggregate(
-            min_cost=Min('minicost'),
-            max_cost=Max('maxcost')
-        )
-        instructor.min_cost = education_data['min_cost']
-        instructor.max_cost = education_data['max_cost']
+        education = instructor.educations.first()
+        instructor.service_cost = education.service_cost if education else None
+        
     return render(request, 'user/healthcare.html', {'instructors': instructors})
 
 def PersonalTrainer(request):
@@ -89,15 +89,93 @@ def Beauty(request):
     return render(request, 'user/beauty.html') 
 
 
-
 def UserDash(request):
-    return render(request, 'user/user-dash.html') 
+    # Ensure the user is authenticated
+    if request.user.is_authenticated:
+        # Filter appointments for the logged-in user
+        user_appointments = Appointment.objects.filter(user=request.user, status='confirmed')
+
+        # Current date and time
+        current_datetime = now()
+
+        # Count upcoming appointments
+        upcoming_appointments_count = user_appointments.filter(
+            appointment_date__gt=current_datetime.date()
+        ).count()
+
+        # Count completed appointments
+        completed_appointments_count = user_appointments.filter(
+            appointment_date__lt=current_datetime.date()
+        ).count()
+
+        # Pass counts to the template
+        context = {
+            'upcoming_count': upcoming_appointments_count,
+            'completed_count': completed_appointments_count,
+        }
+    else:
+        context = {
+            'upcoming_count': 0,
+            'completed_count': 0,
+        }
+
+    return render(request, 'user/user-dash.html', context)
 
 
-
+@login_required
 def UserAppointments(request):
-    return render(request, 'user/user-appointments.html') 
+    user = request.user
 
+    # Fetch user appointments with related data
+    user_appointments = Appointment.objects.select_related(
+        'instructor__user', 'time_slot'
+    ).filter(user=user)
+
+    # Current date for classification
+    current_date = now().date()
+
+    # Separate appointments into categories
+    upcoming_appointments = user_appointments.filter(
+        appointment_date__gte=current_date, status='confirmed'
+    ).order_by('appointment_date')
+    completed_appointments = user_appointments.filter(
+        appointment_date__lt=current_date, status='confirmed'
+    ).order_by('-appointment_date')
+    cancelled_appointments = user_appointments.filter(
+        status='cancelled'
+    ).order_by('-appointment_date')
+
+    # Pagination: 5 appointments per page
+    paginator_upcoming = Paginator(upcoming_appointments, 4)
+    paginator_completed = Paginator(completed_appointments, 4)
+    paginator_cancelled = Paginator(cancelled_appointments, 4)
+
+    # Get current page numbers from the query string
+    upcoming_page = request.GET.get('upcoming_page', 1)
+    completed_page = request.GET.get('completed_page', 1)
+    cancelled_page = request.GET.get('cancelled_page', 1)
+
+    # Paginate results
+    upcoming_paginated = paginator_upcoming.get_page(upcoming_page)
+    completed_paginated = paginator_completed.get_page(completed_page)
+    cancelled_paginated = paginator_cancelled.get_page(cancelled_page)
+
+    # Determine active tab
+    active_tab = 'pills-upcoming'  # Default to upcoming tab
+    if 'completed_page' in request.GET:
+        active_tab = 'pills-complete'
+    elif 'cancelled_page' in request.GET:
+        active_tab = 'pills-cancelled'
+
+    # Prepare context for the template
+    context = {
+        'upcoming_appointments': upcoming_paginated,
+        'completed_appointments': completed_paginated,
+        'cancelled_appointments': cancelled_paginated,
+        'active_tab': active_tab,
+    }
+
+    return render(request, 'user/user-appointments.html', context)
 
 
 @login_required

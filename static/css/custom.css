@@ -44616,7 +44616,7 @@ input:checked + .tog-slider:before {
 }
 
 .booking-date {
-  padding-bottom: 30px;
+  padding: 30px 0;
 }
 .booking-date p {
   color: #8C8C8C;
@@ -49984,15 +49984,20 @@ ul li {
   padding-top: 10px;
 }
 
-.appointment-detail-btn a {
-  border: 1px solid #0E82FD;
-  color: #0E82FD;
-  font-weight: 600;
-  padding: 5px 10px;
-  border-radius: 6px;
+.appointment-detail-btn span.badge.badge-warning-bg {
+  background: #EAAB08;
 }
-.appointment-detail-btn a i {
-  font-size: 14px;
+.appointment-detail-btn span.badge.badge-success-bg {
+  background: #14B8A6;
+}
+.appointment-detail-btn span.badge.badge-danger-bg {
+  background: #EF444E;
+}
+.appointment-detail-btn span {
+  padding: 5px 10px;
+  border-radius: 50px;
+  font-weight: 500;
+  display: inline-block;
 }
 
 .dashboard-pagination {
@@ -50638,7 +50643,7 @@ ul li {
 .slot-box {
   border: 2px solid #E2E8F0;
   margin: 0 0 30px;
-  padding: 15px 15px 0;
+  padding: 15px;
   border-radius: 8px;
 }
 .slot-box .slot-header {
@@ -50704,7 +50709,7 @@ ul li {
 }
 .slot-box .slot-body .time-slots li {
   background: #F1F5F9;
-  margin: 0 15px 15px 0;
+  /* margin: 0 15px 15px 0; */
   padding: 12px 13px;
   border-radius: 6px;
   display: inline-block;
@@ -52540,3 +52545,41 @@ ul li {
   max-width: 350px;
   margin: auto;
 }
+
+
+
+/* toast css */
+      /* info */
+      /* warning */
+      .wrapper-warning {
+        margin: 0px;
+      }
+      .wrapper-warning .card {
+        width: 100%;
+        height: 75px;
+        background-color: #fff;
+        padding: 10px 20px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        border-left: 5px solid #fdc220;
+        border-radius: 3px;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+      }
+      .wrapper-warning .card .subject {
+        padding: 0 10px;
+        margin-right: auto;
+      }
+      .wrapper-warning .card .subject p {
+        color: #909092;
+      }
+      .wrapper-warning .card .icon {
+        font-size: 28px;
+        color: #fdc220;
+      }
+      .wrapper-warning .card .icon-times {
+        font-size: 28px;
+        color: #c3c2c7;
+        cursor: pointer;
+      }
+      /* warning */

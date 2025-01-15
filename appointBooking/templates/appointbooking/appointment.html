@@ -15,7 +15,7 @@
                 <h2 class="breadcrumb-title">Booking</h2>
                 <nav aria-label="breadcrumb" class="page-breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'core:HomePage' %}">Home</a></li>
                         <li class="breadcrumb-item" aria-current="page">Booking</li>
                     </ol>
                 </nav>
@@ -63,6 +63,7 @@
                                                 {{ message }}
                                             </div>
                                         {% endfor %}
+
 
                                         <form action="{% url 'appointBooking:appointment_booking' pk=instructor.pk %}" method="post">
                                             {% csrf_token %}
@@ -141,7 +142,7 @@
                                                 
                                             </div>
 
-                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                            <button type="submit" class="btn btn-primary">Proceed to pay</button>
 
                                         </form>
                                             {% comment %} <div class="submit-section proceed-btn text-end">

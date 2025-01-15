@@ -1,1052 +1,268 @@
-{% extends "user/base.html" %}
-{% load static %} 
-
-{% block title%}| My Appointments {% endblock %}
-
+{% extends 'user/base.html' %}
+{% load static %}
+{% block title %}
+  | My Appointments
+{% endblock %}
 {% block contentBody %}
-
-
-
-<div class="breadcrumb-bar-two">
+  <div class="breadcrumb-bar-two">
     <div class="container">
-        <div class="row align-items-center inner-banner">
-            <div class="col-md-12 col-12 text-center">
-                <h2 class="breadcrumb-title">My Appointments</h2>
-                <nav aria-label="breadcrumb" class="page-breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{% url 'core:HomePage' %}">Home</a></li>
-                        <li class="breadcrumb-item" aria-current="page">My Appointments</li>
-                    </ol>
-                </nav>
-            </div>
+      <div class="row align-items-center inner-banner">
+        <div class="col-md-12 col-12 text-center">
+          <h2 class="breadcrumb-title">My Appointments</h2>
+          <nav aria-label="breadcrumb" class="page-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="{% url 'core:HomePage' %}">Home</a>
+              </li>
+              <li class="breadcrumb-item" aria-current="page">My Appointments</li>
+            </ol>
+          </nav>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 
-
-<div class="content doctor-content">
+  <div class="content doctor-content">
     <div class="container">
-        <div class="row">
-
-            <div class="col-lg-4 col-xl-3 theiaStickySidebar">
-
-                {% include "user/user-dash-slider.html" %}
-
-            </div>
-
-            <div class="col-lg-8 col-xl-9">
-                <div class="dashboard-header">
-                    <h3>Appointments</h3>
-                    <ul class="header-list-btns">
-                        <li>
-                            <div class="input-block dash-search-input">
-                                <input type="text" class="form-control" placeholder="Search">
-                                <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="appointment-tab-head">
-                    <div class="appointment-tabs">
-                        <ul class="nav nav-pills inner-tab " id="pills-tab" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="pills-upcoming-tab" data-bs-toggle="pill"
-                                    data-bs-target="#pills-upcoming" type="button" role="tab"
-                                    aria-controls="pills-upcoming"
-                                    aria-selected="false">Upcoming<span>21</span></button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="pills-cancel-tab" data-bs-toggle="pill"
-                                    data-bs-target="#pills-cancel" type="button" role="tab" aria-controls="pills-cancel"
-                                    aria-selected="true">Cancelled<span>16</span></button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="pills-complete-tab" data-bs-toggle="pill"
-                                    data-bs-target="#pills-complete" type="button" role="tab"
-                                    aria-controls="pills-complete"
-                                    aria-selected="true">Completed<span>214</span></button>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="filter-head">
-                        <div class="position-relative daterange-wraper me-2">
-                            <div class="input-groupicon calender-input">
-                                <input type="text" class="form-control  date-range bookingrange"
-                                    placeholder="From Date - To Date ">
-                            </div>
-                            <i class="fa-solid fa-calendar-days"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-content appointment-tab-content">
-                    <div class="tab-pane fade show active" id="pills-upcoming" role="tabpanel"
-                        aria-labelledby="pills-upcoming-tab">
-
-                        <div class="appointment-wrap">
-                            <ul>
-                                <li>
-                                    <div class="patinet-information">
-                                        <a href="patient-upcoming-appointment.html">
-                                            <img src="assets/img/doctors/doctor-thumb-21.jpg" alt="User Image">
-                                        </a>
-                                        <div class="patient-info">
-                                            <p>#Apt0001</p>
-                                            <h6><a href="patient-upcoming-appointment.html">Dr Edalin</a></h6>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="appointment-info">
-                                    <p><i class="fa-solid fa-clock"></i>11 Nov 2024 10.45 AM</p>
-                                    <ul class="d-flex apponitment-types">
-                                        <li>General Visit</li>
-                                        <li>Video Call</li>
-                                    </ul>
-                                </li>
-                                <li class="mail-info-patient">
-                                    <ul>
-                                        <li><i class="fa-solid fa-envelope"></i><a
-                                                href="https://doccure.dreamstechnologies.com/cdn-cgi/l/email-protection"
-                                                class="__cf_email__"
-                                                data-cfemail="80e5e4e1ece9eec0e5f8e1edf0ece5aee3efed">[email&#160;protected]</a>
-                                        </li>
-                                        <li><i class="fa-solid fa-phone"></i>+1 504 368 6874</li>
-                                    </ul>
-                                </li>
-                                <li class="appointment-action">
-                                    <ul>
-                                        <li>
-                                            <a href="patient-upcoming-appointment.html"><i
-                                                    class="fa-solid fa-eye"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-comments"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-xmark"></i></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="appointment-detail-btn">
-                                    <a href="#" class="start-link"><i
-                                            class="fa-solid fa-calendar-check me-1"></i>Attend</a>
-                                </li>
-                            </ul>
-                        </div>
-
-
-                        <div class="appointment-wrap">
-                            <ul>
-                                <li>
-                                    <div class="patinet-information">
-                                        <a href="patient-upcoming-appointment.html">
-                                            <img src="assets/img/doctors/doctor-thumb-13.jpg" alt="User Image">
-                                        </a>
-                                        <div class="patient-info">
-                                            <p>#Apt0002</p>
-                                            <h6><a href="patient-upcoming-appointment.html">Dr.Shanta</a><span
-                                                    class="badge new-tag">New</span></h6>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="appointment-info">
-                                    <p><i class="fa-solid fa-clock"></i>05 Nov 2024 11.50 AM</p>
-                                    <ul class="d-flex apponitment-types">
-                                        <li>General Visit</li>
-                                        <li>Audio Call</li>
-                                    </ul>
-                                </li>
-                                <li class="mail-info-patient">
-                                    <ul>
-                                        <li><i class="fa-solid fa-envelope"></i><a
-                                                href="https://doccure.dreamstechnologies.com/cdn-cgi/l/email-protection"
-                                                class="__cf_email__"
-                                                data-cfemail="89fae1e8e7fde8c9ecf1e8e4f9e5eca7eae6e4">[email&#160;protected]</a>
-                                        </li>
-                                        <li><i class="fa-solid fa-phone"></i>+1 832 891 8403</li>
-                                    </ul>
-                                </li>
-                                <li class="appointment-action">
-                                    <ul>
-                                        <li>
-                                            <a href="patient-upcoming-appointment.html"><i
-                                                    class="fa-solid fa-eye"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-comments"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-xmark"></i></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="appointment-detail-btn">
-                                    <a href="#" class="start-link"><i
-                                            class="fa-solid fa-calendar-check me-1"></i>Attend</a>
-                                </li>
-                            </ul>
-                        </div>
-
-
-                        <div class="appointment-wrap">
-                            <ul>
-                                <li>
-                                    <div class="patinet-information">
-                                        <a href="patient-upcoming-appointment.html">
-                                            <img src="assets/img/doctors/doctor-thumb-14.jpg" alt="User Image">
-                                        </a>
-                                        <div class="patient-info">
-                                            <p>#Apt0003</p>
-                                            <h6><a href="patient-upcoming-appointment.html">Dr.John</a></h6>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="appointment-info">
-                                    <p><i class="fa-solid fa-clock"></i>27 Oct 2024 09.30 AM</p>
-                                    <ul class="d-flex apponitment-types">
-                                        <li>General Visit</li>
-                                        <li>Video Call</li>
-                                    </ul>
-                                </li>
-                                <li class="mail-info-patient">
-                                    <ul>
-                                        <li><i class="fa-solid fa-envelope"></i><a
-                                                href="https://doccure.dreamstechnologies.com/cdn-cgi/l/email-protection"
-                                                class="__cf_email__"
-                                                data-cfemail="345e5b5c5a74514c55594458511a575b59">[email&#160;protected]</a>
-                                        </li>
-                                        <li><i class="fa-solid fa-phone"></i>+1 749 104 6291</li>
-                                    </ul>
-                                </li>
-                                <li class="appointment-action">
-                                    <ul>
-                                        <li>
-                                            <a href="patient-upcoming-appointment.html"><i
-                                                    class="fa-solid fa-eye"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-comments"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-xmark"></i></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="appointment-detail-btn">
-                                    <a href="#" class="start-link"><i
-                                            class="fa-solid fa-calendar-check me-1"></i>Attend</a>
-                                </li>
-                            </ul>
-                        </div>
-
-
-                        <div class="appointment-wrap">
-                            <ul>
-                                <li>
-                                    <div class="patinet-information">
-                                        <a href="patient-upcoming-appointment.html">
-                                            <img src="assets/img/doctors/doctor-thumb-15.jpg" alt="User Image">
-                                        </a>
-                                        <div class="patient-info">
-                                            <p>#Apt0004</p>
-                                            <h6><a href="patient-upcoming-appointment.html">Dr.Susan</a></h6>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="appointment-info">
-                                    <p><i class="fa-solid fa-clock"></i>18 Oct 2024 12.20 PM</p>
-                                    <ul class="d-flex apponitment-types">
-                                        <li>General Visit</li>
-                                        <li>Direct Visit</li>
-                                    </ul>
-                                </li>
-                                <li class="mail-info-patient">
-                                    <ul>
-                                        <li><i class="fa-solid fa-envelope"></i><a
-                                                href="https://doccure.dreamstechnologies.com/cdn-cgi/l/email-protection"
-                                                class="__cf_email__"
-                                                data-cfemail="d3a0a6a0b2bd93b6abb2bea3bfb6fdb0bcbe">[email&#160;protected]</a>
-                                        </li>
-                                        <li><i class="fa-solid fa-phone"></i>+1 584 920 7183</li>
-                                    </ul>
-                                </li>
-                                <li class="appointment-action">
-                                    <ul>
-                                        <li>
-                                            <a href="patient-upcoming-appointment.html"><i
-                                                    class="fa-solid fa-eye"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-comments"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-xmark"></i></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="appointment-detail-btn">
-                                    <a href="#" class="start-link"><i
-                                            class="fa-solid fa-calendar-check me-1"></i>Attend</a>
-                                </li>
-                            </ul>
-                        </div>
-
-
-                        <div class="appointment-wrap">
-                            <ul>
-                                <li>
-                                    <div class="patinet-information">
-                                        <a href="patient-upcoming-appointment.html">
-                                            <img src="assets/img/doctors/doctor-thumb-16.jpg" alt="User Image">
-                                        </a>
-                                        <div class="patient-info">
-                                            <p>#Apt0005</p>
-                                            <h6><a href="patient-upcoming-appointment.html">Dr.Juliet</a></h6>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="appointment-info">
-                                    <p><i class="fa-solid fa-clock"></i>10 Oct 2024 11.30 AM</p>
-                                    <ul class="d-flex apponitment-types">
-                                        <li>General Visit</li>
-                                        <li>Chat</li>
-                                    </ul>
-                                </li>
-                                <li class="mail-info-patient">
-                                    <ul>
-                                        <li><i class="fa-solid fa-envelope"></i><a
-                                                href="https://doccure.dreamstechnologies.com/cdn-cgi/l/email-protection"
-                                                class="__cf_email__"
-                                                data-cfemail="9ff5eaf3f6faebdffae7fef2eff3fab1fcf0f2">[email&#160;protected]</a>
-                                        </li>
-                                        <li><i class="fa-solid fa-phone"></i>+1 059 327 6729</li>
-                                    </ul>
-                                </li>
-                                <li class="appointment-action">
-                                    <ul>
-                                        <li>
-                                            <a href="patient-upcoming-appointment.html"><i
-                                                    class="fa-solid fa-eye"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-comments"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-xmark"></i></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="appointment-detail-btn">
-                                    <a href="#" class="start-link"><i
-                                            class="fa-solid fa-calendar-check me-1"></i>Attend</a>
-                                </li>
-                            </ul>
-                        </div>
-
-
-                        <div class="appointment-wrap">
-                            <ul>
-                                <li>
-                                    <div class="patinet-information">
-                                        <a href="patient-upcoming-appointment.html">
-                                            <img src="assets/img/doctors/doctor-thumb-17.jpg" alt="User Image">
-                                        </a>
-                                        <div class="patient-info">
-                                            <p>#Apt0006</p>
-                                            <h6><a href="patient-upcoming-appointment.html">Dr.Joseph</a></h6>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="appointment-info">
-                                    <p><i class="fa-solid fa-clock"></i>26 Sep 2024 10.20 AM</p>
-                                    <ul class="d-flex apponitment-types">
-                                        <li>General Visit</li>
-                                        <li>Chat</li>
-                                    </ul>
-                                </li>
-                                <li class="mail-info-patient">
-                                    <ul>
-                                        <li><i class="fa-solid fa-envelope"></i><a
-                                                href="https://doccure.dreamstechnologies.com/cdn-cgi/l/email-protection"
-                                                class="__cf_email__"
-                                                data-cfemail="640e0b1701140c24011c05091408014a070b09">[email&#160;protected]</a>
-                                        </li>
-                                        <li><i class="fa-solid fa-phone"></i>+1 278 402 7103</li>
-                                    </ul>
-                                </li>
-                                <li class="appointment-action">
-                                    <ul>
-                                        <li>
-                                            <a href="patient-upcoming-appointment.html"><i
-                                                    class="fa-solid fa-eye"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-comments"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-xmark"></i></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="appointment-detail-btn">
-                                    <a href="#" class="start-link"><i
-                                            class="fa-solid fa-calendar-check me-1"></i>Attend</a>
-                                </li>
-                            </ul>
-                        </div>
-
-
-                        <div class="appointment-wrap">
-                            <ul>
-                                <li>
-                                    <div class="patinet-information">
-                                        <a href="patient-upcoming-appointment.html">
-                                            <img src="assets/img/doctors/doctor-thumb-18.jpg" alt="User Image">
-                                        </a>
-                                        <div class="patient-info">
-                                            <p>#Apt0007</p>
-                                            <h6><a href="patient-upcoming-appointment.html">Dr.Victoria</a></h6>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="appointment-info">
-                                    <p><i class="fa-solid fa-clock"></i>14 Sep 2024 08.10 AM</p>
-                                    <ul class="d-flex apponitment-types">
-                                        <li>General Visit</li>
-                                        <li>Chat</li>
-                                    </ul>
-                                </li>
-                                <li class="mail-info-patient">
-                                    <ul>
-                                        <li><i class="fa-solid fa-envelope"></i><a
-                                                href="https://doccure.dreamstechnologies.com/cdn-cgi/l/email-protection"
-                                                class="__cf_email__"
-                                                data-cfemail="75031c16011a071c1435100d14180519105b161a18">[email&#160;protected]</a>
-                                        </li>
-                                        <li><i class="fa-solid fa-phone"></i>+1 638 278 0249</li>
-                                    </ul>
-                                </li>
-                                <li class="appointment-action">
-                                    <ul>
-                                        <li>
-                                            <a href="patient-upcoming-appointment.html"><i
-                                                    class="fa-solid fa-eye"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-comments"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-xmark"></i></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="appointment-detail-btn">
-                                    <a href="#" class="start-link"><i
-                                            class="fa-solid fa-calendar-check me-1"></i>Attend</a>
-                                </li>
-                            </ul>
-                        </div>
-
-
-                        <div class="appointment-wrap">
-                            <ul>
-                                <li>
-                                    <div class="patinet-information">
-                                        <a href="patient-upcoming-appointment.html">
-                                            <img src="assets/img/doctors/doctor-thumb-19.jpg" alt="User Image">
-                                        </a>
-                                        <div class="patient-info">
-                                            <p>#Apt0008</p>
-                                            <h6><a href="patient-upcoming-appointment.html">Dr.Benjamin</a></h6>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="appointment-info">
-                                    <p><i class="fa-solid fa-clock"></i>03 Sep 2024 06.00 PM</p>
-                                    <ul class="d-flex apponitment-types">
-                                        <li>General Visit</li>
-                                        <li>Video Call</li>
-                                    </ul>
-                                </li>
-                                <li class="mail-info-patient">
-                                    <ul>
-                                        <li><i class="fa-solid fa-envelope"></i><a
-                                                href="https://doccure.dreamstechnologies.com/cdn-cgi/l/email-protection"
-                                                class="__cf_email__"
-                                                data-cfemail="9af8fff4f0fbf7f3f4daffe2fbf7eaf6ffb4f9f5f7">[email&#160;protected]</a>
-                                        </li>
-                                        <li><i class="fa-solid fa-phone"></i>+1 261 039 1873</li>
-                                    </ul>
-                                </li>
-                                <li class="appointment-action">
-                                    <ul>
-                                        <li>
-                                            <a href="patient-upcoming-appointment.html"><i
-                                                    class="fa-solid fa-eye"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-comments"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#"><i class="fa-solid fa-xmark"></i></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="appointment-detail-btn">
-                                    <a href="#" class="start-link"><i
-                                            class="fa-solid fa-calendar-check me-1"></i>Attend</a>
-                                </li>
-                            </ul>
-                        </div>
-
-
-                        <div class="pagination dashboard-pagination">
-                            <ul>
-                                <li>
-                                    <a href="#" class="page-link"><i class="fa-solid fa-chevron-left"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="page-link">1</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="page-link active">2</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="page-link">3</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="page-link">4</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="page-link">...</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="page-link"><i class="fa-solid fa-chevron-right"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-
-                    </div>
-                    <div class="tab-pane fade" id="pills-cancel" role="tabpanel" aria-labelledby="pills-cancel-tab">
-
-                        <div class="appointment-wrap">
-                            <ul>
-                                <li>
-                                    <div class="patinet-information">
-                                        <a href="patient-cancelled-appointment.html">
-                                            <img src="assets/img/doctors/doctor-thumb-21.jpg" alt="User Image">
-                                        </a>
-                                        <div class="patient-info">
-                                            <p>#Apt00011</p>
-                                            <h6><a href="patient-cancelled-appointment.html">Dr Edalin</a></h6>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="appointment-info">
-                                    <p><i class="fa-solid fa-clock"></i>11 Nov 2024 10.45 AM</p>
-                                    <ul class="d-flex apponitment-types">
-                                        <li>General Visit</li>
-                                        <li>Video Call</li>
-                                    </ul>
-                                </li>
-                                <li class="appointment-detail-btn">
-                                    <a href="patient-cancelled-appointment.html" class="start-link">View
-                                        Details<i class="fa-regular fa-circle-right ms-1"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-
-
-                        <div class="appointment-wrap">
-                            <ul>
-                                <li>
-                                    <div class="patinet-information">
-                                        <a href="patient-cancelled-appointment.html">
-                                            <img src="assets/img/doctors/doctor-thumb-13.jpg" alt="User Image">
-                                        </a>
-                                        <div class="patient-info">
-                                            <p>#Apt0002</p>
-                                            <h6><a href="patient-cancelled-appointment.html">Dr.Shanta</a><span
-                                                    class="badge new-tag">New</span></h6>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="appointment-info">
-                                    <p><i class="fa-solid fa-clock"></i>05 Nov 2024 11.50 AM</p>
-                                    <ul class="d-flex apponitment-types">
-                                        <li>General Visit</li>
-                                        <li>Audio Call</li>
-                                    </ul>
-                                </li>
-                                <li class="appointment-detail-btn">
-                                    <a href="patient-cancelled-appointment.html" class="start-link">View
-                                        Details<i class="fa-regular fa-circle-right ms-1"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-
-
-                        <div class="appointment-wrap">
-                            <ul>
-                                <li>
-                                    <div class="patinet-information">
-                                        <a href="patient-cancelled-appointment.html">
-                                            <img src="assets/img/doctors/doctor-thumb-14.jpg" alt="User Image">
-                                        </a>
-                                        <div class="patient-info">
-                                            <p>#Apt0003</p>
-                                            <h6><a href="patient-cancelled-appointment.html">Dr.John</a></h6>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="appointment-info">
-                                    <p><i class="fa-solid fa-clock"></i>27 Oct 2024 09.30 AM</p>
-                                    <ul class="d-flex apponitment-types">
-                                        <li>General Visit</li>
-                                        <li>Video Call</li>
-                                    </ul>
-                                </li>
-                                <li class="appointment-detail-btn">
-                                    <a href="patient-cancelled-appointment.html" class="start-link">View
-                                        Details<i class="fa-regular fa-circle-right ms-1"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-
-
-                        <div class="appointment-wrap">
-                            <ul>
-                                <li>
-                                    <div class="patinet-information">
-                                        <a href="patient-cancelled-appointment.html">
-                                            <img src="assets/img/doctors/doctor-thumb-15.jpg" alt="User Image">
-                                        </a>
-                                        <div class="patient-info">
-                                            <p>#Apt0004</p>
-                                            <h6><a href="patient-cancelled-appointment.html">Dr.Susan</a></h6>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="appointment-info">
-                                    <p><i class="fa-solid fa-clock"></i>18 Oct 2024 12.20 PM</p>
-                                    <ul class="d-flex apponitment-types">
-                                        <li>General Visit</li>
-                                        <li>Direct Visit</li>
-                                    </ul>
-                                </li>
-                                <li class="appointment-detail-btn">
-                                    <a href="patient-cancelled-appointment.html" class="start-link">View
-                                        Details<i class="fa-regular fa-circle-right ms-1"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-
-
-                        <div class="appointment-wrap">
-                            <ul>
-                                <li>
-                                    <div class="patinet-information">
-                                        <a href="patient-cancelled-appointment.html">
-                                            <img src="assets/img/doctors/doctor-thumb-16.jpg" alt="User Image">
-                                        </a>
-                                        <div class="patient-info">
-                                            <p>#Apt0005</p>
-                                            <h6><a href="patient-cancelled-appointment.html">Dr.Juliet</a></h6>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="appointment-info">
-                                    <p><i class="fa-solid fa-clock"></i>10 Oct 2024 11.30 AM</p>
-                                    <ul class="d-flex apponitment-types">
-                                        <li>General Visit</li>
-                                        <li>Chat</li>
-                                    </ul>
-                                </li>
-                                <li class="appointment-detail-btn">
-                                    <a href="patient-cancelled-appointment.html" class="start-link">View
-                                        Details<i class="fa-regular fa-circle-right ms-1"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-
-
-                        <div class="appointment-wrap">
-                            <ul>
-                                <li>
-                                    <div class="patinet-information">
-                                        <a href="patient-cancelled-appointment.html">
-                                            <img src="assets/img/doctors/doctor-thumb-17.jpg" alt="User Image">
-                                        </a>
-                                        <div class="patient-info">
-                                            <p>#Apt0006</p>
-                                            <h6><a href="patient-cancelled-appointment.html">Dr.Joseph</a></h6>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="appointment-info">
-                                    <p><i class="fa-solid fa-clock"></i>26 Sep 2024 10.20 AM</p>
-                                    <ul class="d-flex apponitment-types">
-                                        <li>General Visit</li>
-                                        <li>Chat</li>
-                                    </ul>
-                                </li>
-                                <li class="appointment-detail-btn">
-                                    <a href="patient-cancelled-appointment.html" class="start-link">View
-                                        Details<i class="fa-regular fa-circle-right ms-1"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-
-
-                        <div class="appointment-wrap">
-                            <ul>
-                                <li>
-                                    <div class="patinet-information">
-                                        <a href="patient-cancelled-appointment.html">
-                                            <img src="assets/img/doctors/doctor-thumb-18.jpg" alt="User Image">
-                                        </a>
-                                        <div class="patient-info">
-                                            <p>#Apt0007</p>
-                                            <h6><a href="patient-cancelled-appointment.html">Dr.Victoria</a>
-                                            </h6>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="appointment-info">
-                                    <p><i class="fa-solid fa-clock"></i>14 Sep 2024 08.10 AM</p>
-                                    <ul class="d-flex apponitment-types">
-                                        <li>General Visit</li>
-                                        <li>Chat</li>
-                                    </ul>
-                                </li>
-                                <li class="appointment-detail-btn">
-                                    <a href="patient-cancelled-appointment.html" class="start-link">View
-                                        Details<i class="fa-regular fa-circle-right ms-1"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-
-
-                        <div class="appointment-wrap">
-                            <ul>
-                                <li>
-                                    <div class="patinet-information">
-                                        <a href="patient-cancelled-appointment.html">
-                                            <img src="assets/img/doctors/doctor-thumb-19.jpg" alt="User Image">
-                                        </a>
-                                        <div class="patient-info">
-                                            <p>#Apt0008</p>
-                                            <h6><a href="patient-cancelled-appointment.html">Dr.Benjamin</a>
-                                            </h6>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="appointment-info">
-                                    <p><i class="fa-solid fa-clock"></i>03 Sep 2024 06.00 PM</p>
-                                    <ul class="d-flex apponitment-types">
-                                        <li>General Visit</li>
-                                        <li>Video Call</li>
-                                    </ul>
-                                </li>
-                                <li class="appointment-detail-btn">
-                                    <a href="patient-cancelled-appointment.html" class="start-link">View
-                                        Details<i class="fa-regular fa-circle-right ms-1"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-
-
-                        <div class="pagination dashboard-pagination">
-                            <ul>
-                                <li>
-                                    <a href="#" class="page-link"><i class="fa-solid fa-chevron-left"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="page-link">1</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="page-link active">2</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="page-link">3</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="page-link">4</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="page-link">...</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="page-link"><i class="fa-solid fa-chevron-right"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-
-                    </div>
-                    <div class="tab-pane fade" id="pills-complete" role="tabpanel" aria-labelledby="pills-complete-tab">
-
-                        <div class="appointment-wrap">
-                            <ul>
-                                <li>
-                                    <div class="patinet-information">
-                                        <a href="patient-completed-appointment.html">
-                                            <img src="assets/img/doctors/doctor-thumb-21.jpg" alt="User Image">
-                                        </a>
-                                        <div class="patient-info">
-                                            <p>#Apt0001</p>
-                                            <h6><a href="patient-completed-appointment.html">Dr Edalin</a></h6>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="appointment-info">
-                                    <p><i class="fa-solid fa-clock"></i>11 Nov 2024 10.45 AM</p>
-                                    <ul class="d-flex apponitment-types">
-                                        <li>General Visit</li>
-                                        <li>Video Call</li>
-                                    </ul>
-                                </li>
-                                <li class="appointment-detail-btn">
-                                    <a href="patient-completed-appointment.html" class="start-link">View
-                                        Details<i class="fa-regular fa-circle-right ms-1"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-
-
-                        <div class="appointment-wrap">
-                            <ul>
-                                <li>
-                                    <div class="patinet-information">
-                                        <a href="patient-completed-appointment.html">
-                                            <img src="assets/img/doctors/doctor-thumb-13.jpg" alt="User Image">
-                                        </a>
-                                        <div class="patient-info">
-                                            <p>#Apt0002</p>
-                                            <h6><a href="patient-completed-appointment.html">Dr.Shanta</a><span
-                                                    class="badge new-tag">New</span></h6>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="appointment-info">
-                                    <p><i class="fa-solid fa-clock"></i>05 Nov 2024 11.50 AM</p>
-                                    <ul class="d-flex apponitment-types">
-                                        <li>General Visit</li>
-                                        <li>Audio Call</li>
-                                    </ul>
-                                </li>
-                                <li class="appointment-detail-btn">
-                                    <a href="patient-completed-appointment.html" class="start-link">View
-                                        Details<i class="fa-regular fa-circle-right ms-1"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-
-
-                        <div class="appointment-wrap">
-                            <ul>
-                                <li>
-                                    <div class="patinet-information">
-                                        <a href="patient-completed-appointment.html">
-                                            <img src="assets/img/doctors/doctor-thumb-14.jpg" alt="User Image">
-                                        </a>
-                                        <div class="patient-info">
-                                            <p>#Apt0003</p>
-                                            <h6><a href="patient-completed-appointment.html">Dr.John</a></h6>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="appointment-info">
-                                    <p><i class="fa-solid fa-clock"></i>27 Oct 2024 09.30 AM</p>
-                                    <ul class="d-flex apponitment-types">
-                                        <li>General Visit</li>
-                                        <li>Video Call</li>
-                                    </ul>
-                                </li>
-                                <li class="appointment-detail-btn">
-                                    <a href="patient-completed-appointment.html" class="start-link">View
-                                        Details<i class="fa-regular fa-circle-right ms-1"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-
-
-                        <div class="appointment-wrap">
-                            <ul>
-                                <li>
-                                    <div class="patinet-information">
-                                        <a href="patient-completed-appointment.html">
-                                            <img src="assets/img/doctors/doctor-thumb-15.jpg" alt="User Image">
-                                        </a>
-                                        <div class="patient-info">
-                                            <p>#Apt0004</p>
-                                            <h6><a href="patient-completed-appointment.html">Dr.Susan</a></h6>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="appointment-info">
-                                    <p><i class="fa-solid fa-clock"></i>18 Oct 2024 12.20 PM</p>
-                                    <ul class="d-flex apponitment-types">
-                                        <li>General Visit</li>
-                                        <li>Direct Visit</li>
-                                    </ul>
-                                </li>
-                                <li class="appointment-detail-btn">
-                                    <a href="patient-completed-appointment.html" class="start-link">View
-                                        Details<i class="fa-regular fa-circle-right ms-1"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-
-
-                        <div class="appointment-wrap">
-                            <ul>
-                                <li>
-                                    <div class="patinet-information">
-                                        <a href="patient-completed-appointment.html">
-                                            <img src="assets/img/doctors/doctor-thumb-16.jpg" alt="User Image">
-                                        </a>
-                                        <div class="patient-info">
-                                            <p>#Apt0005</p>
-                                            <h6><a href="patient-completed-appointment.html">Dr.Juliet</a></h6>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="appointment-info">
-                                    <p><i class="fa-solid fa-clock"></i>10 Oct 2024 11.30 AM</p>
-                                    <ul class="d-flex apponitment-types">
-                                        <li>General Visit</li>
-                                        <li>Chat</li>
-                                    </ul>
-                                </li>
-                                <li class="appointment-detail-btn">
-                                    <a href="patient-completed-appointment.html" class="start-link">View
-                                        Details<i class="fa-regular fa-circle-right ms-1"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-
-
-                        <div class="appointment-wrap">
-                            <ul>
-                                <li>
-                                    <div class="patinet-information">
-                                        <a href="patient-completed-appointment.html">
-                                            <img src="assets/img/doctors/doctor-thumb-17.jpg" alt="User Image">
-                                        </a>
-                                        <div class="patient-info">
-                                            <p>#Apt0006</p>
-                                            <h6><a href="patient-completed-appointment.html">Dr.Joseph</a></h6>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="appointment-info">
-                                    <p><i class="fa-solid fa-clock"></i>26 Sep 2024 10.20 AM</p>
-                                    <ul class="d-flex apponitment-types">
-                                        <li>General Visit</li>
-                                        <li>Chat</li>
-                                    </ul>
-                                </li>
-                                <li class="appointment-detail-btn">
-                                    <a href="patient-completed-appointment.html" class="start-link">View
-                                        Details<i class="fa-regular fa-circle-right ms-1"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-
-
-                        <div class="appointment-wrap">
-                            <ul>
-                                <li>
-                                    <div class="patinet-information">
-                                        <a href="patient-completed-appointment.html">
-                                            <img src="assets/img/doctors/doctor-thumb-18.jpg" alt="User Image">
-                                        </a>
-                                        <div class="patient-info">
-                                            <p>#Apt0007</p>
-                                            <h6><a href="patient-completed-appointment.html">Dr.Victoria</a>
-                                            </h6>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="appointment-info">
-                                    <p><i class="fa-solid fa-clock"></i>14 Sep 2024 08.10 AM</p>
-                                    <ul class="d-flex apponitment-types">
-                                        <li>General Visit</li>
-                                        <li>Chat</li>
-                                    </ul>
-                                </li>
-                                <li class="appointment-detail-btn">
-                                    <a href="patient-completed-appointment.html" class="start-link">View
-                                        Details<i class="fa-regular fa-circle-right ms-1"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-
-
-                        <div class="appointment-wrap">
-                            <ul>
-                                <li>
-                                    <div class="patinet-information">
-                                        <a href="patient-completed-appointment.html">
-                                            <img src="assets/img/doctors/doctor-thumb-19.jpg" alt="User Image">
-                                        </a>
-                                        <div class="patient-info">
-                                            <p>#Apt0008</p>
-                                            <h6><a href="patient-completed-appointment.html">Dr.Benjamin</a>
-                                            </h6>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="appointment-info">
-                                    <p><i class="fa-solid fa-clock"></i>03 Sep 2024 06.00 PM</p>
-                                    <ul class="d-flex apponitment-types">
-                                        <li>General Visit</li>
-                                        <li>Video Call</li>
-                                    </ul>
-                                </li>
-                                <li class="appointment-detail-btn">
-                                    <a href="patient-completed-appointment.html" class="start-link">View
-                                        Details<i class="fa-regular fa-circle-right ms-1"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-
-
-                        <div class="pagination dashboard-pagination">
-                            <ul>
-                                <li>
-                                    <a href="#" class="page-link"><i class="fa-solid fa-chevron-left"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#" class="page-link">1</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="page-link active">2</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="page-link">3</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="page-link">4</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="page-link">...</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="page-link"><i class="fa-solid fa-chevron-right"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+      <div class="row">
+        <div class="col-lg-4 col-xl-3 theiaStickySidebar">
+          {% include 'user/user-dash-slider.html' %}
         </div>
+
+        <div class="col-lg-8 col-xl-9">
+          <div class="dashboard-header">
+            <h3>Appointments</h3>
+            <ul class="header-list-btns">
+              <li>
+                <div class="input-block dash-search-input">
+                  <input type="text" id="search-input" class="form-control" placeholder="Search" />
+                  <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="appointment-tab-head">
+            <div class="appointment-tabs">
+              <ul class="nav nav-pills inner-tab" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="pills-upcoming-tab" data-bs-toggle="pill" data-bs-target="#pills-upcoming" type="button" role="tab" aria-controls="pills-upcoming" aria-selected="false">Upcoming<span>{{ upcoming_appointments.paginator.count }}</span></button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="pills-complete-tab" data-bs-toggle="pill" data-bs-target="#pills-complete" type="button" role="tab" aria-controls="pills-complete" aria-selected="true">Completed<span>{{ completed_appointments.paginator.count }}</span></button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="pills-cancelled-tab" data-bs-toggle="pill" data-bs-target="#pills-cancelled" type="button" role="tab" aria-controls="pills-cancelled" aria-selected="true">Cancelled<span>{{ cancelled_appointments.paginator.count }}</span></button>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="tab-content appointment-tab-content">
+            <!-- Upcoming Appointments -->
+            <div class="tab-pane fade {% if active_tab == 'pills-upcoming' %}show active{% endif %}" id="pills-upcoming" role="tabpanel" aria-labelledby="pills-upcoming-tab">
+              {% for appointment in upcoming_appointments %}
+                <div class="appointment-wrap">
+                  <ul>
+                    <li>
+                      <div class="patinet-information">
+                        <img src="{{ appointment.instructor.user.profile_image.url|default:'/static/img/doctor-profiles/default-user.png' }}" alt="Image" />
+                        <div class="patient-info">
+                          <p>#{{ appointment.id }}</p>
+                          <h6>{{ appointment.instructor.user.first_name }}</h6>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="appointment-info">
+                      <p>
+                        <i class="fa-solid fa-calendar"></i>{{ appointment.appointment_date }}
+                      </p>
+                      <p>
+                        <i class="fa-solid fa-clock"></i>{{ appointment.time_slot.day_of_week }}: {{ appointment.time_slot.start_time }} - {{ appointment.time_slot.end_time }}
+                      </p>
+                    </li>
+                    <li class="mail-info-patient">
+                      <p>
+                        <i class="fa-solid fa-envelope me-2"></i>{{ appointment.email }}
+                      </p>
+                    </li>
+                    <li class="appointment-detail-btn">
+                      <span class="badge badge-warning-bg">Upcoming</span>
+                    </li>
+                  </ul>
+                </div>
+              {% empty %}
+                <p>No upcoming appointments.</p>
+              {% endfor %}
+              <div class="pagination dashboard-pagination gap-2">
+                {% if upcoming_appointments.paginator.num_pages > 1 %}
+                  {% for page_num in upcoming_appointments.paginator.page_range %}
+                    <a href="?upcoming_page={{ page_num }}" class="page-link rounded {% if upcoming_appointments.number == page_num %}active{% endif %}">{{ page_num }}</a>
+                  {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+
+            <!-- Completed Appointments -->
+            <div class="tab-pane fade {% if active_tab == 'pills-complete' %}show active{% endif %}" id="pills-complete" role="tabpanel" aria-labelledby="pills-complete-tab">
+              {% for appointment in completed_appointments %}
+                <div class="appointment-wrap">
+                  <ul>
+                    <li>
+                      <div class="patinet-information">
+                        <img src="{{ appointment.instructor.user.profile_image.url|default:'/static/img/doctor-profiles/default-user.png' }}" alt="Doctor Image" />
+                        <div class="patient-info">
+                          <p>#{{ appointment.id }}</p>
+                          <h6>{{ appointment.instructor.user.first_name }}</h6>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="appointment-info">
+                      <p>
+                        <i class="fa-solid fa-calendar"></i>{{ appointment.appointment_date }}
+                      </p>
+                      <p>
+                        <i class="fa-solid fa-clock"></i>{{ appointment.time_slot.day_of_week }}: {{ appointment.time_slot.start_time }} - {{ appointment.time_slot.end_time }}
+                      </p>
+                    </li>
+                    <li class="mail-info-patient">
+                      <p>
+                        <i class="fa-solid fa-envelope me-2"></i>{{ appointment.email }}
+                      </p>
+                    </li>
+                    <li class="appointment-detail-btn">
+                      <span class="badge badge-success-bg">Completed</span>
+                    </li>
+                  </ul>
+                </div>
+              {% empty %}
+                <p>No completed appointments.</p>
+              {% endfor %}
+              <div class="pagination dashboard-pagination gap-2">
+                {% if completed_appointments.paginator.num_pages > 1 %}
+                  {% for page_num in completed_appointments.paginator.page_range %}
+                    <a href="?completed_page={{ page_num }}" class="page-link rounded {% if completed_appointments.number == page_num %}active{% endif %}">{{ page_num }}</a>
+                  {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+
+            <!-- Cancelled Appointments -->
+            <div class="tab-pane fade {% if active_tab == 'pills-cancelled' %}show active{% endif %}" id="pills-cancelled" role="tabpanel" aria-labelledby="pills-cancelled-tab">
+              {% for appointment in cancelled_appointments %}
+                <div class="appointment-wrap">
+                  <ul>
+                    <li>
+                      <div class="patinet-information">
+                        <img src="{{ appointment.instructor.user.profile_image.url|default:'/static/img/doctor-profiles/default-user.png' }}" alt="Doctor Image" />
+                        <div class="patient-info">
+                          <p>#{{ appointment.id }}</p>
+                          <h6>{{ appointment.instructor.user.first_name }}</h6>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="appointment-info">
+                      <p>
+                        <i class="fa-solid fa-calendar"></i>{{ appointment.appointment_date }}
+                      </p>
+                      <p>
+                        <i class="fa-solid fa-clock"></i>{{ appointment.time_slot.day_of_week }}: {{ appointment.time_slot.start_time }} - {{ appointment.time_slot.end_time }}
+                      </p>
+                    </li>
+                    <li class="mail-info-patient">
+                      <p>
+                        <i class="fa-solid fa-envelope me-2"></i>{{ appointment.email }}
+                      </p>
+                    </li>
+                    <li class="appointment-detail-btn">
+                      <span class="badge badge-danger-bg">Cancelled</span>
+                    </li>
+                  </ul>
+                </div>
+              {% empty %}
+                <p>No cancelled appointments.</p>
+              {% endfor %}
+              <div class="pagination dashboard-pagination gap-2">
+                {% if cancelled_appointments.paginator.num_pages > 1 %}
+                  {% for page_num in cancelled_appointments.paginator.page_range %}
+                    <a href="?cancelled_page={{ page_num }}" class="page-link rounded {% if cancelled_appointments.number == page_num %}active{% endif %}">{{ page_num }}</a>
+                  {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
-</div>
+  </div>
 
 
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const searchInput = document.getElementById('search-input');
+      const tabs = document.querySelectorAll('.nav-link[data-bs-toggle="pill"]');
+      const tabContent = document.querySelector('.tab-content');
+  
+      // Debounce function to limit the frequency of search
+      const debounce = (func, delay) => {
+        let timer;
+        return function (...args) {
+          clearTimeout(timer);
+          timer = setTimeout(() => func.apply(this, args), delay);
+        };
+      };
+  
+      // Filter appointments
+      const filterAppointments = (query) => {
+        const activeTabPane = tabContent.querySelector('.tab-pane.show.active');
+        const appointments = activeTabPane.querySelectorAll('.appointment-wrap');
+        let hasResults = false;
+  
+        appointments.forEach((appointment) => {
+          const appointmentText = appointment.textContent.toLowerCase();
+          if (appointmentText.includes(query.toLowerCase())) {
+            appointment.style.display = '';
+            hasResults = true;
+          } else {
+            appointment.style.display = 'none';
+          }
+        });
+  
+        // Show "No appointments found" message if no results
+        const noResultsMessage = activeTabPane.querySelector('.no-results');
+        if (!hasResults) {
+          if (!noResultsMessage) {
+            const message = document.createElement('p');
+            message.classList.add('no-results', 'text-center', 'mt-3');
+            message.textContent = 'No appointments found.';
+            activeTabPane.appendChild(message);
+          }
+        } else {
+          if (noResultsMessage) {
+            noResultsMessage.remove();
+          }
+        }
+      };
+  
+      // Debounced search handler
+      const handleSearch = debounce((event) => {
+        const query = event.target.value.trim();
+        filterAppointments(query);
+      }, 300);
+  
+      // Attach search input event listener
+      searchInput.addEventListener('input', handleSearch);
+  
+      // Reset search when switching tabs
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          searchInput.value = '';
+          filterAppointments(''); // Reset filtering
+        });
+      });
+    });
+  </script>
+  
 
-
-
-
-{% endblock contentBody %}
+{% endblock %}

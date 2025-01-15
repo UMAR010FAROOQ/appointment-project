@@ -203,6 +203,7 @@ LOGOUT_REDIRECT_URL = 'authentication:user-login'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     'https://www.googleapis.com/auth/userinfo.email',
     'https://www.googleapis.com/auth/userinfo.profile',
+    'https://www.googleapis.com/auth/calendar',
 ]
 
 SOCIAL_AUTH_PIPELINE = (
@@ -220,6 +221,10 @@ SOCIAL_AUTH_PIPELINE = (
 
 
 
+# celery settings
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
+
 
 CELERY_BEAT_SCHEDULE = {
     'update_past_time_slots_every_day': {
@@ -227,3 +232,5 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': crontab(hour=0, minute=0),  # Run every day at midnight
     },
 }
+
+
