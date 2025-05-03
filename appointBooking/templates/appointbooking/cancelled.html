@@ -1,0 +1,59 @@
+{% extends "appointBooking/base.html" %}
+{% load static %} 
+
+{% block title%}| Checkout {% endblock %}
+
+{% block contentBody %}
+
+
+
+<div class="breadcrumb-bar-two">
+    <div class="container">
+        <div class="row align-items-center inner-banner">
+            <div class="col-md-12 col-12 text-center">
+                <h2 class="breadcrumb-title">Cancelled</h2>
+                <nav aria-label="breadcrumb" class="page-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'core:HomePage' %}">Home</a></li>
+                        <li class="breadcrumb-item" aria-current="page">Cancelled</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="doctor-content">
+    <div class="container">
+
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+                <div class="success-content">
+                    <div class="success-icon">
+                        <i class="fas fa-times-circle" style="color: red;"></i>
+                    </div>
+                    <h4>Your Appointment Cancelled</h4>
+                </div>
+                <div class="success-btn">
+                    <p>Time’s up! Your appointment has been canceled due to non-payment</p>
+                </div>
+                <div class="success-dashboard-link">
+                    <a href="{% url 'core:HomePage' %}" class="btn btn-light">
+                        <i class="fa-solid fa-arrow-left-long"></i> Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+{% endblock contentBody %}

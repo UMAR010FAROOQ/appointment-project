@@ -1,0 +1,188 @@
+{% extends "appointBooking/base.html" %}
+{% load static %} 
+
+{% block title%}| Checkout {% endblock %}
+
+{% block contentBody %}
+
+
+
+<div class="breadcrumb-bar-two">
+    <div class="container">
+        <div class="row align-items-center inner-banner">
+            <div class="col-md-12 col-12 text-center">
+                <h2 class="breadcrumb-title">Checkout</h2>
+                <nav aria-label="breadcrumb" class="page-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'core:HomePage' %}">Home</a></li>
+                        <li class="breadcrumb-item" aria-current="page">Checkout</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+
+
+
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} text-center" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+
+
+                        <div class="wrapper-warning">
+                            <div class="card">
+                              <div class="icon"><i class="fas fa-exclamation-circle"></i></div>
+                              <div class="subject" id="countdown-alert">
+                                <p class="m-0">Your appointment will be canceled in <span id="countdown">--:--</span> if payment is not completed.</p>
+                              </div>
+                            </div>
+                          </div>
+                        
+
+                          <h4 class="card-title">Payment Method</h4>
+                          
+                          <form method="POST" action="{{ jazzcash_post_url }}">
+                            {% csrf_token %}
+                            {% for key, value in jazzcash_data.items %}
+                                <input type="hidden" name="{{ key }}" value="{{ value }}">
+                            {% endfor %}
+                            <img width="200px" src="{% static 'img/jazzcash.png' %}" alt="">
+                            <div class="submit-section mt-4">
+                                <button type="submit" class="btn btn-primary submit-btn">Pay with JazzCash</button>
+                            </div>
+                        </form>
+                        
+                       {% comment %} <form method="POST" action="https://sandbox.jazzcash.com.pk/CustomerPortal/transactionmanagement/merchantform/">
+                            <div class="payment-widget">
+                                <h4 class="card-title">Payment Method</h4>
+                                <div class="payment-list">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            logic will be here
+                                            {% comment %} <button type="submit" class="jazzcash-button">Pay with JazzCash</button>
+                                            <div class="submit-section mt-4">
+                                                <button type="submit" class="btn btn-primary submit-btn">Pay with JazzCash</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>{% endcomment %}
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 col-lg-4 theiaStickySidebar">
+
+                <div class="card booking-card">
+                    <div class="card-header">
+                        <h4 class="card-title">Booking Summary</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="booking-doc-info">
+                            <a href="{% url 'core:InstructorProfileDetail' instructor.pk %}" class="booking-doc-img">
+                                {% if instructor.user.profile_image %}
+                                    <img src="{{ instructor.user.profile_image.url }}" alt="User Image" class="img-fluid">
+                                {% elif instructor.user.profile_image_url %}
+                                    <img src="{{ instructor.user.profile_image_url }}" alt="User Image" class="img-fluid">
+                                {% else %}
+                                    <img src="{% static 'img/shapes/profile-user.png' %}" alt="User Image" class="img-fluid">
+                                {% endif %}
+                            </a>
+                            <div class="booking-info">
+                                <h4><a href="{% url 'core:InstructorProfileDetail' instructor.pk %}">Dr. {{ instructor.user.first_name }} {{ instructor.user.last_name }}</a></h4>
+                                <div class="clinic-details">
+                                    <p class="mb-1">{% if instructor.educations.exists %}{{ instructor.educations.first.speciality }}{% else %}No speciality available{% endif %}</p>
+                                    <p class="doc-location"><i class="fas fa-map-marker-alt"></i> {{ instructor.city }}</p>
+                                </div>
+                            </div>
+                        </div>
+                
+                        <div class="booking-summary">
+                            <div class="booking-item-wrap">
+                                <ul class="booking-date d-block">
+                                    <li>Date :<span> {{ appointment.appointment_date }}</span></li>
+                                    <li>Time :<span> {{ appointment.time_slot.day_of_week }}: {{ appointment.time_slot.start_time }} - {{ appointment.time_slot.end_time }}</span></li>
+                                </ul>
+                                <ul class="booking-fee">
+                                    <li>Booking Fee <span>Rs. {{ service_price }}</span></li>
+                                </ul>
+                                <div class="booking-total">
+                                    <ul class="booking-total-list">
+                                        <li>
+                                            <span>Total</span>
+                                            <span class="total-cost">Rs. {{ service_price }}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function submitForm() {
+        document.forms[0].submit();
+    }
+</script>
+
+
+<script>
+    const countdownAlert = document.getElementById('countdown-alert');
+    const countdownDisplay = document.getElementById('countdown');
+    const countdownEndTime = {{ countdown_end_time|floatformat:"0" }}; // Pass as a number directly
+
+    // Function to get cookie value by name
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    // Set countdown end cookie if it doesn't exist
+    if (!getCookie('countdownEnd')) {
+        document.cookie = `countdownEnd=${countdownEndTime}; path=/; max-age=600`; // 10 min in seconds
+    }
+
+    // Function to start countdown from the cookie
+    function startCountdown() {
+        const countdownEnd = parseFloat(getCookie('countdownEnd')) * 1000;
+        const interval = setInterval(() => {
+            const now = new Date().getTime();
+            const remainingTime = countdownEnd - now;
+
+            if (remainingTime <= 0) {
+                clearInterval(interval);
+                // Redirect to cancellation page when countdown ends
+                window.location.href = "{% url 'appointBooking:appointment_cancelled' %}";
+            } else {
+                const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+                countdownDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            }
+        }, 1000);
+    }
+
+    startCountdown();
+</script>
+
+{% endblock contentBody %}

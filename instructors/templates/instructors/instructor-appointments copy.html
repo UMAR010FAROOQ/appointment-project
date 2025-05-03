@@ -1,0 +1,295 @@
+{% extends "instructors/base.html" %}
+{% load static %} 
+
+{% block title%}| Appointment Request {% endblock %}
+
+{% block contentBody %}
+
+
+
+
+
+
+
+
+
+<div class="breadcrumb-bar-two">
+    <div class="container">
+        <div class="row align-items-center inner-banner">
+            <div class="col-md-12 col-12 text-center">
+                <h2 class="breadcrumb-title">Appointments</h2>
+                <nav aria-label="breadcrumb" class="page-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item" aria-current="page">Appointments</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-xl-3 theiaStickySidebar">
+
+                {% include "instructors/dash-slider.html" %}
+
+            </div>
+            <div class="col-lg-8 col-xl-9">
+                <div class="dashboard-header">
+                    <h3>Appointments</h3>
+                    <ul class="header-list-btns">
+                        <li>
+                            <div class="input-block dash-search-input">
+                                <input type="text" class="form-control" placeholder="Search">
+                                <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="appointment-tab-head">
+                    <div class="appointment-tabs">
+                        <ul class="nav nav-pills inner-tab " id="pills-tab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="pills-upcoming-tab" data-bs-toggle="pill"
+                                    data-bs-target="#pills-upcoming" type="button" role="tab"
+                                    aria-controls="pills-upcoming"
+                                    aria-selected="false">Today<span>21</span></button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-cancel-tab" data-bs-toggle="pill"
+                                    data-bs-target="#pills-cancel" type="button" role="tab" aria-controls="pills-cancel"
+                                    aria-selected="true">Total Appointment<span>16</span></button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-complete-tab" data-bs-toggle="pill"
+                                    data-bs-target="#pills-complete" type="button" role="tab"
+                                    aria-controls="pills-complete"
+                                    aria-selected="true">Completed<span>214</span></button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab-content appointment-tab-content">
+                    <div class="tab-pane fade show active" id="pills-upcoming" role="tabpanel"
+                        aria-labelledby="pills-upcoming-tab">
+
+                        <div class="appointment-wrap">
+                            <ul>
+                              <li>
+                                <div class="patinet-information">
+                                  <img src="/media/profile_images/WhatsApp_Image_2024-08-22_at_9.58.09_PM_YHnmXxa.jpeg" alt="Image">
+                                  <div class="patient-info">
+                                    <p>#72</p>
+                                    <h6>Aliya</h6>
+                                  </div>
+                                </div>
+                              </li>
+                              <li class="appointment-info">
+                                <p>
+                                  <i class="fa-solid fa-calendar"></i>Jan. 29, 2025
+                                </p>
+                                <p>
+                                  <i class="fa-solid fa-clock"></i>Wednesday: 9 a.m. - 9:30 a.m.
+                                </p>
+                              </li>
+                              <li class="mail-info-patient">
+                                <p>
+                                  <i class="fa-solid fa-envelope me-2"></i>umarffcallback02@gmail.com
+                                </p>
+                              </li>
+                              <li class="appointment-detail-btn">
+                                <span class="badge badge-warning-bg">Today</span>
+                              </li>
+                            </ul>
+                          </div>
+
+
+                        <div class="pagination dashboard-pagination">
+                            <ul>
+                                <li>
+                                    <a href="#" class="page-link"><i class="fa-solid fa-chevron-left"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="page-link">1</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="page-link active">2</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="page-link">3</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="page-link"><i class="fa-solid fa-chevron-right"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <div class="tab-pane fade" id="pills-cancel" role="tabpanel" aria-labelledby="pills-cancel-tab">
+
+                        <div class="appointment-wrap">
+                            <ul>
+                              <li>
+                                <div class="patinet-information">
+                                  <img src="/media/profile_images/WhatsApp_Image_2024-08-22_at_9.58.09_PM_YHnmXxa.jpeg" alt="Image">
+                                  <div class="patient-info">
+                                    <p>#72</p>
+                                    <h6>Aliya</h6>
+                                  </div>
+                                </div>
+                              </li>
+                              <li class="appointment-info">
+                                <p>
+                                  <i class="fa-solid fa-calendar"></i>Jan. 29, 2025
+                                </p>
+                                <p>
+                                  <i class="fa-solid fa-clock"></i>Wednesday: 9 a.m. - 9:30 a.m.
+                                </p>
+                              </li>
+                              <li class="mail-info-patient">
+                                <p>
+                                  <i class="fa-solid fa-envelope me-2"></i>umarffcallback02@gmail.com
+                                </p>
+                              </li>
+                              <li class="appointment-detail-btn">
+                                <span class="badge badge-warning-bg">Upcomming</span>
+                              </li>
+                            </ul>
+                          </div>
+
+
+                        <div class="pagination dashboard-pagination">
+                            <ul>
+                                <li>
+                                    <a href="#" class="page-link"><i class="fa-solid fa-chevron-left"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="page-link">1</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="page-link active">2</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="page-link">3</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="page-link">4</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="page-link">...</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="page-link"><i class="fa-solid fa-chevron-right"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <div class="tab-pane fade" id="pills-complete" role="tabpanel" aria-labelledby="pills-complete-tab">
+
+                        <div class="appointment-wrap">
+                            <ul>
+                              <li>
+                                <div class="patinet-information">
+                                  <img src="/media/profile_images/WhatsApp_Image_2024-08-22_at_9.58.09_PM_YHnmXxa.jpeg" alt="Image">
+                                  <div class="patient-info">
+                                    <p>#72</p>
+                                    <h6>Aliya</h6>
+                                  </div>
+                                </div>
+                              </li>
+                              <li class="appointment-info">
+                                <p>
+                                  <i class="fa-solid fa-calendar"></i>Jan. 29, 2025
+                                </p>
+                                <p>
+                                  <i class="fa-solid fa-clock"></i>Wednesday: 9 a.m. - 9:30 a.m.
+                                </p>
+                              </li>
+                              <li class="mail-info-patient">
+                                <p>
+                                  <i class="fa-solid fa-envelope me-2"></i>umarffcallback02@gmail.com
+                                </p>
+                              </li>
+                              <li class="appointment-detail-btn">
+                                <span class="badge badge-success-bg">Completed</span>
+                              </li>
+                            </ul>
+                          </div>
+
+                        <div class="pagination dashboard-pagination">
+                            <ul>
+                                <li>
+                                    <a href="#" class="page-link"><i class="fa-solid fa-chevron-left"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="page-link">1</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="page-link active">2</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="page-link">3</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="page-link">4</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="page-link">...</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="page-link"><i class="fa-solid fa-chevron-right"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+  // JavaScript to handle pagination for each tab dynamically
+document.querySelectorAll('.dashboard-pagination a').forEach((link) => {
+  link.addEventListener('click', function (e) {
+      e.preventDefault();
+      const url = new URL(this.href);
+
+      // Identify which tab the user is in
+      const activeTab = document.querySelector('.nav-link.active').id;
+      let pageKey;
+
+      switch (activeTab) {
+          case 'pills-upcoming-tab':
+              pageKey = 'upcoming_page';
+              break;
+          case 'pills-cancel-tab':
+              pageKey = 'today_page';
+              break;
+          case 'pills-complete-tab':
+              pageKey = 'completed_page';
+              break;
+      }
+
+      if (pageKey) {
+          url.searchParams.set(pageKey, url.searchParams.get('page'));
+          window.location.href = url.href;
+      }
+  });
+});
+
+</script>
+
+
+
+
+{% endblock contentBody %}

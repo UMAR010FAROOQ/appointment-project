@@ -1,0 +1,299 @@
+{% extends "user/base.html" %}
+{% load static %} 
+
+{% block title%}| Instructor Profile {% endblock %}
+
+{% block contentBody %}
+
+
+
+
+<div class="breadcrumb-bar-two">
+    <div class="container">
+        <div class="row align-items-center inner-banner">
+            <div class="col-md-12 col-12 text-center">
+                <h2 class="breadcrumb-title">Profile</h2>
+                <nav aria-label="breadcrumb" class="page-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'core:HomePage' %}">Home</a></li>
+                        <li class="breadcrumb-item" aria-current="page">Profile</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="content">
+    <div class="container">
+
+        <div class="card">
+            <div class="card-body">
+                <div class="doctor-widget">
+                    <div class="doc-info-left">
+                        <div class="doctor-img">
+                            {% if instructor.user.profile_image %}
+                                        <img src="{{ instructor.user.profile_image.url }}" alt="User Image" class="img-fluid">
+                                    {% elif instructor.user.profile_image_url %}
+                                        <img src="{{ instructor.user.profile_image_url }}" alt="User Image" class="img-fluid">
+                                    {% else %}
+                                        <img src="{% static 'img/shapes/profile-user.png' %}" alt="User Image" class="img-fluid">
+                                    {% endif %}
+                        </div>
+                        <div class="doc-info-cont">
+                            <h4 class="doc-name">Dr. {{ instructor.user.first_name }} {{ instructor.user.last_name }}</h4>
+                            
+                            {% for info in profile_info %}
+                                {% if info.course %}
+                                    <p class="doc-speciality d-inline-block">{{ info.course }}, </p>
+                                {% endif %}
+                            {% endfor %}
+
+                            <p class="doc-department">{% if instructor.educations.exists %}{{ instructor.educations.first.speciality }}{% else %}No speciality available{% endif %}</p>
+
+                            <div class="clinic-details">
+                                <p class="doc-location"><i class="fas fa-map-marker-alt"></i> {{ instructor.city }} <a
+                                        href="javascript:void(0);"></a></p>
+                                
+                            <ul class="clinic-gallery">
+                                {% for info in profile_info %}
+                                    {% if info.workspace_image %}
+                                        <li>
+                                            <a href="{{ info.workspace_image.url }}" data-fancybox="gallery" target="_blank">
+                                                <img src="{{ info.workspace_image.url }}" alt="Feature Image">
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+           
+                            </div>
+                            <!-- <div class="clinic-services">
+                                <span>Dental Fillings</span>
+                                <span>Teeth Whitneing</span>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="doc-info-right">
+                        <div class="clini-infos">
+                            <ul>
+                                <li><i class="far fa-thumbs-up"></i> 99%</li>
+                                <li><i class="fas fa-map-marker-alt"></i> {{ instructor.city }}</li>
+                                    {% if instructor.educations.exists %}
+                                        <li><i class="far fa-money-bill-alt"></i> ${{ instructor.educations.first.perhpur }} per hour</li>
+                                    {% else %}
+                                        <li><i class="far fa-money-bill-alt"></i> No per hour rate available</li>
+                                    {% endif %}
+                            </ul>
+                        </div>
+                        <div class="clinic-booking">
+                            <a class="apt-btn" href="booking.html">Book Appointment</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card">
+            <div class="card-body pt-0">
+
+                <nav class="user-tabs mb-4">
+                    <ul class="nav nav-tabs nav-tabs-bottom nav-justified">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#doc_overview" data-bs-toggle="tab">Overview</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#doc_business_hours" data-bs-toggle="tab">Business
+                                Hours</a>
+                        </li>
+                    </ul>
+                </nav>
+
+
+                <div class="tab-content pt-0">
+
+                    <div role="tabpanel" id="doc_overview" class="tab-pane fade show active">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-9">
+
+                                <div class="widget about-widget">
+                                    <h4 class="widget-title">About Me</h4>
+                                    {% if instructor.educations.exists %}
+                                        <p>{{ instructor.educations.first.aboutme }}</p>
+                                    {% else %}
+                                        <p>No information available</p>
+                                    {% endif %}
+                                </div>
+
+
+                                <div class="widget education-widget">
+                                    <h4 class="widget-title">Education</h4>
+                                    <div class="experience-box">
+                                        <ul class="experience-list">
+                                            {% for info in profile_info %}
+                                                {% if info.institution_name or info.course or info.start_date or info.end_date %}
+                                                    <li>
+                                                        <div class="experience-user">
+                                                            <div class="before-circle"></div>
+                                                        </div>
+                                                        <div class="experience-content">
+                                                            <div class="timeline-content">
+                                                                {% if info.institution_name %}
+                                                                    <a href="#/" class="name">{{ info.institution_name }}</a>
+                                                                {% else %}
+                                                                    <a href="#/" class="name">No institution available</a>
+                                                                {% endif %}
+                                                                
+                                                                {% if info.course %}
+                                                                    <div>{{ info.course }}</div>
+                                                                {% else %}
+                                                                    <div>No course available</div>
+                                                                {% endif %}
+                                                                
+                                                                {% if info.start_date and info.end_date %}
+                                                                    <span class="time">{{ info.start_date|date:"j F Y" }} - {{ info.end_date|date:"j F Y" }}</span>
+                                                                {% elif info.start_date %}
+                                                                    <span class="time">{{ info.start_date|date:"j F Y" }} - Present</span>
+                                                                {% else %}
+                                                                    <span class="time">No dates available</span>
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+
+
+                                <div class="widget experience-widget">
+                                    <h4 class="widget-title">Work & Experience</h4>
+                                    <div class="experience-box">
+                                        <ul class="experience-list">
+                                            {% for info in profile_info %}
+                                                {% if info.work_history_institution or info.work_start_date or info.work_end_date %}
+                                                    <li>
+                                                        <div class="experience-user">
+                                                            <div class="before-circle"></div>
+                                                        </div>
+                                                        <div class="experience-content">
+                                                            <div class="timeline-content">
+                                                                {% if info.work_history_institution %}
+                                                                    <a href="#/" class="name">{{ info.work_history_institution }}</a>
+                                                                {% else %}
+                                                                    <a href="#/" class="name">No institution available</a>
+                                                                {% endif %}
+                                                                
+                                                                {% if info.work_start_date and info.work_end_date %}
+                                                                    <span class="time">{{ info.work_start_date }} - {{ info.work_end_date }}</span>
+                                                                {% elif info.work_start_date %}
+                                                                    <span class="time">{{ info.work_start_date }} - Present</span>
+                                                                {% else %}
+                                                                    <span class="time">No dates available</span>
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+
+
+                                <div class="service-list">
+                                    <h4>Services</h4>
+                                    <ul class="clearfix">
+                                        {% for info in profile_info %}
+                                            {% if info.services %}
+                                                <li>{{ info.services }}</li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                
+                                
+                                
+                                <div class="service-list">
+                                    <h4>Specializations</h4>
+                                    <ul class="clearfix">
+                                        {% for info in profile_info %}
+                                            {% if info.specializations %}
+                                                <li>{{ info.specializations }}</li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div role="tabpanel" id="doc_business_hours" class="tab-pane fade">
+                        <div class="row">
+                            <div class="col-md-10 offset-md-1">
+
+                                <h4 class="mb-3">Available Slots for Booking</h4>
+
+                                <div class="accordions" id="list-accord">
+
+                                    {% for day, slots in days_of_week.items %}
+                                        <div class="user-accordion-item">
+                                            <a href="#" class="accordion-wrap" data-bs-toggle="collapse"
+                                                data-bs-target="#{{ day|lower }}">{{ day }}</a>
+                                            <div class="accordion-collapse collapse {% if day == 'Monday' %}show{% endif %}" id="{{ day|lower }}"
+                                                data-bs-parent="#list-accord">
+                                                <div class="content-collapse">
+                                                    <div class="add-service-info">
+                                                        <div class="add-info">
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="slot-box">
+                                                                        <div class="slot-body">
+                                                                            <ul class="time-slots">
+                                                                                {% if slots %}
+                                                                                    {% for slot in slots %}
+                                                                                        <li><i class="fa-regular fa-clock"></i>{{ slot.start_time|time:"h:i A" }} - {{ slot.end_time|time:"h:i A" }}</li>
+                                                                                    {% endfor %}
+                                                                                {% else %}
+                                                                                    <li>No available time slots</li>
+                                                                                {% endif %}
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                
+                                </div>
+                                
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+{% endblock contentBody %}

@@ -1,0 +1,118 @@
+{% load static %} 
+
+
+
+<footer class="footer footer-one">
+    <div class="footer-top aos" data-aos="fade-up">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-4">
+                    <div class="footer-widget footer-about">
+                        <div class="footer-logo">
+                            <a href="{% url 'core:HomePage' %}"><img src="{% static 'img/logo.png' %}" alt="logo"></a>
+                        </div>
+                        <div class="footer-about-content">
+                            <p>At AppointTrack, we are committed to providing top-notch services that streamline your booking experience, whether you need beauty, fitness, or healthcare appointments. </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-4">
+                            <div class="footer-widget footer-menu">
+                                <h2 class="footer-title">Link</h2>
+                                <ul>
+                                    <li><a href="{% url 'core:HomePage' %}">Home</a></li>
+                                    <li><a href="{% url 'core:AboutPage' %}">About Us</a></li>
+                                    <li><a href="{% url 'core:ContactPage' %}">Contact Us</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4">
+                            <div class="footer-widget footer-menu">
+                                <h2 class="footer-title">Our Services </h2>
+                                <ul>
+                                    <li><a href="{% url 'core:HealthCare' %}">Healthcare</a></li>
+                                    <li><a href="{% url 'core:PersonalTrainer' %}">Personal Training </a></li>
+                                    <li><a href="{% url 'core:Beauty' %}">Beauty</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-4">
+                            <div class="footer-widget footer-contact">
+                                <h2 class="footer-title">Contact Us</h2>
+                                <div class="footer-contact-info">
+                                    <div class="footer-address">
+                                        <p><i class="feather-map-pin"></i>Bahawalpur City, Pakistan </p> 
+                                    </div>
+                                    <div class="footer-address">
+                                        <p><i class="feather-phone-call"></i> 03052546470</p>
+                                    </div>
+                                    <div class="footer-address mb-0">
+                                        <p><i class="feather-mail"></i> <a href="mailto:umar010farooq@gmail.com">umar010farooq@gmail.com</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-7">
+                    <div class="footer-widget">
+                        <h2 class="footer-title">Join Our Newsletter</h2>
+                        <div class="subscribe-form">
+                            <form action="#">
+                                <input type="email" class="form-control" placeholder="Enter Email">
+                                <button type="submit" class="btn">Submit</button>
+                            </form>
+                        </div>
+                        <div class="social-icon">
+                            <ul>
+                                <li>
+                                    <a href="javascript:void(0);"><i class="fab fa-facebook"></i></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);"><i class="fab fa-instagram"></i></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);"><i class="fab fa-twitter"></i></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);"><i class="fab fa-linkedin-in"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 col-lg-6">
+                        <div class="copyright-text">
+                            <p class="mb-0">Copyright © 2025 AppointTrack. All Rights Reserved</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6">
+
+                        <div class="copyright-menu">
+                            <ul class="policy-menu">
+                                <li><a href="#">Privacy Policy</a></li>
+                                <li><a href="#">Terms and Conditions</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</footer>
+
+
+

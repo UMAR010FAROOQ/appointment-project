@@ -1,0 +1,260 @@
+{% extends "appointBooking/base.html" %}
+{% load static %} 
+
+{% block title%}| Booking {% endblock %}
+
+{% block contentBody %}
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+
+<div class="breadcrumb-bar-two">
+    <div class="container">
+        <div class="row align-items-center inner-banner">
+            <div class="col-md-12 col-12 text-center">
+                <h2 class="breadcrumb-title">Booking</h2>
+                <nav aria-label="breadcrumb" class="page-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'core:HomePage' %}">Home</a></li>
+                        <li class="breadcrumb-item" aria-current="page">Booking</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="booking-doc-info">
+                            <a href="{% url 'core:InstructorProfileDetail' instructor.pk %}" class="booking-doc-img">
+                                {% if instructor.user.profile_image %}
+                                        <img src="{{ instructor.user.profile_image.url }}" alt="User Image" class="img-fluid">
+                                    {% elif instructor.user.profile_image_url %}
+                                        <img src="{{ instructor.user.profile_image_url }}" alt="User Image" class="img-fluid">
+                                    {% else %}
+                                        <img src="{% static 'img/shapes/profile-user.png' %}" alt="User Image" class="img-fluid">
+                                    {% endif %}
+                            </a>
+                            <div class="booking-info">
+                                <h4><a href="{% url 'core:InstructorProfileDetail' instructor.pk %}">Dr. {{ instructor.user.first_name }} {{ instructor.user.last_name }}</a></h4>
+                                <p class="doc-department">{% if instructor.educations.exists %}{{ instructor.educations.first.speciality }}{% else %}No speciality available{% endif %}</p>
+                                <p class="text-muted mb-0"><i class="fas fa-map-marker-alt"></i> {{ instructor.city }} </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        {% for message in messages %}
+                                            <div class="alert alert-{{ message.tags }} text-center" role="alert">
+                                                {{ message }}
+                                            </div>
+                                        {% endfor %}
+
+
+                                        <form action="{% url 'appointBooking:appointment_booking' pk=instructor.pk %}" method="post">
+                                            {% csrf_token %}
+                                            <div class="info-widget">
+                                                <h4 class="card-title">Personal Information</h4>
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <div class="mb-3 card-label">
+                                                            <label class="mb-2">First Name</label>
+                                                            <input class="form-control" name="first_name" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <div class="mb-3 card-label">
+                                                            <label class="mb-2">Last Name</label>
+                                                            <input class="form-control" name="last_name" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <div class="mb-3 card-label">
+                                                            <label class="mb-2">Email</label>
+                                                            <input class="form-control" name="email" type="email" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <div class="mb-3 card-label">
+                                                            <label class="mb-2">Phone</label>
+                                                            <input class="form-control" name="phone" type="tel">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <div class="mb-3 card-label">
+                                                            <label class="mb-2">Address</label>
+                                                            <input class="form-control" name="address" type="text">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="info-widget">
+                                                <h4 class="card-title">Booking Information</h4>
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <div class="mb-3 card-label">
+                                                            <label class="mb-2" for="calendar">Date</label>
+                                                            <input type="text" name="appointment_date" class="form-control datetimepicker" id="calendar" placeholder="Select a date">
+                                                            <input type="hidden" name="appointment_date" id="appointment_date_hidden">
+                                                        </div>
+                                                    </div>
+                                                
+                                                    <div class="col-md-6 col-sm-12">
+                                                        <div class="mb-3">
+                                                            <div id="time-slot-container">
+                                                                <!-- Time slots will be injected here via JavaScript -->
+                                                                <div class="slot-box">
+                                                                    <div class="slot-body">
+                                                                      <ul class="time-slots">
+                                                                        <li>Select a date to view available time slots.</li>
+                                                                      </ul>
+                                                                    </div>
+                                                                  </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {% comment %} <div class="col-md-6 col-sm-12">
+                                                        {% for slot in available_time_slots %}
+                                                            <div class="time-slot">
+                                                                <input type="radio" id="slot{{ forloop.counter0 }}" name="time_slot" value="{{ slot.pk }}">
+                                                                <label for="slot{{ forloop.counter0 }}" class="time-slot-label">
+                                                                    <i class="fa-regular fa-clock"></i> {{ slot.start_time }} - {{ slot.end_time }}
+                                                                </label>
+                                                            </div>
+                                                        {% endfor %}
+                                                    </div> {% endcomment %}
+                                                </div>
+                                                
+                                            </div>
+
+                                            <button type="submit" class="btn btn-primary">Proceed to pay</button>
+
+                                        </form>
+                                            {% comment %} <div class="submit-section proceed-btn text-end">
+                                                <a href="appointmentCheckout.php" class="btn btn-primary submit-btn">Proceed to Pay</a>
+                                            </div> {% endcomment %}
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    
+
+
+
+<script>
+    let socket;
+
+    function connectWebSocket(instructorId) {
+        socket = new WebSocket(`ws://127.0.0.1:8001/ws/appointbooking/fetch-slots/${instructorId}/`);
+
+        socket.onopen = function() {
+            console.log("WebSocket connection established");
+        };
+
+        socket.onmessage = function(event) {
+            const data = JSON.parse(event.data);
+            if (!data.error) {
+                updateTimeSlotUI(data);
+            }
+        };
+
+        socket.onclose = function() {
+            setTimeout(() => connectWebSocket(instructorId), 3000); 
+        };
+
+        socket.onerror = function(error) {
+            console.error('WebSocket error:', error);
+        };
+    }
+
+    flatpickr("#calendar", {
+        inline: true,
+        dateFormat: "Y-m-d",
+        minDate: "today",
+        onChange: function(selectedDates, dateStr) {
+            document.getElementById('calendar').value = dateStr;
+            document.getElementById('appointment_date_hidden').value = dateStr; // Update hidden field
+            console.log("[DEBUG] Date selected:", dateStr);
+            fetchTimeSlots("{{ instructor.id }}", dateStr);
+        }
+    });
+    
+
+    function fetchTimeSlots(instructorId, dateStr) {
+        if (!socket || socket.readyState === WebSocket.CLOSED) {
+            connectWebSocket(instructorId);
+        }
+        
+        const interval = setInterval(() => {
+            if (socket.readyState === WebSocket.OPEN) {
+                socket.send(JSON.stringify({ selected_date: dateStr }));
+                clearInterval(interval);
+            }
+        }, 100); 
+    }
+
+    function updateTimeSlotUI(slots) {
+        const timeSlotContainer = document.getElementById('time-slot-container');
+        timeSlotContainer.innerHTML = '';
+
+        if (slots.length === 0) {
+            timeSlotContainer.innerHTML = `<div class="slot-box"><ul class="time-slots"><li>No available time slots</li></ul></div>`;
+        } else {
+            slots.forEach((slot, index) => {
+                timeSlotContainer.innerHTML += 
+                    `<div class="time-slot">
+                        <input type="radio" id="slot${index}" name="time_slot" value="${slot.id}" required>
+                        <label for="slot${index}" class="time-slot-label">
+                            <i class="fa-regular fa-clock"></i> ${slot.start_time} - ${slot.end_time}
+                        </label>
+                    </div>`;
+            });
+        }
+    }
+
+    document.querySelector('form').addEventListener('submit', function(event) {
+        const dateField = document.getElementById('calendar');
+        if (!dateField.value) {
+            event.preventDefault();
+            console.error("Appointment date is missing.");
+            return;
+        }
+
+        const timeSlot = document.querySelector('input[name="time_slot"]:checked');
+        if (!timeSlot) {
+            event.preventDefault();
+            console.error("Time slot is missing.");
+            return;
+        }
+    });
+</script>
+
+{% endblock contentBody %}

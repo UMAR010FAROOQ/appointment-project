@@ -1,0 +1,112 @@
+{% load static %} 
+
+
+
+<header class="header header-custom header-fixed header-one home-head-one">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg header-nav">
+            <div class="navbar-header">
+                <a id="mobile_btn" href="javascript:void(0);">
+                    <span class="bar-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                </a>
+                <a href="{% url 'core:HomePage' %}" class="navbar-brand logo">
+                    <img src="{% static 'img/logo.png' %}" class="img-fluid" alt="Logo">
+                </a>
+            </div>
+            <div class="main-menu-wrapper">
+                <div class="menu-header">
+                    <a href="{% url 'core:HomePage' %}" class="menu-logo">
+                        <img src="{% static 'img/logo.png' %}" class="img-fluid" alt="Logo">
+                    </a>
+                    <a id="menu_close" class="menu-close" href="javascript:void(0);">
+                        <i class="fas fa-times"></i>
+                    </a>
+                </div>
+                <ul class="main-nav">
+                    <li class="active"><a href="{% url 'core:HomePage' %}">Home </a></li>
+                    <li class="has-submenu">
+                        <a href="#">Our Services <i class="fas fa-chevron-down"></i></a>
+                        <ul class="submenu">
+                            <li><a href="{% url 'core:HealthCare' %}">Health Care</a></li>
+                            <li><a href="{% url 'core:PersonalTrainer' %}">Personal Trainer</a></li>
+                            <li><a href="{% url 'core:Beauty' %}">Beauty</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{% url 'core:AboutPage' %}">About Us </a></li>
+                    <li><a href="{% url 'core:ContactPage' %}">Contact Us </a></li>
+                    <li class="searchbar">
+                        <a href="javascript:void(0);"><i class="feather-search"></i></a>
+                        <div class="togglesearch">
+                            <form action="https://doccure.dreamstechnologies.com/html/template/search.html">
+                                <div class="input-group">
+                                    <input type="text" class="form-control">
+                                    <button type="submit" class="btn">Search</button>
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <ul class="nav header-navbar-rht">
+                
+                {% if user.is_authenticated %}
+    <li class="register-btn">
+        <a href="{% url 'authentication:user-logout' %}" class="btn btn-primary log-btn"><i class="feather-lock"></i>Logout</a>
+    </li>
+    <li class="nav-item dropdown has-arrow logged-item">
+        <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+            <span class="user-img">
+                {% if user.profile_image %}
+                    <img src="{{ user.profile_image.url }}" alt="User Image" class="avatar-img rounded-circle">
+                {% elif user.profile_image_url %}
+                    <img src="{{ user.profile_image_url }}" alt="User Image" class="avatar-img rounded-circle">
+                {% else %}
+                    <img src="{% static 'img/shapes/profile-user.png' %}" alt="User Image" class="avatar-img rounded-circle">
+                {% endif %}
+            </span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-end">
+            <div class="user-header">
+                <div class="avatar avatar-sm">
+                    {% if user.profile_image %}
+                        <img src="{{ user.profile_image.url }}" alt="User Image" class="avatar-img rounded-circle">
+                    {% elif user.profile_image_url %}
+                        <img src="{{ user.profile_image_url }}" alt="User Image" class="avatar-img rounded-circle">
+                    {% else %}
+                        <img src="{% static 'img/shapes/profile-user.png' %}" alt="User Image" class="avatar-img rounded-circle">
+                    {% endif %}
+                </div>
+                <div class="user-text">
+                    <h6 style="text-transform: capitalize;">{{ user.first_name }}</h6>
+                    <p class="text-success mb-0">{{ user.last_name }}</p>
+                </div>
+            </div>
+            <a class="dropdown-item" href="{% url 'core:UserDash' %}">Dashboard</a>
+            <a class="dropdown-item" href="{% url 'core:UserProfileSettings' %}">Profile Settings</a>
+            <a class="dropdown-item" href="{% url 'instructors:DashPage' %}">Instructor User</a>
+            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#confirm_delete">Delete Account</a>
+        </div>
+    </li>
+{% else %}
+    <li class="register-btn">
+        <a href="{% url 'authentication:user-register' %}" class="btn reg-btn"><i class="feather-user"></i>Register</a>
+    </li>
+    <li class="register-btn">
+        <a href="{% url 'authentication:user-login' %}" class="btn btn-primary log-btn"><i class="feather-lock"></i>Login</a>
+    </li>
+{% endif %}
+
+                
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
+
+
+

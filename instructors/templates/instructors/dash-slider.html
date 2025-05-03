@@ -1,0 +1,85 @@
+{% load static %} 
+{% load custom_tags %}
+
+<div class="profile-sidebar doctor-sidebar profile-sidebar-new">
+    <div class="widget-profile pro-widget-content">
+        <div class="profile-info-widget">
+            <a href="#" class="booking-doc-img">
+            {% if user.profile_image %}
+                        <img src="{{ user.profile_image.url }}" alt="User Image" class="avatar-img rounded-circle">
+                    {% elif user.profile_image_url %}
+                        <img src="{{ user.profile_image_url }}" alt="User Image" class="avatar-img rounded-circle">
+                    {% else %}
+                        <img src="{% static 'img/shapes/profile-user.png' %}" alt="User Image" class="avatar-img rounded-circle">
+                        {% endif %}
+                    </a>
+            
+            <div class="profile-det-info">
+                <h3><a href="{% url 'instructors:DashPage' %}">{{ user.first_name }} {{ user.last_name }}</a></h3>
+                <div class="patient-details">
+                    <h5 class="mb-1">{{ user.instructorprofile.service }}</h5>
+                    <h6 class="mb-0">{{ user.email }}</h6>
+                </div>
+                <span class="badge doctor-role-badge"><i class="fa-solid fa-circle"></i>{{ user.gender }}</span>
+            </div>
+        </div>
+    </div>
+    {% comment %} <div class="doctor-available-head">
+        <div class="input-block input-block-new">
+            <label class="col-form-label">Availability <span class="text-danger">*</span></label>
+            <select name="" class="form-select form-control floating">
+                <option>I am Available Now</option>
+                <option>Not Available</option>
+            </select>
+        </div>
+    </div> {% endcomment %}
+    <div class="dashboard-widget">
+        <nav class="dashboard-menu">
+            <ul>
+                <li class="{% active_class 'DashPage' %}">
+                    <a href="{% url 'instructors:DashPage' %}">
+                        <i class="fa-solid fa-shapes"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                
+                <li class="{% active_class 'InstructorAppointments' %}">
+                    <a href="{% url 'instructors:InstructorAppointments' %}">
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <span>Appointments</span>
+                    </a>
+                </li>
+                <li class="{% active_class 'available_timings' %}">
+                    <a href="{% url 'instructors:available_timings' %}">
+                        <i class="fa-solid fa-calendar-day"></i>
+                        <span>Available Timings</span>
+                    </a>
+                </li>
+                <li class="{% active_class 'InstructorProfileSettings' %}">
+                    <a href="{% url 'instructors:InstructorProfileSettings' %}">
+                        <i class="fa-solid fa-user-pen"></i>
+                        <span>Profile Settings</span>
+                    </a>
+                </li>
+                <li class="{% active_class 'InstructorProfileInfo' %}">
+                    <a href="{% url 'instructors:InstructorProfileInfo' %}">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <span>Profile Information</span>
+                    </a>
+                </li>
+                <li class="{% active_class 'InstructorChangePassword' %}">
+                    <a href="{% url 'instructors:InstructorChangePassword' %}">
+                        <i class="fa-solid fa-key"></i>
+                        <span>Change Password</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'authentication:instructor-logout' %}">
+                        <i class="fa-solid fa-calendar-check"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

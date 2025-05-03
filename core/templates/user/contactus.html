@@ -1,0 +1,217 @@
+{% extends "user/base.html" %}
+{% load static %} 
+
+{% block title%}| Contact Us {% endblock %}
+
+{% block contentBody %}
+
+
+
+
+
+<div class="breadcrumb-bar-two">
+    <div class="container">
+        <div class="row align-items-center inner-banner">
+            <div class="col-md-12 col-12 text-center">
+                <h2 class="breadcrumb-title">Contact Us</h2>
+                <nav aria-label="breadcrumb" class="page-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'core:HomePage' %}">Home</a></li>
+                        <li class="breadcrumb-item" aria-current="page">Contact Us</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<section class="contact-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 col-md-12">
+                <div class="section-inner-header contact-inner-header">
+                    <h6>Get in touch</h6>
+                    <h2>Have Any Question?</h2>
+                </div>
+                <div class="card contact-card">
+                    <div class="card-body">
+                        <div class="contact-icon">
+                            <i class="feather-map-pin"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Address</h4>
+                            <p>Bahawalpur, Pakistan</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card contact-card">
+                    <div class="card-body">
+                        <div class="contact-icon">
+                            <i class="feather-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Phone Number</h4>
+                            <p>+92 305 2546470</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card contact-card">
+                    <div class="card-body">
+                        <div class="contact-icon">
+                            <i class="feather-mail"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Email Address</h4>
+                            <p><a href="mailto:umar010farooq@gmail.com">umar010farooq@gmail.com</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7 col-md-12 d-flex">
+                <div class="card contact-form-card w-100">
+                    <div class="card-body">
+
+
+                        {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} text-center" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+
+<div id="alert-container"></div>
+
+<form id="contactForm" method="POST"> 
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label class="mb-2">Name</label>
+                <input type="text" name="name" class="form-control" placeholder="Enter Your Name" >
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label class="mb-2">Email Address</label>
+                <input type="email" name="email" class="form-control" placeholder="Enter Email Address" >
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label class="mb-2">Country</label>
+                <input type="text" name="country" class="form-control" placeholder="Enter Country Name" >
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label class="mb-2">City</label>
+                <input type="text" name="city" class="form-control" placeholder="Enter City" >
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-3">
+                <select name="service" class="form-select form-control floating" >
+                    <option value="" disabled selected>Select a service</option>
+                    {% for service in services %}
+                        <option value="{{ service.id }}">{{ service.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-3">
+                <select name="gender" class="form-select form-control floating" >
+                    <option value="" disabled selected>Select a Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="mb-3">
+                <label class="mb-2">Message</label>
+                <textarea class="form-control" name="message" placeholder="Enter your query" ></textarea>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group-btn mb-0">
+                <button type="submit" class="btn btn-primary prime-btn">Send Message</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+                        
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="contact-map d-flex">
+    <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d111256.59449676682!2d71.60760926905606!3d29.37706456688667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x393b90c46c611ad5%3A0xfcdf0da8e103f862!2sBahawalpur%2C%20Punjab%2C%20Pakistan!5e0!3m2!1sen!2s!4v1723113757738!5m2!1sen!2s"
+        allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();  // Prevent the form from submitting the traditional way
+    
+            const formData = new FormData(this);
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    
+            fetch('{% url "core:ContactPage" %}', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                    'X-Requested-With': 'XMLHttpRequest'  // Ensures it's recognized as an AJAX request
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                const alertContainer = document.getElementById('alert-container');
+                alertContainer.innerHTML = '';  // Clear previous alerts
+    
+                let alertType = data.success ? 'success' : 'danger';
+                let alertMessage = data.success ? 'Message sent successfully!' : 'There was an error sending your message: ' + (data.error || 'Unknown error');
+    
+                const alertDiv = document.createElement('div');
+                alertDiv.className = `alert alert-${alertType} text-center`;
+                alertDiv.role = 'alert';
+                alertDiv.innerText = alertMessage;
+                
+                alertContainer.appendChild(alertDiv);
+    
+                if (data.success) {
+                    this.reset();  // Reset the form
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+    
+                const alertContainer = document.getElementById('alert-container');
+                alertContainer.innerHTML = '';  // Clear previous alerts
+    
+                const alertDiv = document.createElement('div');
+                alertDiv.className = 'alert alert-danger text-center';
+                alertDiv.role = 'alert';
+                alertDiv.innerText = 'There was an error sending your message: ' + error;
+                
+                alertContainer.appendChild(alertDiv);
+            });
+        });
+    });
+    
+</script>
+
+
+
+
+{% endblock contentBody %}
