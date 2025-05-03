@@ -167,9 +167,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'umar010farooq@gmail.com'  # Your Gmail email address
-EMAIL_HOST_PASSWORD = 'decyhewrcaenrhbw'  # Your Gmail password
-DEFAULT_FROM_EMAIL = 'umar010farooq@gmail.com'
+EMAIL_HOST_USER = 'xxxxxxxxx'  # Your Gmail email address
+EMAIL_HOST_PASSWORD = 'xxxxxxxxx'  # Your Gmail password
+DEFAULT_FROM_EMAIL = 'xxxxxxxxx'
 
 
 AUTH_USER_MODEL = 'authentication.CustomUser'
@@ -182,12 +182,12 @@ AUTHENTICATION_BACKENDS = [
 
 
 # reCAPTCHA settings
-RECAPTCHA_PUBLIC_KEY = '6Lf-l-gpAAAAABH5Pi9JuXidrglA8YSU3AbS1ffD'
-RECAPTCHA_PRIVATE_KEY = '6Lf-l-gpAAAAAOLSMoKCzJDSBkzpN5O6B0KzT0B3'
+RECAPTCHA_PUBLIC_KEY = 'xxxxxxxxx'
+RECAPTCHA_PRIVATE_KEY = 'xxxxxxxxx'
 
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '26327755553-he54bba0rt43kavo75q0vg2k7ek1h89a.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = 'xxxxxxxxx'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'xxxxxxxxx'
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
