@@ -22,7 +22,8 @@
 ![Booking](screenshots/booking.png)
 
 ### 💳 Checkout & Payment
-![Checkout](screenshots/checkout.png)
+![Checkout](screenshots/checkout-1.png)
+![Checkout](screenshots/checkout-2.png)
 
 ### ✅ User Appointments Dashboard
 ![User Appointments](screenshots/user-appointments.png)
@@ -36,6 +37,11 @@
 ### 📋 Doctor Appointment Management
 ![Doctor Appointments](screenshots/doctor-appointments.png)
 
+### 🔑 Login
+![Login](screenshots/login.png)
+
+### 🔓 Register
+![Register](screenshots/register.png)
 ---
 
 ## ✨ Features
