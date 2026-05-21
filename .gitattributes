@@ -1,2 +1,34 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+# Tell GitHub to ignore these in language stats
+
+# Vendor CSS
+static/css/bootstrap*.css linguist-vendored=true
+static/css/animate.css linguist-vendored=true
+static/css/aos.css linguist-vendored=true
+static/css/feather.css linguist-vendored=true
+static/css/flatpickr.min.css linguist-vendored=true
+static/css/owl.carousel.min.css linguist-vendored=true
+static/css/slick.css linguist-vendored=true
+static/css/bootstrap-datetimepicker.min.css linguist-vendored=true
+
+# Vendor JS
+static/js/bootstrap*.js linguist-vendored=true
+static/js/jquery*.js linguist-vendored=true
+static/js/aos.js linguist-vendored=true
+static/js/moment.min.js linguist-vendored=true
+static/js/owl.carousel.min.js linguist-vendored=true
+static/js/slick.js linguist-vendored=true
+static/js/flatpickr.min.js linguist-vendored=true
+static/js/feather.min.js linguist-vendored=true
+static/js/circle-progress.min.js linguist-vendored=true
+static/js/counter.js linguist-vendored=true
+static/js/email-decode.min.js linguist-vendored=true
+static/js/rocket-loader.min.js linguist-vendored=true
+static/js/backToTop.js linguist-vendored=true
+static/js/jquery.counterup.min.js linguist-vendored=true
+static/js/jquery.waypoints.js linguist-vendored=true
+static/js/map.js linguist-vendored=true
+
+# HTML templates - mark as documentation not code
+**/*.html linguist-documentation=true
