@@ -1,21 +1,203 @@
-# appointment-project
- 
-![Screenshot 2025-04-08 145859](https://github.com/user-attachments/assets/86821c6c-575c-435f-b069-b42d76b5f6e4)
-![screencapture-127-0-0-1-8000-user-appointments-2025-04-08-15_08_16](https://github.com/user-attachments/assets/31c5a108-f8e3-46c0-abe4-fd1f8cae252a)
-![screencapture-127-0-0-1-8000-instructor-profile-2-2025-04-08-15_06_18](https://github.com/user-attachments/assets/8e24bf33-d8c5-405c-8f5f-18fdb2097d41)
-![screencapture-127-0-0-1-8000-instructor-instructor-profile-settings-2025-04-08-15_10_07](https://github.com/user-attachments/assets/7f9a5542-64dd-41b6-9f54-1906db9a5fd5)
-![screencapture-127-0-0-1-8000-instructor-instructor-profile-info-2025-04-08-15_11_07](https://github.com/user-attachments/assets/49ed0682-0ba9-4ad7-85b6-abcb3cd8eb13)
-![screencapture-127-0-0-1-8000-instructor-instructor-appointments-2025-04-08-15_09_48](https://github.com/user-attachments/assets/e4776eeb-c2f6-4f08-986c-ac3f6bbb9bc2)
-![screencapture-127-0-0-1-8000-instructor-dash-2025-04-08-15_09_35](https://github.com/user-attachments/assets/62ebd788-b3c0-4671-bc39-bb8c7bb2ec94)
-![screencapture-127-0-0-1-8000-instructor-available-timings-2025-04-08-15_09_57](https://github.com/user-attachments/assets/a838b5d1-f531-4e7f-934e-8817e87307d4)
-![screencapture-127-0-0-1-8000-healthcare-2025-04-08-15_06_04](https://github.com/user-attachments/assets/4503e59a-39ad-4ffd-96db-6ca1c62632b9)
-![screencapture-127-0-0-1-8000-contactus-2025-04-08-15_12_05](https://github.com/user-attachments/assets/f036d13c-0263-49fc-b1e2-53a6bab98054)
-![screencapture-127-0-0-1-8000-auth-reset-password-2025-04-08-15_03_47](https://github.com/user-attachments/assets/b96020d1-9a6e-4b0d-8635-b4c6e6247979)
-![screencapture-127-0-0-1-8000-auth-register-2025-04-08-15_01_26](https://github.com/user-attachments/assets/3c4c6313-3b42-4293-9f00-202e9eabb27f)
-![screencapture-127-0-0-1-8000-auth-login-2025-04-08-14_59_31](https://github.com/user-attachments/assets/10d271ca-f0d0-4f6d-bb79-e3f602369760)
-![screencapture-127-0-0-1-8000-auth-instructor-login-2025-04-08-15_09_19](https://github.com/user-attachments/assets/9d8e5644-bac6-4607-a1e2-bc922b00fdb5)
-![screencapture-127-0-0-1-8000-appointbooking-checkout-7-2025-04-08-15_07_02](https://github.com/user-attachments/assets/a406af6c-19a9-4328-a745-f8af6f514ce7)
-![screencapture-127-0-0-1-8000-appointbooking-booking-2-2025-04-08-15_06_41](https://github.com/user-attachments/assets/79e9222f-d771-42cd-ad4a-b53e08dec832)
-![screencapture-sandbox-jazzcash-pk-CustomerPortal-TransactionManagement-TransactionSelection-2025-04-08-15_07_37](https://github.com/user-attachments/assets/4354189f-98de-468f-8d3b-deb7ae6569cf)
-![screencapture-127-0-0-1-8000-user-profile-settings-2025-04-08-15_08_34](https://github.com/user-attachments/assets/10eb7a7b-9c09-43c2-a4ec-232776091250)
-![screencapture-127-0-0-1-8000-user-dash-2025-04-08-15_07_58](https://github.com/user-attachments/assets/7041bce7-857b-450d-894f-c9c9d7f7e7fe)
+# Medical Appointment Booking System 🏥
+
+![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=flat&logo=python&logoColor=white)
+![Django](https://img.shields.io/badge/Django-5.0-092E20?style=flat&logo=django&logoColor=white)
+![Channels](https://img.shields.io/badge/WebSocket-Django_Channels-brightgreen?style=flat)
+![Celery](https://img.shields.io/badge/Celery-5.4-37814A?style=flat&logo=celery&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green.svg)
+
+> A full-stack medical appointment booking platform built with Django — featuring real-time booking status updates via WebSocket, Celery background tasks, JazzCash payment integration, social authentication, and dual-role dashboards for patients and doctors.
+
+---
+
+## 📸 Screenshots
+
+### 🏠 Home Page
+![Home](screenshots/home.png)
+
+### 🩺 Healthcare Listing
+![Healthcare](screenshots/healthcare.png)
+
+### 📅 Book Appointment
+![Booking](screenshots/booking.png)
+
+### 💳 Checkout & Payment
+![Checkout](screenshots/checkout.png)
+
+### ✅ User Appointments Dashboard
+![User Appointments](screenshots/user-appointments.png)
+
+### 👨‍⚕️ Doctor Dashboard
+![Doctor Dashboard](screenshots/doctor-dashboard.png)
+
+### 🗓️ Doctor Available Timings
+![Available Timings](screenshots/available-timings.png)
+
+### 📋 Doctor Appointment Management
+![Doctor Appointments](screenshots/doctor-appointments.png)
+
+---
+
+## ✨ Features
+
+### 👤 Patient (User) Side
+- ✅ User registration & login
+- 🔐 Password reset via email
+- 🌐 Google / Social authentication
+- 🩺 Browse doctors by specialty (Healthcare, Beauty, Personal Trainer)
+- 📅 Book appointments with available time slots
+- 💳 JazzCash payment gateway integration
+- 📊 Personal appointments dashboard
+- ♻️ Cancel appointments
+- 👤 Profile settings & password change
+
+### 👨‍⚕️ Doctor (Instructor) Side
+- 🔐 Separate instructor login & registration
+- 📊 Instructor dashboard
+- 🗓️ Manage available timings
+- 📋 View & manage patient appointments
+- ✅ Confirm / cancel appointments (live via WebSocket)
+- 👤 Profile info & settings management
+
+### ⚙️ Technical Features
+- ⚡ Real-time booking status updates (Django Channels + WebSocket)
+- 📧 Background email notifications (Celery + Redis)
+- ⏰ Scheduled reminder tasks (Celery Beat)
+- 🔔 Django Signals for automated triggers
+- 🛡️ reCAPTCHA form protection
+- 🌐 Social auth pipeline (Google login)
+- 🎨 Bootstrap-based responsive UI
+
+---
+
+## ⚙️ Tech Stack
+
+| Category | Technology |
+|---|---|
+| Backend | Django 5.0 |
+| Real-time | Django Channels, WebSocket, Daphne (ASGI) |
+| Background Tasks | Celery 5.4, Celery Beat |
+| Message Broker | Redis |
+| Database | SQLite (dev) / MySQL (prod) |
+| Authentication | Django Auth, SimpleJWT, Social Auth (Google) |
+| Payment | JazzCash Payment Gateway |
+| Frontend | Bootstrap 5, HTML, CSS, JavaScript |
+| Forms | Django Crispy Forms, reCAPTCHA |
+| Email | Django Email + Celery async delivery |
+
+---
+
+## 🏗️ Project Structure
+appointment-project/
+│
+├── appointBooking/       # Core booking logic
+│   ├── consumers.py      # WebSocket consumers
+│   ├── routing.py        # WebSocket URL routing
+│   ├── signals.py        # Django signals
+│   ├── tasks.py          # Celery background tasks
+│   └── models.py         # Appointment models
+│
+├── authentication/       # Auth system
+│   ├── backends.py       # Custom auth backends
+│   └── pipeline.py       # Social auth pipeline
+│
+├── core/                 # Patient-facing views & templates
+├── instructors/          # Doctor dashboard & management
+├── appointment/          # Django config (settings, celery, asgi)
+└── templates/            # HTML templates (Bootstrap)
+
+
+---
+
+## 🚀 Local Setup
+
+### 1. Clone & Install
+
+```bash
+git clone https://github.com/UMAR010FAROOQ/appointment-project.git
+cd appointment-project
+pip install -r requirements.txt
+```
+
+### 2. Configure Environment
+
+```bash
+cp .env.example .env
+# Edit .env with your DB, Redis, and email credentials
+```
+
+### 3. Run Migrations
+
+```bash
+python manage.py migrate
+python manage.py createsuperuser
+```
+
+### 4. Start Redis (required for Celery + WebSocket)
+
+```bash
+redis-server
+```
+
+### 5. Start Celery Worker
+
+```bash
+celery -A appointment worker --loglevel=info
+```
+
+### 6. Start Celery Beat (scheduled tasks)
+
+```bash
+celery -A appointment beat --loglevel=info
+```
+
+### 7. Run Development Server
+
+```bash
+python manage.py runserver
+```
+
+---
+
+## 🔄 How Real-time Updates Work
+Doctor confirms appointment
+↓
+Django Signal fires
+↓
+WebSocket message sent via Django Channels
+↓
+Patient's browser receives live status update
+↓
+No page refresh needed ✅
+
+
+---
+
+## 📧 Background Task Flow
+Appointment booked
+↓
+Celery task queued in Redis
+↓
+Email confirmation sent to patient (async)
+↓
+Celery Beat triggers reminder 24hrs before appointment
+
+
+---
+
+## 👥 User Roles
+
+| Role | Access |
+|---|---|
+| **Patient** | Browse doctors, book, pay, manage appointments |
+| **Doctor** | Manage availability, confirm/cancel appointments |
+| **Admin** | Full Django admin access |
+
+---
+
+## 👨‍💻 Author
+
+**Umar Farooq** — Backend Developer (Django / DRF)
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white)](https://linkedin.com/in/umar-farooq-developer)
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=flat&logo=github&logoColor=white)](https://github.com/UMAR010FAROOQ)
