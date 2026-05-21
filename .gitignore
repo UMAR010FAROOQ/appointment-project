@@ -30,6 +30,9 @@ celerybeat.pid
 static/vendor/
 static/plugins/
 static/fonts/
+static/css/
+static/js/
+
 
 # IDE
 .vscode/
