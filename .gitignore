@@ -26,11 +26,10 @@ media/
 celerybeat-schedule.*
 celerybeat.pid
 
-# Static / Vendor (fix GitHub language stats)
-static/vendor/
-static/plugins/
-static/fonts/
-static/css/
+# # Static / Vendor (fix GitHub language stats)
+# static/vendor/
+# static/plugins/
+# static/fonts/
 
 
 # IDE
