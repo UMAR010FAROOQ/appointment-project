@@ -11,6 +11,8 @@ static/css/flatpickr.min.css linguist-vendored=true
 static/css/owl.carousel.min.css linguist-vendored=true
 static/css/slick.css linguist-vendored=true
 static/css/bootstrap-datetimepicker.min.css linguist-vendored=true
+static/css/bootstrap.min.css linguist-vendored=true
+static/css/custom.css linguist-vendored=true
 
 # Vendor JS
 static/js/bootstrap*.js linguist-vendored=true
