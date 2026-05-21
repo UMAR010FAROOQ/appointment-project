@@ -94,24 +94,47 @@
 ---
 
 ## 🏗️ Project Structure
+
+```
 appointment-project/
 │
-├── appointBooking/       # Core booking logic
-│   ├── consumers.py      # WebSocket consumers
-│   ├── routing.py        # WebSocket URL routing
-│   ├── signals.py        # Django signals
-│   ├── tasks.py          # Celery background tasks
-│   └── models.py         # Appointment models
+├── appointBooking/            # Core booking logic
+│   ├── consumers.py           # WebSocket consumers (real-time updates)
+│   ├── routing.py             # WebSocket URL routing
+│   ├── signals.py             # Django signals (auto-triggers)
+│   ├── tasks.py               # Celery background tasks
+│   ├── models.py              # Appointment models
+│   ├── views.py               # Booking views
+│   └── templates/             # Booking HTML templates
 │
-├── authentication/       # Auth system
-│   ├── backends.py       # Custom auth backends
-│   └── pipeline.py       # Social auth pipeline
+├── authentication/            # Auth system
+│   ├── backends.py            # Custom authentication backends
+│   ├── pipeline.py            # Social auth pipeline (Google)
+│   ├── views.py               # Login / Register / Password reset
+│   └── templates/             # Auth HTML templates
 │
-├── core/                 # Patient-facing views & templates
-├── instructors/          # Doctor dashboard & management
-├── appointment/          # Django config (settings, celery, asgi)
-└── templates/            # HTML templates (Bootstrap)
-
+├── core/                      # Patient-facing app
+│   ├── views.py               # Home, healthcare listing, user dashboard
+│   ├── decorators.py          # Custom access decorators
+│   └── templates/             # Patient UI templates
+│
+├── instructors/               # Doctor dashboard app
+│   ├── views.py               # Doctor dashboard, timings, appointments
+│   ├── decorators.py          # Doctor-only access control
+│   └── templates/             # Doctor UI templates
+│
+├── appointment/               # Django project config
+│   ├── settings.py            # Settings (dev/prod)
+│   ├── celery.py              # Celery app configuration
+│   ├── asgi.py                # ASGI config (WebSocket + HTTP)
+│   └── urls.py                # Root URL configuration
+│
+├── static/                    # CSS, JS, images
+├── media/                     # User uploaded files
+├── templates/                 # Base templates
+├── .env.example               # Environment variables template
+├── requirements.txt           # Python dependencies
+└── manage.py
 
 ---
 
