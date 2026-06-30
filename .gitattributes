@@ -35,3 +35,6 @@ static/js/map.js linguist-vendored=true
 
 # HTML templates - mark as documentation not code
 **/*.html linguist-documentation=true
+
+# JS templates - mark as documentation not code
+**/*.js linguist-documentation=true
